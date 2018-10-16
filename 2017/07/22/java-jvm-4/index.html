@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="">
+<html class="theme-next muse use-motion" lang="zh-hk">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -84,9 +84,9 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="《深入理解JVM》读书笔记（四）">
 <meta property="og:url" content="http://yoursite.com/2017/07/22/java-jvm-4/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="靖然是你">
 <meta property="og:description" content="第三部分 虚拟机执行子系统虚拟机类加载机制1.类加载的时机1.类从被加载到虚拟机内存开始，到卸载出内存为止，他的整个生命周期包括：加载-验证-准备-解析-初始化-使用-卸载 七个阶段，其中验证、准备、解析三个部分统称为链接。2.加载的时机：  使用new关键字实例化对象的时候、读取或设置一个类的静态字段的时候、以及调用一个类的静态方法的时候。 使用reflect包中的方法进行反射调用的时候，若类没">
-<meta property="og:locale" content="default">
+<meta property="og:locale" content="zh-hk">
 <meta property="og:updated_time" content="2018-10-16T07:09:13.329Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《深入理解JVM》读书笔记（四）">
@@ -106,7 +106,7 @@
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     duoshuo: {
       userId: '0',
-      author: 'Author'
+      author: '博主'
     },
     algolia: {
       applicationID: '',
@@ -126,7 +126,7 @@
 
 
 
-  <title>《深入理解JVM》读书笔记（四） | Hexo</title>
+  <title>《深入理解JVM》读书笔记（四） | 靖然是你</title>
   
 
 
@@ -138,7 +138,7 @@
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-hk">
 
   
   
@@ -156,7 +156,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Hexo</span>
+        <span class="site-title">靖然是你</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -186,7 +186,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Home
+            首頁
           </a>
         </li>
       
@@ -196,7 +196,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archives
+            歸檔
           </a>
         </li>
       
@@ -242,7 +242,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="靖然是你">
     </span>
 
     
@@ -260,9 +260,9 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">發表於</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-22T12:00:00+08:00">
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2017-07-22T12:00:00+08:00">
                 2017-07-22
               </time>
             
@@ -453,10 +453,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
+            文章目錄
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
+            本站概覽
           </li>
         </ul>
       
@@ -466,7 +466,7 @@
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <p class="site-author-name" itemprop="name">John Doe</p>
-              <p class="site-description motion-element" itemprop="description"></p>
+              <p class="site-description motion-element" itemprop="description">一只Android小菜鸡学习之路</p>
           </div>
 
           <nav class="site-state motion-element">
@@ -477,7 +477,7 @@
                 <a href="/archives/">
               
                   <span class="site-state-item-count">19</span>
-                  <span class="site-state-item-name">posts</span>
+                  <span class="site-state-item-name">文章</span>
                 </a>
               </div>
             
@@ -490,7 +490,7 @@
               <div class="site-state-item site-state-tags">
                 
                   <span class="site-state-item-count">3</span>
-                  <span class="site-state-item-name">tags</span>
+                  <span class="site-state-item-name">標籤</span>
                 
               </div>
             
@@ -552,7 +552,7 @@
 </div>
 
 
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 強力驅動</div>
 
 
 
@@ -560,7 +560,7 @@
 
 
 
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+  <div class="theme-info">主題 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
 
 
 

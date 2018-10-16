@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="">
+<html class="theme-next muse use-motion" lang="zh-hk">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -84,9 +84,9 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android学习笔记之AIDL在AS下的简单用法">
 <meta property="og:url" content="http://yoursite.com/2017/11/25/android-aidl/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="靖然是你">
 <meta property="og:description" content="记录一下AIDL的基本用法     AIDL前面阅读源码的过程中，发现有很多需要进程间通信的地方，都采用了AIDL的形式，所以这里专门学习一下这个AIDL的用法 简介AIDL是Android中IPC的一种方式，同样的还有理由共享文件、Messenger等等。但是相对来说，最主要用到的还是AIDL和Messenger————由于后者只能依次处理消息，因此主要还是AIDL用的多一点。而AIDL的底层">
-<meta property="og:locale" content="default">
+<meta property="og:locale" content="zh-hk">
 <meta property="og:image" content="http://yoursite.com/img/aidl/img1.jpg">
 <meta property="og:image" content="http://yoursite.com/img/aidl/img2.jpg">
 <meta property="og:image" content="http://yoursite.com/img/aidl/img3.jpg">
@@ -118,7 +118,7 @@
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     duoshuo: {
       userId: '0',
-      author: 'Author'
+      author: '博主'
     },
     algolia: {
       applicationID: '',
@@ -138,7 +138,7 @@
 
 
 
-  <title>Android学习笔记之AIDL在AS下的简单用法 | Hexo</title>
+  <title>Android学习笔记之AIDL在AS下的简单用法 | 靖然是你</title>
   
 
 
@@ -150,7 +150,7 @@
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-hk">
 
   
   
@@ -168,7 +168,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Hexo</span>
+        <span class="site-title">靖然是你</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -198,7 +198,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Home
+            首頁
           </a>
         </li>
       
@@ -208,7 +208,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archives
+            歸檔
           </a>
         </li>
       
@@ -254,7 +254,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="靖然是你">
     </span>
 
     
@@ -272,9 +272,9 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">發表於</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-25T12:00:00+08:00">
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2017-11-25T12:00:00+08:00">
                 2017-11-25
               </time>
             
@@ -429,10 +429,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
+            文章目錄
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
+            本站概覽
           </li>
         </ul>
       
@@ -442,7 +442,7 @@
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <p class="site-author-name" itemprop="name">John Doe</p>
-              <p class="site-description motion-element" itemprop="description"></p>
+              <p class="site-description motion-element" itemprop="description">一只Android小菜鸡学习之路</p>
           </div>
 
           <nav class="site-state motion-element">
@@ -453,7 +453,7 @@
                 <a href="/archives/">
               
                   <span class="site-state-item-count">19</span>
-                  <span class="site-state-item-name">posts</span>
+                  <span class="site-state-item-name">文章</span>
                 </a>
               </div>
             
@@ -466,7 +466,7 @@
               <div class="site-state-item site-state-tags">
                 
                   <span class="site-state-item-count">3</span>
-                  <span class="site-state-item-name">tags</span>
+                  <span class="site-state-item-name">標籤</span>
                 
               </div>
             
@@ -528,7 +528,7 @@
 </div>
 
 
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 強力驅動</div>
 
 
 
@@ -536,7 +536,7 @@
 
 
 
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+  <div class="theme-info">主題 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
 
 
 
