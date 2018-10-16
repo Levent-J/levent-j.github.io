@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="第三部分 虚拟机执行子系统虚拟机类加载机制1.类加载的时机1.类从被加载到虚拟机内存开始，到卸载出内存为止，他的整个生命周期包括：加载-验证-准备-解析-初始化-使用-卸载 七个阶段，其中验证、准备、解析三个部分统称为链接。2.加载的时机：  使用new关键字实例化对象的时候、读取或设置一个类的静态字段的时候、以及调用一个类的静态方法的时候。 使用reflect包中的方法进行反射调用的时候，若类没">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《深入理解JVM》读书笔记（四）">
+<meta property="og:url" content="http://yoursite.com/2017/07/22/java-jvm-4/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="第三部分 虚拟机执行子系统虚拟机类加载机制1.类加载的时机1.类从被加载到虚拟机内存开始，到卸载出内存为止，他的整个生命周期包括：加载-验证-准备-解析-初始化-使用-卸载 七个阶段，其中验证、准备、解析三个部分统称为链接。2.加载的时机：  使用new关键字实例化对象的时候、读取或设置一个类的静态字段的时候、以及调用一个类的静态方法的时候。 使用reflect包中的方法进行反射调用的时候，若类没">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-10-16T07:09:13.329Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《深入理解JVM》读书笔记（四）">
+<meta name="twitter:description" content="第三部分 虚拟机执行子系统虚拟机类加载机制1.类加载的时机1.类从被加载到虚拟机内存开始，到卸载出内存为止，他的整个生命周期包括：加载-验证-准备-解析-初始化-使用-卸载 七个阶段，其中验证、准备、解析三个部分统称为链接。2.加载的时机：  使用new关键字实例化对象的时候、读取或设置一个类的静态字段的时候、以及调用一个类的静态方法的时候。 使用reflect包中的方法进行反射调用的时候，若类没">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/07/22/java-jvm-4/"/>
+
+
+
+
+
+  <title>《深入理解JVM》读书笔记（四） | Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/22/java-jvm-4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">《深入理解JVM》读书笔记（四）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-22T12:00:00+08:00">
+                2017-07-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="第三部分-虚拟机执行子系统"><a href="#第三部分-虚拟机执行子系统" class="headerlink" title="第三部分 虚拟机执行子系统"></a>第三部分 虚拟机执行子系统</h1><h2 id="虚拟机类加载机制"><a href="#虚拟机类加载机制" class="headerlink" title="虚拟机类加载机制"></a>虚拟机类加载机制</h2><h3 id="1-类加载的时机"><a href="#1-类加载的时机" class="headerlink" title="1.类加载的时机"></a>1.类加载的时机</h3><p>1.类从被加载到虚拟机内存开始，到卸载出内存为止，他的整个生命周期包括：加载-验证-准备-解析-初始化-使用-卸载 七个阶段，其中验证、准备、解析三个部分统称为链接。<br>2.加载的时机：</p>
+<ul>
+<li>使用new关键字实例化对象的时候、读取或设置一个类的静态字段的时候、以及调用一个类的静态方法的时候。</li>
+<li>使用reflect包中的方法进行反射调用的时候，若类没有进行过初始化，则需要先出发其初始化</li>
+<li>初始化一个类，发现他的父类还没有被初始化时，要先触发其父类的初始化</li>
+<li>虚拟机启动时，需要指定一个main类作为入口，虚拟机会优先初始化这个类</li>
+<li>使用动态语言支持时  </li>
+</ul>
+<p>3.以上五个场景都是属于主动引用，除此之外所有引用类的方式都不会触发初始化，称为被动引用。<br>4.当一个类在初始化时，要求其父类全部都已经初始化过了，但是一个接口在初始化时，并不会要求其父类接口全部初始化，只有在真正使用到父类接口的时候才会初始化。</p>
+<h3 id="2-类加载的过程"><a href="#2-类加载的过程" class="headerlink" title="2.类加载的过程"></a>2.类加载的过程</h3><p>1.加载：加载是类加载过程的一个阶段，在这一阶段需要完成以下三件事：  </p>
+<ul>
+<li>通过一个类的全限定名来获取定义此类的二进制字节流</li>
+<li>将这个字节流所代表的静态存储结构转化为方法区的运行时数据结构</li>
+<li>在内存中生成一个代表这个类的Clas对象没座位方法区这个类的各种数据的访问入口</li>
+</ul>
+<p>加载阶段和链接阶段的一部分内容是交叉运行的，这些加载加载阶段之中执行的动作，仍然属于链接阶段的内容，这两个阶段的开始时间仍然保持着固定的先后顺序。  </p>
+<p>2.验证：验证是链接阶段的第一步，这一阶段的目的是为了确保Class文件的字节流中包含的信息符合当前虚拟机的要求，且不会危害虚拟机自身的安全，因此验证是虚拟机对自身保护的一项重要工作。</p>
+<p>从整体上看，验证阶段有以下四个阶段：  </p>
+<ul>
+<li>文件格式验证：验证字节流是否符合Class文件格式的规范，并且能被当前版本的虚拟机理解  </li>
+<li>元数据验证：对字节码描述的信息进行语义分析，以保证其描述信息符合Java语言规范的要求。</li>
+<li>字节码验证：通过对数据流和控制流的分析，确定程序语义是合法的、符合逻辑的</li>
+<li>符号引用验证：对类自身以外的信息进行匹配性教研，确保解析动作能正常执行<br>3.准备：准备阶段是正式为类变量分配内存并设置类变量初始值阶段。这些变量所使用的内存都在方法区中分配。这个时候设的初值依据不同机器而言，都是零值，在初始化阶段之后才会赋予自己定义的初值。  </li>
+</ul>
+<p>4.解析：虚拟机将常量池中的引用替换为直接引用。所谓符号引用，是指用一组符号来描绘所引用的目标，符号可以是任何形式的字面量，只要使用时能无歧义的定位到目标即可。解析动作主要针对类或接口、字段、类方法、接口方法、方法类型、方法句柄、调用点限定符。</p>
+<p>5.初始化：这是类加载过程的最后一步。前面的加载过程都是虚拟机主导和控制的，到了初始化阶段才真正开始执行类中定义的程序代码（字节码）。<br>  在准备阶段已经有过一次赋值了，那个初始值是根据不同机器来取的零值。而在初始化阶段，相当于是执行了类的构造器的过程。</p>
+<h3 id="3-类加载器"><a href="#3-类加载器" class="headerlink" title="3.类加载器"></a>3.类加载器</h3><p>  1.通过一个类的全限定名来获取描述此类的二进制字节流这一动作是放在虚拟机外部去实现的，实现这一动作的代码模块称为“类加载器”</p>
+<p>  2.对于任意一个类，都需要由加载他的类加载器和这个类本身一同确立其在虚拟机中的唯一性，每一个类加载器都拥有一个独立的类名称空间。 </p>
+<p>  3.从Java虚拟机的角度来讲，只存在两种不同的类加载器：  </p>
+<ul>
+<li>启动类加载器：由C++实现，是虚拟机的一部分<ul>
+<li>所有其他类加载器：由Java实现，独立于虚拟机外部，全都继承自ClassLoader类。  </li>
+</ul>
+</li>
+</ul>
+<p>4.从Java开发人员的角度来看，类加载器分为：</p>
+<ul>
+<li>启动类加载器</li>
+<li>扩展类加载器</li>
+<li>应用程序类加载器  </li>
+</ul>
+<p>5.我们的应用程序都是由这三种类加载器互相配合进行加载的，她们之间的关系采用了双亲委派模型，这一模型的工作过程是：如果一个类加载器收到了类加载的请求，他首先不会自己去尝试加载这个类，而是那这个请求委派给父类加载器去完成，每一个层次的类加载器都是如此，因此所有的类加载请求最终都会传送到顶层的启动类加载器中，只有当父加载器反馈自己无法完成工作时，子加载器才会尝试自己去加载。</p>
+<h2 id="虚拟机字节码执行引擎"><a href="#虚拟机字节码执行引擎" class="headerlink" title="虚拟机字节码执行引擎"></a>虚拟机字节码执行引擎</h2><p>首先，所有Java虚拟机的执行引擎都是一致的：输入的是字节码文件，处理过程是字节码解析的等效过程，输出的是执行结果。</p>
+<h3 id="运行时栈帧"><a href="#运行时栈帧" class="headerlink" title="运行时栈帧"></a>运行时栈帧</h3><p>1.栈帧：用于支持虚拟机进行方法调用和方法执行的数据结构，是虚拟机运行时数据区中的虚拟机栈的栈元素。栈帧存储了方法的局部变量表、操作数栈、动态链接和方法返回地址等信息。<br>2.每一个栈帧都包括了局部变量表、操作数栈、动态链接、方法返回地址和一些额外的附加信息，在编译的时候内存就已经分配好了，不会收到程序运行期变量数据的影响，而仅仅取决于具体的虚拟机实现。<br>3.一个线程中的方法调用链很长，所以栈里面有很多栈帧，而只有位于栈顶的那个栈帧才是当前有效的，称为当前栈帧。  </p>
+<h3 id="栈帧的结构"><a href="#栈帧的结构" class="headerlink" title="栈帧的结构"></a>栈帧的结构</h3><p>1.局部变量表：一组变量值存储空间，用于存放方法参数和方法内部定义的局部变量。局部变量表的容量以Slot为最小单位，一个Slot可以存放一个32位以内的数据类型，对于64位的数据类型，虚拟机回以高位对齐的方式为其分配两个连续的Slot空间 。虚拟机通过索引定位的方式使用局部变量表，索引值的范围是从0开始到局部变量表最大的Slot数量。  </p>
+<p>2.操作数栈：也称为操作栈，在方法的执行过程中，会有各种字节码指令往操作栈中写入和提取内容。操作数栈中的元素的数据类型必须与字节码指令的序列严格匹配。在概念模型中，两个栈帧作为虚拟机栈的元素，是完全相互独立的，但在大多数虚拟机的实现中会做一些优化处理，即让两个栈帧出现一部分重叠，让下面占帧的部分操作数栈与上面栈帧的部分局部表重叠在一起，这样在进行方法调用时就可以共用一部分数据，无需进行额外的参数复制传递。</p>
+<p>3.动态链接：一个指向运行时常量池中该栈帧所属方法的引用，持有这个引用的作用是为了支持方法调用过程中的动态链接。class文件中的常量池中存在很多符号引用，字节码中的方法调用指令就以常量池中指向方法符号引用作为参数，这些富豪引用一部分将在每一次运行期间转化为直接引用，这种转化称为静态解析，另一部分将在每一次运行期间转化为直接引用，这部分称为动态链接。</p>
+<p>4.方法返回地址：当一个方法执行后，只有两种方式可以退出这个方法，第一种方式是执行引擎遇到一个方法返回的字节码指令，这时候可能会有返回值传递给上层的方法调用者，是否有返回值和返回值的类型讲根据遇到何种方法返回指令来决定，这种退出方式称为正常完成出口。  </p>
+<p>另一种退出方式是，在方法执行过程中遇到了异常，并且这个异常没有在方法体中得到处理导致方法退出，这种退出方式称为异常完成出口，一个方法使用异常完成初九的方式退出，是不会给他的上层调用者产生任何返回值。无论采用何种方式退出，都要返回到被调用的位置。    </p>
+<ul>
+<li>正常退出：调用者的PC计数器的值可以作为返回地址，栈帧中很可能会保存这个计数值  </li>
+<li>异常退出：返回地址是要通过异常处理器来确定的，栈帧中一般不会保存这部分信息。</li>
+</ul>
+<p>5.附加信息：一些规范里没有描述的信息，例如调试相关的信息等</p>
+<h3 id="方法调用"><a href="#方法调用" class="headerlink" title="方法调用"></a>方法调用</h3><p>方法调用并不等同于方法执行，方法调用阶段唯一的任务就是确定被调用方法的版本，一切方法调用在Class文件中存储的都只是符号引用，而不是方法在实际运行时内存布局中的入口地址。</p>
+<p>1.解析：所有方法调用中的目标方法子Class文件里都是一个常量池中的符号引用，在类加载的解析阶段，会将其中的一部分符号引用转化为直接引用，这总解析用来处理静态方法和私有方法。前者与类型直接相关，后者在外部不可被访问，因此他们都不可在其他地方被继承或重写</p>
+<p>2.分派：Java的三个特性：继承、封装、多态，其中在多态特性中的体现–重载和重写，是由分派决定的。分派由静态分派和动态分派。每一个对象在创建时都有一个静态类型和一个实际类型。静态类型和实际类型在程序运行期间都可以发生一些变化，区别在于静态类型的变化仅仅在使用时发生，变量本身的静态类型不会被改变，且最终的静态类型是在编译器可知的。而实际类型变化的结果在运行期才可确定，编译器在编译时并不知道一个对象的实际类型是什么。虚拟机在重载时是通过参数的静态类型作为判定依据的，依据静态类型分派的方式称为静态分派，体现在方法重载，而动态分派体现在方法重写。动态分派的方法版本选择过程最常用的优化方法是为类在方法区中建立一个虚方法表，使用虚方法表索引来代替元数据查找以提高性能。需方法表中存放着各个方法的实际入口地址，如果某个方法在子类中没有被重写，那么子类中的虚方法表里面的地址入口和父类相同的方法的地址入口是一致的，如果重写了这个方法，那么方法入口地址将会代替入口地址</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/22/java-jvm-1/" rel="next" title="《深入理解JVM》读书笔记（二）">
+                <i class="fa fa-chevron-left"></i> 《深入理解JVM》读书笔记（二）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/27/memory-leak/" rel="prev" title="Android内存泄漏学习笔记">
+                Android内存泄漏学习笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第三部分-虚拟机执行子系统"><span class="nav-number">1.</span> <span class="nav-text">第三部分 虚拟机执行子系统</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#虚拟机类加载机制"><span class="nav-number">1.1.</span> <span class="nav-text">虚拟机类加载机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-类加载的时机"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.类加载的时机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-类加载的过程"><span class="nav-number">1.1.2.</span> <span class="nav-text">2.类加载的过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-类加载器"><span class="nav-number">1.1.3.</span> <span class="nav-text">3.类加载器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#虚拟机字节码执行引擎"><span class="nav-number">1.2.</span> <span class="nav-text">虚拟机字节码执行引擎</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#运行时栈帧"><span class="nav-number">1.2.1.</span> <span class="nav-text">运行时栈帧</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#栈帧的结构"><span class="nav-number">1.2.2.</span> <span class="nav-text">栈帧的结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法调用"><span class="nav-number">1.2.3.</span> <span class="nav-text">方法调用</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
