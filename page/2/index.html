@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="zh-hk">
+<html class="theme-next muse use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -85,7 +85,7 @@
 <meta property="og:url" content="http://yoursite.com/page/2/index.html">
 <meta property="og:site_name" content="靖然是你">
 <meta property="og:description" content="一只Android小菜鸡学习之路">
-<meta property="og:locale" content="zh-hk">
+<meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="靖然是你">
 <meta name="twitter:description" content="一只Android小菜鸡学习之路">
@@ -136,7 +136,7 @@
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-hk">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
   
@@ -185,7 +185,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            首頁
+            首页
           </a>
         </li>
       
@@ -195,7 +195,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            歸檔
+            归档
           </a>
         </li>
       
@@ -232,10 +232,316 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/22/android-inflater/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Levent-J">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="靖然是你">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/07/22/android-inflater/" itemprop="url">Layout.inflat()中的那些坑</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-22T12:00:00+08:00">
+                2017-07-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>LayoutInflater.inflate()这个方法，大家一定很熟悉——在给fragment添加布局文件，或者在RecyclerView的Adapter中为item添加布局时，都会用到。inflate()这个方法需要最多三个参数：resource，root，以及attachToRoot。参考源码，就知道了这里的resource是你具体要添加的那个布局文件，root是布局的根参数，那么attachToRoot是什么意思呢？什么时候为true，什么时候为false？</p>
+<h2 id="三个参数的关系"><a href="#三个参数的关系" class="headerlink" title="三个参数的关系"></a>三个参数的关系</h2><p>参见官方文档，对这三个参数的介绍是：被填充的层是否应该附在root参数内部？如果是false，root参数只适用于为xml根元素View创建正确的LayoutParams的子类。</p>
+<p>什么意思呢？就是说，如果attachToRoot为true，那么resource指定的布局文件就会依附于root指定的ViewGroup，然后这个方法就会返回root，否则，只会将resource指定的布局文件填充并将其返回，具体可以参考源码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br></pre></td><td class="code"><pre><span class="line">public View inflate(XmlPullParser parser, @Nullable ViewGroup root, boolean attachToRoot) &#123;</span><br><span class="line"></span><br><span class="line">        synchronized (mConstructorArgs) &#123;</span><br><span class="line"></span><br><span class="line">            Trace.traceBegin(Trace.TRACE_TAG_VIEW, &quot;inflate&quot;);</span><br><span class="line"></span><br><span class="line">            final Context inflaterContext = mContext;</span><br><span class="line"></span><br><span class="line">            final AttributeSet attrs = Xml.asAttributeSet(parser);</span><br><span class="line"></span><br><span class="line">            Context lastContext = (Context) mConstructorArgs[0];</span><br><span class="line"></span><br><span class="line">            mConstructorArgs[0] = inflaterContext;</span><br><span class="line"></span><br><span class="line">            View result = root;</span><br><span class="line"></span><br><span class="line">            try &#123;</span><br><span class="line"></span><br><span class="line">                // Look for the root node.</span><br><span class="line"></span><br><span class="line">                int type;</span><br><span class="line"></span><br><span class="line">                while ((type = parser.next()) != XmlPullParser.START_TAG &amp;&amp;</span><br><span class="line"></span><br><span class="line">                        type != XmlPullParser.END_DOCUMENT) &#123;</span><br><span class="line"></span><br><span class="line">                    // Empty</span><br><span class="line">                if (type != XmlPullParser.START_TAG) &#123;</span><br><span class="line"></span><br><span class="line">                    throw new InflateException(parser.getPositionDescription()</span><br><span class="line"></span><br><span class="line">                            + &quot;: No start tag found!&quot;);</span><br><span class="line"></span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                final String name = parser.getName();</span><br><span class="line"></span><br><span class="line">      </span><br><span class="line"></span><br><span class="line">                if (DEBUG) &#123;</span><br><span class="line"></span><br><span class="line">                    System.out.println(&quot;**************************&quot;);</span><br><span class="line"></span><br><span class="line">                    System.out.println(&quot;Creating root view: &quot;</span><br><span class="line"></span><br><span class="line">                            + name);</span><br><span class="line"></span><br><span class="line">                    System.out.println(&quot;**************************&quot;);</span><br><span class="line"></span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">                if (TAG_MERGE.equals(name)) &#123;</span><br><span class="line"></span><br><span class="line">                    if (root == null || !attachToRoot) &#123;</span><br><span class="line"></span><br><span class="line">                        throw new InflateException(&quot;&lt;merge /&gt; can be used only with a valid &quot;</span><br><span class="line"></span><br><span class="line">                                + &quot;ViewGroup root and attachToRoot=true&quot;);</span><br><span class="line"></span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">                    rInflate(parser, root, inflaterContext, attrs, false);</span><br><span class="line"></span><br><span class="line">                &#125; else &#123;</span><br><span class="line"></span><br><span class="line">                    // Temp is the root view that was found in the xml</span><br><span class="line"></span><br><span class="line">                    final View temp = createViewFromTag(root, name, inflaterContext, attrs);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">                    ViewGroup.LayoutParams params = null;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">                    if (root != null) &#123;</span><br><span class="line"></span><br><span class="line">                        if (DEBUG) &#123;</span><br><span class="line"></span><br><span class="line">                            System.out.println(&quot;Creating params from root: &quot; +</span><br><span class="line"></span><br><span class="line">                                    root);</span><br><span class="line"></span><br><span class="line">                        &#125;</span><br><span class="line"></span><br><span class="line">                        // Create layout params that match root, if supplied</span><br><span class="line"></span><br><span class="line">                        params = root.generateLayoutParams(attrs);</span><br><span class="line"></span><br><span class="line">                        if (!attachToRoot) &#123;</span><br><span class="line"></span><br><span class="line">                            // Set the layout params for temp if we are not</span><br><span class="line"></span><br><span class="line">                            // attaching. (If we are, we use addView, below)</span><br><span class="line"></span><br><span class="line">                            temp.setLayoutParams(params);</span><br><span class="line"></span><br><span class="line">                        &#125;</span><br><span class="line"></span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">                    if (DEBUG) &#123;</span><br><span class="line"></span><br><span class="line">                        System.out.println(&quot;-----&gt; start inflating children&quot;);</span><br><span class="line"></span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">                    // Inflate all children under temp against its context.</span><br><span class="line"></span><br><span class="line">                    rInflateChildren(parser, temp, attrs, true);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">                    if (DEBUG) &#123;</span><br><span class="line"></span><br><span class="line">                        System.out.println(&quot;-----&gt; done inflating children&quot;);</span><br><span class="line"></span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">                    // We are supposed to attach all the views we found (int temp)</span><br><span class="line"></span><br><span class="line">                    // to root. Do that now.</span><br><span class="line"></span><br><span class="line">                    if (root != null &amp;&amp; attachToRoot) &#123;</span><br><span class="line"></span><br><span class="line">                        root.addView(temp, params);</span><br><span class="line"></span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">                    // Decide whether to return the root that was passed in or the</span><br><span class="line"></span><br><span class="line">                    // top view found in xml.</span><br><span class="line"></span><br><span class="line">                    if (root == null || !attachToRoot) &#123;</span><br><span class="line"></span><br><span class="line">                        result = temp;</span><br><span class="line"></span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            &#125; catch (XmlPullParserException e) &#123;</span><br><span class="line"></span><br><span class="line">                InflateException ex = new InflateException(e.getMessage());</span><br><span class="line"></span><br><span class="line">                ex.initCause(e);</span><br><span class="line"></span><br><span class="line">                throw ex;</span><br><span class="line"></span><br><span class="line">            &#125; catch (Exception e) &#123;</span><br><span class="line"></span><br><span class="line">                InflateException ex = new InflateException(</span><br><span class="line"></span><br><span class="line">                        parser.getPositionDescription()</span><br><span class="line"></span><br><span class="line">                                + &quot;: &quot; + e.getMessage());</span><br><span class="line"></span><br><span class="line">                ex.initCause(e);</span><br><span class="line"></span><br><span class="line">                throw ex;</span><br><span class="line"></span><br><span class="line">            &#125; finally &#123;</span><br><span class="line"></span><br><span class="line">                // Don&apos;t retain static reference on context.</span><br><span class="line"></span><br><span class="line">                mConstructorArgs[0] = lastContext;</span><br><span class="line"></span><br><span class="line">                mConstructorArgs[1] = null;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            Trace.traceEnd(Trace.TRACE_TAG_VIEW);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            return result;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>总结一下，就是：</p>
+<ul>
+<li>若attachToRoot为true且root不为null，则调用root.addView()方法</li>
+<li>若root为null，或者attachToRoot为false，则直接将temp赋于result(temp是通过root构造的，result就是root)</li>
+</ul>
+<h2 id="何时为true，何时为false"><a href="#何时为true，何时为false" class="headerlink" title="何时为true，何时为false?"></a>何时为true，何时为false?</h2><p>就拿我们的Adapter来说吧，在创建item布局时，有下列几种情况：</p>
+<ul>
+<li>inflate(<a href="http://r.layout.xxx/" target="_blank" rel="noopener">R.layout.xxx</a>,null);</li>
+<li>inflate(<a href="http://r.layout.xxx/" target="_blank" rel="noopener">R.layout.xxx</a>,parent,false);</li>
+<li>inflate(<a href="http://r.layout.xxx/" target="_blank" rel="noopener">R.layout.xxx</a>,parent,true);</li>
+</ul>
+<p>那么就讲一下这三种情况把。</p>
+<p>首先，inflate(<a href="http://r.layout.xxx/" target="_blank" rel="noopener">R.layout.xxx</a>,null) 。这是最简单的写法，这样生成的布局就是根据R.layout.xxx返回的View。要知道，这个布局文件中的宽高属性都是相当于父布局而言的。由于没有指定parent，所以他的宽高属性就失效了，因此不管你怎么改宽高属性，都无法按你想象的那样显示。</p>
+<p>然后，inflate(<a href="http://r.layout.xxx/" target="_blank" rel="noopener">R.layout.xxx</a>,parent,false)。相较于前者，这里加了父布局，不管后面是true还是false，由于有了parent，布局文件的宽高属性是有依靠了，这时候显示的宽高样式就是布局文件中的那样了。</p>
+<p>最后，inflate(<a href="http://r.layout.xxx/" target="_blank" rel="noopener">R.layout.xxx</a>,parent,true)。这样……等等，报错了？？？哦，不要惊奇，分析一下原因：首先，有了parent，所以可以正确处理布局文件的宽高属性。然后，既然attachToRoot为true，那么根据上面的源码就会知道，这里会调用root的addView方法。而如果root是listView等，由于他们是继承自AdapterView的，看看AdapterView的addView方法： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line"></span><br><span class="line">    public void addView(View child) &#123;</span><br><span class="line"></span><br><span class="line">        throw new UnsupportedOperationException(&quot;addView(View) is not supported in AdapterView&quot;);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>不资磁啊，那好吧，如果换成RecyclerView呢？还是报错了，看看源码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">if (child.getParent() != null) &#123;</span><br><span class="line"></span><br><span class="line">            throw new IllegalStateException(&quot;The specified child already has a parent. &quot; +</span><br><span class="line"></span><br><span class="line">                    &quot;You must call removeView() on the child&apos;s parent first.&quot;);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+<p>现在知道了吧，adpater里面不要用true。那么什么时候用true呢？答案是fragment。在为fragment创建布局时，如果为true，那么这个布局文件就会被添加到父activity中盛放fragment的布局中。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/22/java-jvm-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Levent-J">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="靖然是你">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/07/22/java-jvm-1/" itemprop="url">《深入理解JVM》读书笔记（二）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-22T12:00:00+08:00">
+                2017-07-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="第二章-Java内存区域与内存溢出异常"><a href="#第二章-Java内存区域与内存溢出异常" class="headerlink" title="第二章 Java内存区域与内存溢出异常"></a>第二章 Java内存区域与内存溢出异常</h2><h2 id="运行时数据区域"><a href="#运行时数据区域" class="headerlink" title="运行时数据区域"></a>运行时数据区域</h2><p>Java虚拟机会把他所管理的内存划分为若干个不同的数据区域：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">线程共享</th>
+<th style="text-align:center">线程隔离</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">方法区</td>
+<td style="text-align:center">本地方法栈</td>
+</tr>
+<tr>
+<td style="text-align:center">堆</td>
+<td style="text-align:center">虚拟机栈</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">程序计数器</td>
+</tr>
+</tbody>
+</table>
+<h2 id="1-程序计数器"><a href="#1-程序计数器" class="headerlink" title="1.程序计数器"></a>1.程序计数器</h2><p>1.程序计数器是当前线程所执行的字节码的行号指示器2.在任何一个确定的时刻，一个处理器都只会执行一条线程中的指令3.如果正在执行一个Java方法，计数器记录的是正在执行的虚拟机字节码指令的地址；如果是native方法，则计数器值为空  </p>
+<h2 id="2-Java虚拟机栈"><a href="#2-Java虚拟机栈" class="headerlink" title="2.Java虚拟机栈"></a>2.Java虚拟机栈</h2><p>1.虚拟机栈描述的是Java方法执行的内存模型：每个方法在执行的同时都会创建一个栈帧，用于存储局部变量、操作数栈、动态链接、方法出口等信息2.通常所说的“Java内存分为堆内存和栈内存”是过于粗糙的，其中的栈所指的实际上是虚拟机栈，确切的说是虚拟机栈中的局部变量表3.long 和 double型的数据会占用2个局部变量空间，其余的数据类型只占用1个4.局部变量表所需的内存空间在编译期间完成分配，当进入一个方法时，这个方法在帧中要分配多大的局部变量空间是完全确定的  </p>
+<h2 id="3-本地方法栈"><a href="#3-本地方法栈" class="headerlink" title="3.本地方法栈"></a>3.本地方法栈</h2><p>1.本地方法栈和虚拟机栈的区别在于，虚拟机栈为虚拟机执行Java方法服务，而本地方法栈则为Native放法服务2.有的虚拟机，如HotSpot，直接把本地方法栈和虚拟机栈合二为一  </p>
+<h2 id="4-Java堆"><a href="#4-Java堆" class="headerlink" title="4.Java堆"></a>4.Java堆</h2><p>1.Java堆是Java虚拟机所管理的内存中最大的一块2.Java堆在虚拟机启动时创建，被所有线程共享3.Java堆唯一的目的是存放对象实例，几乎所有的对象实例和数组都在这里4.Java堆为了便于更好的回收和分配内存，可以细分为：“新生代和老生代”，或者“Eden\ From Survivor\ To Survivor等”5.Java堆可以处在物理上不连续的内存空间中，只要逻辑上是连续的即可  </p>
+<h2 id="5-方法区"><a href="#5-方法区" class="headerlink" title="5.方法区"></a>5.方法区</h2><p>1.方法区用于存储已被虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据2.如何实现方法区属于虚拟机的实现细节，不受虚拟机规范约束3.方法区可以选择不实现垃圾回收4.方法区的内存回收目标主要针对常量池的回收和对类型的卸载  </p>
+<h2 id="6-其他"><a href="#6-其他" class="headerlink" title="6.其他"></a>6.其他</h2><p>1.运行时常量池用于存放编译器生成的各种字面量和符号引用2.直接内存不是虚拟机运行时数据区的一部分，也不是Java虚拟机规范中定义的内存区域</p>
+<h2 id="虚拟机对象探秘"><a href="#虚拟机对象探秘" class="headerlink" title="虚拟机对象探秘"></a>虚拟机对象探秘</h2><h2 id="1-对象的创建"><a href="#1-对象的创建" class="headerlink" title="1.对象的创建"></a>1.对象的创建</h2><p>1.虚拟机在遇到一条new指令时，首先会检查这个指令的参数是否能在常量池中定位到一个类的符号引用,并且检查该类是否已加载。如果没有加载，还要先执行相应的类加载过程2.内存分配方式有两种，选择哪种方式由Java堆是否规整决定，若规整，则采用“指针碰撞”方式，若不规整，则采用“空闲列表方式”；而是否规整又由所采用的垃圾回收机制决定3.解决并发环境下的分配内存有两种方式:  </p>
+<ul>
+<li>对分配内存空间的动作进行同步处理  </li>
+<li>把内存分配的动作按照线程划分在不同的空间中进行，即每个线程在堆中预先分配一小块内存（TLAB）  </li>
+</ul>
+<p>4.内存分配完成后还要将分配的内存空间都初始化为零值，从而保证对象的实例字段在Java代码中可以不赋初始值就直接使用5.初始化后还要给对象进行相关各设置，诸如哈希码、GC分代年龄信息等6.上述工作结束后，从虚拟机视角来看，一个新的对象已经产生了；但从Java程序的角度来看，对象的创建才刚刚开始————进行Java代码的初始化操作  </p>
+<h2 id="2-对象的内存布局"><a href="#2-对象的内存布局" class="headerlink" title="2.对象的内存布局"></a>2.对象的内存布局</h2><p>1.对象在内存中存储的布局可以分为三块区域：对象头、实例数据、对齐填充2.对象头一搬包含两部分内容：对象的运行时数据和类型指针。如果对象是数组，则还有一个部分来记录数组的长度3.运行时数据指哈希码、GC分代年龄等信息，被设计成一个非固定的数据结构以便在极小的空间存储尽量多的信息，会根据对象的状态复用自己的存储空间4.类型指针是对象指向他的类元数据的指针，虚拟机通过这个指针确定对象是哪个类的实例5.实例数据是对象真正存储的有效信息，即程序中的字段内容6.实例数据默认的分配策略是按顺序，相同宽度的字段总是分配在一起7.对齐填充不是必然的，仅仅起着占位符的作用8.对象的大小必须是8字节的整数倍，对象头部分正好是8字节的倍数  </p>
+<h2 id="3-对象的访问定位"><a href="#3-对象的访问定位" class="headerlink" title="3.对象的访问定位"></a>3.对象的访问定位</h2><p>1.Java程序通过栈上的reference数据来操作堆上的具体对象2.对象的访问形式取决于虚拟机，目前主流的有两种方式：使用句柄  和  直接指针3.使用句柄是间接访问，优点是reference中存储的是稳定的句柄地址，对象移动时只会改变句柄中的实例数据指针4.使用直接指针是直接访问，优点就是速度快</p>
+<h2 id="OutOfMemoryError异常"><a href="#OutOfMemoryError异常" class="headerlink" title="OutOfMemoryError异常"></a>OutOfMemoryError异常</h2><h2 id="1-Java堆溢出"><a href="#1-Java堆溢出" class="headerlink" title="1.Java堆溢出"></a>1.Java堆溢出</h2><p>1.Java堆用于存储对象实例，只要不断的创建对象，且保证GC Roots到对象之间有可达路径来避免垃圾回收机制清除这些对象，那么在对象数量达到最大堆的容量限制之后就会产生内存溢出的异常  </p>
+<h2 id="2-虚拟机和本地方法栈的溢出"><a href="#2-虚拟机和本地方法栈的溢出" class="headerlink" title="2.虚拟机和本地方法栈的溢出"></a>2.虚拟机和本地方法栈的溢出</h2><p>1，HotSpot虚拟机中并不区分虚拟机栈和本地方法栈2.关于虚拟机栈和本地方法栈，Java虚拟机规范中描述了量中异常：  </p>
+<ul>
+<li>如果线程请求的栈深度大于虚拟机所允许的最大深度，将抛出StackOverflowError异常  </li>
+<li>如果虚拟机在扩展栈时无法申请到足够的内存空间，则抛出OutOfMemoryError异常3.在单个线程下，无论是由于栈太小还是虚拟机栈容量太小，当内存无法分配时，虚拟机抛出的都是StackOverflowError异常  3.方法区和运行时常量池溢出</li>
+</ul>
+<p>2..在JDK 1.6中 intern() 方法会把首次遇到的字符串实例复制到永久代中，返回的也是永久代中这个字符串实例的引用2.在JDK 1.7中 intern() 方法不会再复制实例，只是在常量池中记录首次出现的实例引用  </p>
+<p>3.StringBuilder 创建的字符串实例在Java堆上</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/22/java-jvm-4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
+      <meta itemprop="name" content="Levent-J">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
@@ -261,9 +567,9 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">發表於</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2017-07-22T12:00:00+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-22T12:00:00+08:00">
                 2017-07-22
               </time>
             
@@ -408,211 +714,10 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/22/java-jvm-3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="靖然是你">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/07/22/java-jvm-3/" itemprop="url">《深入理解JVM》读书笔记（三）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2017-07-22T12:00:00+08:00">
-                2017-07-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="第三章-垃圾收集器与内存分配策略"><a href="#第三章-垃圾收集器与内存分配策略" class="headerlink" title="第三章 垃圾收集器与内存分配策略"></a>第三章 垃圾收集器与内存分配策略</h2><h2 id="对象已死吗？"><a href="#对象已死吗？" class="headerlink" title="对象已死吗？"></a>对象已死吗？</h2><h2 id="1-引用计数法"><a href="#1-引用计数法" class="headerlink" title="1.引用计数法"></a>1.引用计数法</h2><p>1.主流的Java虚拟机里面没有选用引用计数算法来管理内存，其中最主要的原因是他很难解决对象之间互相引用的问题。  </p>
-<h2 id="2-可达性分析算法"><a href="#2-可达性分析算法" class="headerlink" title="2.可达性分析算法"></a>2.可达性分析算法</h2><p>1.主流的商用程序语言的主流实现中都是用可达性分析来判断对象是否存活的2.从一个起始对象GC Roots开始向下搜索，搜索所走过的路径称为引用链，档一个对象到GC Roots没有任何引用链时，即从GC Roots到这个对象不可达，则证明此对象是不可用的3.在Java语言中，可作为GC Roots的对象包括一下四种：</p>
-<ul>
-<li>虚拟机栈（栈帧中的本地变量表）中引用的对象  </li>
-<li>方法区中类静态属性引用的对象  </li>
-<li>方法区中常亮引用的对象  </li>
-<li>本地方法栈中JNI引用的对象  </li>
-</ul>
-<h2 id="3-再谈引用"><a href="#3-再谈引用" class="headerlink" title="3.再谈引用"></a>3.再谈引用</h2><p>1.Java的引用可以分为强引用、软引用、弱引用、虚引用：  </p>
-<ul>
-<li>强引用：是指在程序代码中直接存在的引用，譬如引用new操作符创建的对象。只要强引用还存在，垃圾收集器就永远不会回收掉被引用的对象  </li>
-<li>软引用：还有用但是并非必需的引用，早系统将要发生内存溢出异常之前会把这些对象列进回收范围中进行二次回收，若还是没有足够的内存，才会抛出内存溢出异常  </li>
-<li>弱引用：非必需的对象，只能生存到下一次垃圾收集发生之前。当垃圾收集器工作时，无论内存是否够用都将回收这些对象  </li>
-<li>虚引用：一个对象是否有虚引用的存在完全不会对他的生存时间构成影响，也无法通过虚引用来取得一个对象实例  </li>
-</ul>
-<h2 id="4-生存还是死亡"><a href="#4-生存还是死亡" class="headerlink" title="4.生存还是死亡"></a>4.生存还是死亡</h2><p>1.要真正宣告一个对象死亡，需要两个标记过程：</p>
-<ul>
-<li>若对象在进行可达性分析后发现没有与GC Roots相连接的引用链，会被第一次标记并筛选。筛选的条件是此对象是否有必要执行finalize()方法  </li>
-<li>finalize()方法是对象逃脱死亡的最后一次机会，稍后GC会对对象进行第二次标记  </li>
-</ul>
-<p>2.当对象没有覆盖finalize()方法或者finalize()方法已经由虚拟机调用过，都视为finalize()没有必要执行  </p>
-<h2 id="5-回收方法区"><a href="#5-回收方法区" class="headerlink" title="5.回收方法区"></a>5.回收方法区</h2><p>1.永久代的垃圾收集主要回收两部分内容：废弃常量和无用的类2.类需要同时满足一下三个条件才能算是“无用的类”：</p>
-<ul>
-<li>该类所有的实例都已经被回收，即Java堆中不再有该类的实例  </li>
-<li>加载该类的ClassLoader已经被回收  </li>
-<li>该类对应的java.lang.Class对象没有在任何地方被调用，无法在任何地方通过反射访问该类的方法  </li>
-</ul>
-<h2 id="垃圾收集算法"><a href="#垃圾收集算法" class="headerlink" title="垃圾收集算法"></a>垃圾收集算法</h2><h2 id="1-标记-清楚算法"><a href="#1-标记-清楚算法" class="headerlink" title="1.标记-清楚算法"></a>1.标记-清楚算法</h2><p>1.算法分为两个阶段：标记和清除  </p>
-<ul>
-<li>标记：标记所有需要回收的对象  </li>
-<li>清除：统一回收所有被标记的对象  </li>
-</ul>
-<p>2.优点:简单，是后面其他算法的基础3.缺点：标记和清除的效率很低；标记清除之后会产生大量不连续的内存碎片，空间碎片太多会导致以后遇到大对象的时候无法找到足够的内存  </p>
-<h2 id="2-复制算法"><a href="#2-复制算法" class="headerlink" title="2.复制算法"></a>2.复制算法</h2><p>1.思路：将可用内存按容量分为两个块，每次只用其中之一。当这一块内存用完之后，将还存活的对象复制到另一边去，然后清除所有已经使用过的部分2.优点：实现简单，运行高效3.缺点：代价是将内存缩小了一部分，而且可能会需要额外的担保空间  </p>
-<h2 id="3-标记-整理算法"><a href="#3-标记-整理算法" class="headerlink" title="3.标记-整理算法"></a>3.标记-整理算法</h2><p>1.思路：标记过程和标记-清除一样，但是后续步骤不是直接对可回收对象进行清理，而是将所有活着的对象向一端移动，然后直接清理掉端边界以外的内存  </p>
-<h2 id="4-分代收集算法"><a href="#4-分代收集算法" class="headerlink" title="4.分代收集算法"></a>4.分代收集算法</h2><p>1.当前商用虚拟机都采用了这种算法，根据对象的存活周期将内存划分为几块，一般是把Java堆分为新生代和老生代，根据各个年代采用适当的收集算法2.新生代一般采用复制算法，老生代一搬采用 标记-清理 或者标记-整理 进行回收  </p>
-<h2 id="HotSpot的算法实现"><a href="#HotSpot的算法实现" class="headerlink" title="HotSpot的算法实现"></a>HotSpot的算法实现</h2><h2 id="1-枚举根节点"><a href="#1-枚举根节点" class="headerlink" title="1.枚举根节点"></a>1.枚举根节点</h2><p>1.目前主流的Java虚拟机使用的都是准确式GC，当执行系统停顿下来后并不需要一个不漏的检查完所有执行上下文和全局的引用变量，虚拟机应当有办法直接得知哪些地方存着对象的引用2.HotSpot使用一组称为OopMap的数据结构来记录哪些地方存着对象的引用3.在类加载过程中，HotSpot就把对象内什么偏移量上是什么类型的数据计算出来，在JIT编译过程中会在特定的位置记录下栈和寄存器中哪些位置是引用  </p>
-<h2 id="2-安全点"><a href="#2-安全点" class="headerlink" title="2.安全点"></a>2.安全点</h2><p>1.HotSpot没有为每条指令都生成OopMap，只是在特定位置记录了这些信息，这些位置称为安全点2.程序执行时并非在所有地方都能停顿下来开始GC，只有在到达安全点时才能暂停3.给多线程记录安全点时有两种方案：抢先式中断 和 主动式中断4.主动式中断的思想是当GC需要中断线程时不直接对线程进行操作，仅仅简单的设置一个标志，各个线程执行时主动去轮询这个标志，发现中断标志为真时就自己中断挂起  </p>
-<h2 id="3-安全区域"><a href="#3-安全区域" class="headerlink" title="3.安全区域"></a>3.安全区域</h2><p>1.为了处理“不执行”的程序的安全点问题，提出了安全区域来解决问题2.安全区域是指在一段代码片段之中，引用关系不会发生变化，在这个区域内的任何地方进行GC都是安全的3.虚拟机如歌具体的进行内存回收是由虚拟机所采用的GC收集器决定的，而通常虚拟机中往往不止有一种GC收集器  </p>
-<h2 id="垃圾收集器"><a href="#垃圾收集器" class="headerlink" title="垃圾收集器"></a>垃圾收集器</h2><ul>
-<li>如果说收集算法是内存回收的方法论，那么垃圾收集器就是内存回收的具体实现  </li>
-<li>不同的收集器应用的区域不同，到现在为止没有最好的收集器，也没有万能的收集器  </li>
-</ul>
-<h2 id="1-Serial收集器"><a href="#1-Serial收集器" class="headerlink" title="1.Serial收集器"></a>1.Serial收集器</h2><p>1.Serail收集器是“单线程”的，他在进行垃圾收集时必须暂停其他的所有线程，直到收集结束2.随着收集器的发展，用户线程的停顿时间越来越段，但任然无法消除3.Serial收集器是虚拟机运行在Client模式下默认的新生代收集器4.对于单个CPU坏境来说，Serial收集器由于没有线程交互的开销，专心做垃圾收集，可以获得很高的单线程收集效率  </p>
-<h2 id="2-ParNew收集器"><a href="#2-ParNew收集器" class="headerlink" title="2.ParNew收集器"></a>2.ParNew收集器</h2><p>1.ParNew收集器是Serial收集器的多线程版本2.ParNew收集器是运行在Server模式下虚拟机中首选的新生代收集器3.在垃圾收集器中“并发”与“并行”的概念：</p>
-<ul>
-<li>并行：多条垃圾收集线程并行工作，但此时用户线程仍然处于等待状态  </li>
-<li>并发：用户线程与垃圾收集线程同时执行（但不一定是并行的，可能会交替执行），用户程序在继续运行，而垃圾收集程序运行在另一个CPU上</li>
-</ul>
-<h2 id="3-Parallel-Scavenge收集器"><a href="#3-Parallel-Scavenge收集器" class="headerlink" title="3.Parallel Scavenge收集器"></a>3.Parallel Scavenge收集器</h2><p>1.Parallel Scavenge收集器是一个新生代收集器，采用复制算法2.Parallel Scavenge收集器的特点是他的关注点与其他收集器不同。其他收集器的目标是尽可能的缩短用户线程的停顿时间，而Parallel Scavenge收集器的目标是达到一个可控的吞吐量3.高吞吐量可以高效的利用CPU时间，尽快得完成程序的运算任务，主要适合在后台运算而不需要太多交互的任务4.GC停顿时间的缩短是以牺牲吞吐量和新生代空间来换取的5.Parallel Scavenge收集器也经常被称为“吞吐量优先”收集器  </p>
-<h2 id="4-Serail-Old收集器"><a href="#4-Serail-Old收集器" class="headerlink" title="4.Serail Old收集器"></a>4.Serail Old收集器</h2><p>1.Serial Old收集器是Serail收集器的老年代版本，是一个单线程收集器，使用标记-整理算法2.Serail Old收集器主要用于Clinet模式下3.Serail Old收集器另一种用途是作为CMS收集器的后备预案  </p>
-<h2 id="5-Parallel-Old收集器"><a href="#5-Parallel-Old收集器" class="headerlink" title="5.Parallel Old收集器"></a>5.Parallel Old收集器</h2><p>Parallel Old收集器是Parallel Scavenge收集器的老年代版本，使用多线程和标记-整理算法2，在注重吞吐量和CPU资源敏感的场合，都可以优先考虑Parallel Scavenge加Parallel Old收集器  </p>
-<h2 id="6-CMS收集器"><a href="#6-CMS收集器" class="headerlink" title="6.CMS收集器"></a>6.CMS收集器</h2><p>1.CMS收集器是一种以获取最短的回收停顿时间为目标的收集器2.CMS收集器基于标记-清楚算法实现，分为四个步骤：初始标记、并发标记、重新标记、并发清除3.步骤详解：</p>
-<ul>
-<li>初始标记：标记一下GC Roots能直接关联到的对象，速度很快  </li>
-<li>并发标记：进行GC Roots Tracing  </li>
-<li>重新标记：是为了修正那些在并发标记期间因用户程序继续运作而导致标记产生变动的那一部分对象的标记记录，在这一阶段的停顿时间会比初始标记阶段稍长一点  </li>
-</ul>
-<p>4.从总体上说，CMS收集器的内存回收过程是与用户线程一起并发执行的5.CMS收集器的缺点：  </p>
-<ul>
-<li>CMS收集器对CPU资源非常敏感  </li>
-<li>CMS收集器无法处理浮动垃圾，可能出现“Concurrent Mode Failure”失败而导致另一次Full FC的产生  </li>
-<li>由于CMS收集器采用了标记-清除算法，所以在回收结束时会有大量空间碎片产生，碎片过多时，在给大对象分配内存时会有很大麻烦  </li>
-</ul>
-<h2 id="7-G1收集器"><a href="#7-G1收集器" class="headerlink" title="7.G1收集器"></a>7.G1收集器</h2><p>1.G1收集器是一款面向服务端应用的垃圾收集器2.G1收集器具备以下特点：  </p>
-<ul>
-<li>并行与并发  </li>
-<li>分代收集</li>
-<li>空间整合：从整体上来看是基于“标记-整理”算法实现的，在局部上是基于复制算法实现的  </li>
-<li>可预测的停顿   </li>
-</ul>
-<p>3.G1收集器将整个Java堆划分为多个大小相等的独立区域，虽然还保留有新生代和老生代的概念，但新生代和老生代不再是物理隔的了，他们是一部分Region的集合4.G1收集器可以有计划地避免在整个Java堆中进行全区域的垃圾收集：跟踪各个Region里面的垃圾堆积的价值大小，在后台维护一个优先列表，每次根据允许的收集时间，优先回收价值最大的Region5.在G1收集器中，使用Remembered Set来避免全堆扫描   </p>
-<h2 id="内存分配与回收的策略"><a href="#内存分配与回收的策略" class="headerlink" title="内存分配与回收的策略"></a>内存分配与回收的策略</h2><p>对象的内存分配，往大方向讲，就是在堆上分配，主要分配在新生代的Eden区上，如果启动了本地线程分配缓冲，将按线程优先在TLAB上分配，少数情况也可能会直接分配在老年代中，具体的分配规则取决于虚拟机自己的设置  </p>
-<h2 id="1-对象优先在Eden区分配"><a href="#1-对象优先在Eden区分配" class="headerlink" title="1.对象优先在Eden区分配"></a>1.对象优先在Eden区分配</h2><p>1.大多数情况下，对象优先在新生代的Eden区分配2.当Eden区没有足够的空间时，虚拟机将发起一次Minor GC3.Minor GC与Full GC：</p>
-<ul>
-<li>Minor GC：新生代GC，非常频繁，回收速度快  </li>
-<li>Fulll GC：老年代GC，又称为Major GC，经常会伴随一次Minor GC，速度比较慢  </li>
-</ul>
-<h2 id="2-大对象直接进入老年代"><a href="#2-大对象直接进入老年代" class="headerlink" title="2.大对象直接进入老年代"></a>2.大对象直接进入老年代</h2><p>1.大对象是指需要大量连续的内存空间的Java对象2.虚拟机提供了一个参数：PretenureSizeThreshold，大于这个参数的对象将直接在老年代分配  </p>
-<h2 id="3-长期存活的对象将进入老年代"><a href="#3-长期存活的对象将进入老年代" class="headerlink" title="3.长期存活的对象将进入老年代"></a>3.长期存活的对象将进入老年代</h2><p>1.虚拟机给每个对象定义了一个对象年龄计数器（Age），对象每经过一次Minor GC后仍然存活，且能被Survivor容纳的话，年龄就 +1 ，当年龄增加到一定程度（默认为15），就会被晋升到老年代中，这个阈值可以通过参数 MaxTenuringThreshold 来设置  </p>
-<h2 id="4-动态对象年龄的判定"><a href="#4-动态对象年龄的判定" class="headerlink" title="4.动态对象年龄的判定"></a>4.动态对象年龄的判定</h2><p>1.为了更好的适应不同程序的内存状况，对象年龄不是必须到达阈值才会进入老年代2.当Survivor空间中相同年龄所有对象大小的总和大于Survivor空间的一半，或年龄大于等于该年龄的对象就可以直接进入老年代  </p>
-<h2 id="5-空间分配担保"><a href="#5-空间分配担保" class="headerlink" title="5.空间分配担保"></a>5.空间分配担保</h2><p>1.在发生Minor GC之前，虚拟机会首先检查老年代可用最大内存空间是否大于新生代对象总空间—若大于，则会进行一次安全的Minor GC2.若上述条件不成立，则虚拟机会查看HandlePromotionFailure设置值是否允许担保失败，若不允许，则进行一次FULL GC3.若允许担保失败，则虚拟机会检查老年代最大可用的连续空间是否大于历次晋升到老年代的对象的平均大小，若大于，则进行一次冒险的Minor GC，否则进行一次FULL GC4.若担保失败，还是会进行一次FULL GC。之所以要冒险的原因是为了避免频繁的FULL GC  </p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/22/android-handler/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
+      <meta itemprop="name" content="Levent-J">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
@@ -638,9 +743,9 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">發表於</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2017-07-22T12:00:00+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-22T12:00:00+08:00">
                 2017-07-22
               </time>
             
@@ -788,10 +893,10 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/22/java-jvm-1/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/22/java-proxy/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
+      <meta itemprop="name" content="Levent-J">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
@@ -807,7 +912,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/07/22/java-jvm-1/" itemprop="url">《深入理解JVM》读书笔记（二）</a></h1>
+                <a class="post-title-link" href="/2017/07/22/java-proxy/" itemprop="url">动态代理&静态代理</a></h1>
         
 
         <div class="post-meta">
@@ -817,9 +922,9 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">發表於</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2017-07-22T12:00:00+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-22T12:00:00+08:00">
                 2017-07-22
               </time>
             
@@ -859,51 +964,34 @@
       
         
           
-            <h2 id="第二章-Java内存区域与内存溢出异常"><a href="#第二章-Java内存区域与内存溢出异常" class="headerlink" title="第二章 Java内存区域与内存溢出异常"></a>第二章 Java内存区域与内存溢出异常</h2><h2 id="运行时数据区域"><a href="#运行时数据区域" class="headerlink" title="运行时数据区域"></a>运行时数据区域</h2><p>Java虚拟机会把他所管理的内存划分为若干个不同的数据区域：</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">线程共享</th>
-<th style="text-align:center">线程隔离</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">方法区</td>
-<td style="text-align:center">本地方法栈</td>
-</tr>
-<tr>
-<td style="text-align:center">堆</td>
-<td style="text-align:center">虚拟机栈</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">程序计数器</td>
-</tr>
-</tbody>
-</table>
-<h2 id="1-程序计数器"><a href="#1-程序计数器" class="headerlink" title="1.程序计数器"></a>1.程序计数器</h2><p>1.程序计数器是当前线程所执行的字节码的行号指示器2.在任何一个确定的时刻，一个处理器都只会执行一条线程中的指令3.如果正在执行一个Java方法，计数器记录的是正在执行的虚拟机字节码指令的地址；如果是native方法，则计数器值为空  </p>
-<h2 id="2-Java虚拟机栈"><a href="#2-Java虚拟机栈" class="headerlink" title="2.Java虚拟机栈"></a>2.Java虚拟机栈</h2><p>1.虚拟机栈描述的是Java方法执行的内存模型：每个方法在执行的同时都会创建一个栈帧，用于存储局部变量、操作数栈、动态链接、方法出口等信息2.通常所说的“Java内存分为堆内存和栈内存”是过于粗糙的，其中的栈所指的实际上是虚拟机栈，确切的说是虚拟机栈中的局部变量表3.long 和 double型的数据会占用2个局部变量空间，其余的数据类型只占用1个4.局部变量表所需的内存空间在编译期间完成分配，当进入一个方法时，这个方法在帧中要分配多大的局部变量空间是完全确定的  </p>
-<h2 id="3-本地方法栈"><a href="#3-本地方法栈" class="headerlink" title="3.本地方法栈"></a>3.本地方法栈</h2><p>1.本地方法栈和虚拟机栈的区别在于，虚拟机栈为虚拟机执行Java方法服务，而本地方法栈则为Native放法服务2.有的虚拟机，如HotSpot，直接把本地方法栈和虚拟机栈合二为一  </p>
-<h2 id="4-Java堆"><a href="#4-Java堆" class="headerlink" title="4.Java堆"></a>4.Java堆</h2><p>1.Java堆是Java虚拟机所管理的内存中最大的一块2.Java堆在虚拟机启动时创建，被所有线程共享3.Java堆唯一的目的是存放对象实例，几乎所有的对象实例和数组都在这里4.Java堆为了便于更好的回收和分配内存，可以细分为：“新生代和老生代”，或者“Eden\ From Survivor\ To Survivor等”5.Java堆可以处在物理上不连续的内存空间中，只要逻辑上是连续的即可  </p>
-<h2 id="5-方法区"><a href="#5-方法区" class="headerlink" title="5.方法区"></a>5.方法区</h2><p>1.方法区用于存储已被虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据2.如何实现方法区属于虚拟机的实现细节，不受虚拟机规范约束3.方法区可以选择不实现垃圾回收4.方法区的内存回收目标主要针对常量池的回收和对类型的卸载  </p>
-<h2 id="6-其他"><a href="#6-其他" class="headerlink" title="6.其他"></a>6.其他</h2><p>1.运行时常量池用于存放编译器生成的各种字面量和符号引用2.直接内存不是虚拟机运行时数据区的一部分，也不是Java虚拟机规范中定义的内存区域</p>
-<h2 id="虚拟机对象探秘"><a href="#虚拟机对象探秘" class="headerlink" title="虚拟机对象探秘"></a>虚拟机对象探秘</h2><h2 id="1-对象的创建"><a href="#1-对象的创建" class="headerlink" title="1.对象的创建"></a>1.对象的创建</h2><p>1.虚拟机在遇到一条new指令时，首先会检查这个指令的参数是否能在常量池中定位到一个类的符号引用,并且检查该类是否已加载。如果没有加载，还要先执行相应的类加载过程2.内存分配方式有两种，选择哪种方式由Java堆是否规整决定，若规整，则采用“指针碰撞”方式，若不规整，则采用“空闲列表方式”；而是否规整又由所采用的垃圾回收机制决定3.解决并发环境下的分配内存有两种方式:  </p>
-<ul>
-<li>对分配内存空间的动作进行同步处理  </li>
-<li>把内存分配的动作按照线程划分在不同的空间中进行，即每个线程在堆中预先分配一小块内存（TLAB）  </li>
-</ul>
-<p>4.内存分配完成后还要将分配的内存空间都初始化为零值，从而保证对象的实例字段在Java代码中可以不赋初始值就直接使用5.初始化后还要给对象进行相关各设置，诸如哈希码、GC分代年龄信息等6.上述工作结束后，从虚拟机视角来看，一个新的对象已经产生了；但从Java程序的角度来看，对象的创建才刚刚开始————进行Java代码的初始化操作  </p>
-<h2 id="2-对象的内存布局"><a href="#2-对象的内存布局" class="headerlink" title="2.对象的内存布局"></a>2.对象的内存布局</h2><p>1.对象在内存中存储的布局可以分为三块区域：对象头、实例数据、对齐填充2.对象头一搬包含两部分内容：对象的运行时数据和类型指针。如果对象是数组，则还有一个部分来记录数组的长度3.运行时数据指哈希码、GC分代年龄等信息，被设计成一个非固定的数据结构以便在极小的空间存储尽量多的信息，会根据对象的状态复用自己的存储空间4.类型指针是对象指向他的类元数据的指针，虚拟机通过这个指针确定对象是哪个类的实例5.实例数据是对象真正存储的有效信息，即程序中的字段内容6.实例数据默认的分配策略是按顺序，相同宽度的字段总是分配在一起7.对齐填充不是必然的，仅仅起着占位符的作用8.对象的大小必须是8字节的整数倍，对象头部分正好是8字节的倍数  </p>
-<h2 id="3-对象的访问定位"><a href="#3-对象的访问定位" class="headerlink" title="3.对象的访问定位"></a>3.对象的访问定位</h2><p>1.Java程序通过栈上的reference数据来操作堆上的具体对象2.对象的访问形式取决于虚拟机，目前主流的有两种方式：使用句柄  和  直接指针3.使用句柄是间接访问，优点是reference中存储的是稳定的句柄地址，对象移动时只会改变句柄中的实例数据指针4.使用直接指针是直接访问，优点就是速度快</p>
-<h2 id="OutOfMemoryError异常"><a href="#OutOfMemoryError异常" class="headerlink" title="OutOfMemoryError异常"></a>OutOfMemoryError异常</h2><h2 id="1-Java堆溢出"><a href="#1-Java堆溢出" class="headerlink" title="1.Java堆溢出"></a>1.Java堆溢出</h2><p>1.Java堆用于存储对象实例，只要不断的创建对象，且保证GC Roots到对象之间有可达路径来避免垃圾回收机制清除这些对象，那么在对象数量达到最大堆的容量限制之后就会产生内存溢出的异常  </p>
-<h2 id="2-虚拟机和本地方法栈的溢出"><a href="#2-虚拟机和本地方法栈的溢出" class="headerlink" title="2.虚拟机和本地方法栈的溢出"></a>2.虚拟机和本地方法栈的溢出</h2><p>1，HotSpot虚拟机中并不区分虚拟机栈和本地方法栈2.关于虚拟机栈和本地方法栈，Java虚拟机规范中描述了量中异常：  </p>
-<ul>
-<li>如果线程请求的栈深度大于虚拟机所允许的最大深度，将抛出StackOverflowError异常  </li>
-<li>如果虚拟机在扩展栈时无法申请到足够的内存空间，则抛出OutOfMemoryError异常3.在单个线程下，无论是由于栈太小还是虚拟机栈容量太小，当内存无法分配时，虚拟机抛出的都是StackOverflowError异常  3.方法区和运行时常量池溢出</li>
-</ul>
-<p>2..在JDK 1.6中 intern() 方法会把首次遇到的字符串实例复制到永久代中，返回的也是永久代中这个字符串实例的引用2.在JDK 1.7中 intern() 方法不会再复制实例，只是在常量池中记录首次出现的实例引用  </p>
-<p>3.StringBuilder 创建的字符串实例在Java堆上</p>
+            <p>代理，就是对类做一个包装，通过使用这个包装好的类来使用本来要用的类，这样可以额外做一些操作。<br>代理分为静态代理和动态代理。</p>
+<h3 id="静态代理"><a href="#静态代理" class="headerlink" title="静态代理"></a>静态代理</h3><pre><code>实现起来很简单，一个接口用来提供要实现的方法，一个被代理类和一个代理类都要实现这个接口。同时，被代理类实现接口的方法后要做自己要做的事，而代理类则要在内部创建一个被代理类的实例，然后在实现的接口的方法中调用被代理类的那个方法，同时做一些自己的修饰。
+</code></pre><h3 id="动态代理"><a href="#动态代理" class="headerlink" title="动态代理"></a>动态代理</h3><p>不同于静态代理，动态代理的需求是当前有很多很多被代理类，要采用类似的代理方式。这个时候就要采用动态代理了。同样要定义接口及被代理类，区别在于代理类是通过反射动态生成的。具体：实现InvocationHandler这个接口，持有一个被代理类的对象object，然后实现：<br>/**</p>
+<pre><code> * 返回代理对象
+ * @return
+ */
+public Object newProxyInstance() {
+    return Proxy.newProxyInstance(proxied.getClass().getClassLoader(), proxied.getClass().getInterfaces(), this);
+}
+</code></pre><p>这个方法是用来获得代理的对象。然后最重要的是要实现：<br>/**</p>
+<pre><code> * 
+ * @param proxy 代理对象
+ * @param method 代理方法
+ * @param args 方法参数
+ * @return
+ * @throws Throwable
+ */
+@Override
+public Object invoke(Object proxy, Method method, Object[] args) throws Throwable { 
+    //将代理对象生成字节码到F盘上，方便反编译出java文件查看，实际动态代理是不需要自己生成的
+    addClassToDisk(proxy.getClass().getName(), ProxyClassImpl.class,&quot;F:/$Proxy0.class&quot;);
+    System.out.println(&quot;method:&quot;+method.getName());  
+    System.out.println(&quot;args:&quot;+args[0].getClass().getName());  
+    System.out.println(&quot;Before invoke method...&quot;);  
+    Object object=method.invoke(proxied, args);
+    System.out.println(&quot;After invoke method...&quot;);  
+    return object;  
+</code></pre><p>这个方法是用来调用构造器的。具体使用时，我们不需要使用invoke方法，只是：<br>1.获得被代理类的一个对象，传给handler来获得代理类<br>2.调用handler的newInstance方法获取一个代理类对象<br>3.这个时候已经生成好了代理类，我们可以直接用这个代理对象</p>
 
           
         
@@ -955,7 +1043,7 @@
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/22/java-jvm-5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
+      <meta itemprop="name" content="Levent-J">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
@@ -981,9 +1069,9 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">發表於</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2017-07-22T12:00:00+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-22T12:00:00+08:00">
                 2017-07-22
               </time>
             
@@ -1170,10 +1258,10 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/22/android-inflater/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/22/java-jvm-3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
+      <meta itemprop="name" content="Levent-J">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
@@ -1189,7 +1277,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/07/22/android-inflater/" itemprop="url">Layout.inflat()中的那些坑</a></h1>
+                <a class="post-title-link" href="/2017/07/22/java-jvm-3/" itemprop="url">《深入理解JVM》读书笔记（三）</a></h1>
         
 
         <div class="post-meta">
@@ -1199,9 +1287,9 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">發表於</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2017-07-22T12:00:00+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-22T12:00:00+08:00">
                 2017-07-22
               </time>
             
@@ -1241,176 +1329,88 @@
       
         
           
-            <p>LayoutInflater.inflate()这个方法，大家一定很熟悉——在给fragment添加布局文件，或者在RecyclerView的Adapter中为item添加布局时，都会用到。inflate()这个方法需要最多三个参数：resource，root，以及attachToRoot。参考源码，就知道了这里的resource是你具体要添加的那个布局文件，root是布局的根参数，那么attachToRoot是什么意思呢？什么时候为true，什么时候为false？</p>
-<h2 id="三个参数的关系"><a href="#三个参数的关系" class="headerlink" title="三个参数的关系"></a>三个参数的关系</h2><p>参见官方文档，对这三个参数的介绍是：被填充的层是否应该附在root参数内部？如果是false，root参数只适用于为xml根元素View创建正确的LayoutParams的子类。</p>
-<p>什么意思呢？就是说，如果attachToRoot为true，那么resource指定的布局文件就会依附于root指定的ViewGroup，然后这个方法就会返回root，否则，只会将resource指定的布局文件填充并将其返回，具体可以参考源码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br></pre></td><td class="code"><pre><span class="line">public View inflate(XmlPullParser parser, @Nullable ViewGroup root, boolean attachToRoot) &#123;</span><br><span class="line"></span><br><span class="line">        synchronized (mConstructorArgs) &#123;</span><br><span class="line"></span><br><span class="line">            Trace.traceBegin(Trace.TRACE_TAG_VIEW, &quot;inflate&quot;);</span><br><span class="line"></span><br><span class="line">            final Context inflaterContext = mContext;</span><br><span class="line"></span><br><span class="line">            final AttributeSet attrs = Xml.asAttributeSet(parser);</span><br><span class="line"></span><br><span class="line">            Context lastContext = (Context) mConstructorArgs[0];</span><br><span class="line"></span><br><span class="line">            mConstructorArgs[0] = inflaterContext;</span><br><span class="line"></span><br><span class="line">            View result = root;</span><br><span class="line"></span><br><span class="line">            try &#123;</span><br><span class="line"></span><br><span class="line">                // Look for the root node.</span><br><span class="line"></span><br><span class="line">                int type;</span><br><span class="line"></span><br><span class="line">                while ((type = parser.next()) != XmlPullParser.START_TAG &amp;&amp;</span><br><span class="line"></span><br><span class="line">                        type != XmlPullParser.END_DOCUMENT) &#123;</span><br><span class="line"></span><br><span class="line">                    // Empty</span><br><span class="line">                if (type != XmlPullParser.START_TAG) &#123;</span><br><span class="line"></span><br><span class="line">                    throw new InflateException(parser.getPositionDescription()</span><br><span class="line"></span><br><span class="line">                            + &quot;: No start tag found!&quot;);</span><br><span class="line"></span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                final String name = parser.getName();</span><br><span class="line"></span><br><span class="line">      </span><br><span class="line"></span><br><span class="line">                if (DEBUG) &#123;</span><br><span class="line"></span><br><span class="line">                    System.out.println(&quot;**************************&quot;);</span><br><span class="line"></span><br><span class="line">                    System.out.println(&quot;Creating root view: &quot;</span><br><span class="line"></span><br><span class="line">                            + name);</span><br><span class="line"></span><br><span class="line">                    System.out.println(&quot;**************************&quot;);</span><br><span class="line"></span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">                if (TAG_MERGE.equals(name)) &#123;</span><br><span class="line"></span><br><span class="line">                    if (root == null || !attachToRoot) &#123;</span><br><span class="line"></span><br><span class="line">                        throw new InflateException(&quot;&lt;merge /&gt; can be used only with a valid &quot;</span><br><span class="line"></span><br><span class="line">                                + &quot;ViewGroup root and attachToRoot=true&quot;);</span><br><span class="line"></span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">                    rInflate(parser, root, inflaterContext, attrs, false);</span><br><span class="line"></span><br><span class="line">                &#125; else &#123;</span><br><span class="line"></span><br><span class="line">                    // Temp is the root view that was found in the xml</span><br><span class="line"></span><br><span class="line">                    final View temp = createViewFromTag(root, name, inflaterContext, attrs);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">                    ViewGroup.LayoutParams params = null;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">                    if (root != null) &#123;</span><br><span class="line"></span><br><span class="line">                        if (DEBUG) &#123;</span><br><span class="line"></span><br><span class="line">                            System.out.println(&quot;Creating params from root: &quot; +</span><br><span class="line"></span><br><span class="line">                                    root);</span><br><span class="line"></span><br><span class="line">                        &#125;</span><br><span class="line"></span><br><span class="line">                        // Create layout params that match root, if supplied</span><br><span class="line"></span><br><span class="line">                        params = root.generateLayoutParams(attrs);</span><br><span class="line"></span><br><span class="line">                        if (!attachToRoot) &#123;</span><br><span class="line"></span><br><span class="line">                            // Set the layout params for temp if we are not</span><br><span class="line"></span><br><span class="line">                            // attaching. (If we are, we use addView, below)</span><br><span class="line"></span><br><span class="line">                            temp.setLayoutParams(params);</span><br><span class="line"></span><br><span class="line">                        &#125;</span><br><span class="line"></span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">                    if (DEBUG) &#123;</span><br><span class="line"></span><br><span class="line">                        System.out.println(&quot;-----&gt; start inflating children&quot;);</span><br><span class="line"></span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">                    // Inflate all children under temp against its context.</span><br><span class="line"></span><br><span class="line">                    rInflateChildren(parser, temp, attrs, true);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">                    if (DEBUG) &#123;</span><br><span class="line"></span><br><span class="line">                        System.out.println(&quot;-----&gt; done inflating children&quot;);</span><br><span class="line"></span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">                    // We are supposed to attach all the views we found (int temp)</span><br><span class="line"></span><br><span class="line">                    // to root. Do that now.</span><br><span class="line"></span><br><span class="line">                    if (root != null &amp;&amp; attachToRoot) &#123;</span><br><span class="line"></span><br><span class="line">                        root.addView(temp, params);</span><br><span class="line"></span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">                    // Decide whether to return the root that was passed in or the</span><br><span class="line"></span><br><span class="line">                    // top view found in xml.</span><br><span class="line"></span><br><span class="line">                    if (root == null || !attachToRoot) &#123;</span><br><span class="line"></span><br><span class="line">                        result = temp;</span><br><span class="line"></span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            &#125; catch (XmlPullParserException e) &#123;</span><br><span class="line"></span><br><span class="line">                InflateException ex = new InflateException(e.getMessage());</span><br><span class="line"></span><br><span class="line">                ex.initCause(e);</span><br><span class="line"></span><br><span class="line">                throw ex;</span><br><span class="line"></span><br><span class="line">            &#125; catch (Exception e) &#123;</span><br><span class="line"></span><br><span class="line">                InflateException ex = new InflateException(</span><br><span class="line"></span><br><span class="line">                        parser.getPositionDescription()</span><br><span class="line"></span><br><span class="line">                                + &quot;: &quot; + e.getMessage());</span><br><span class="line"></span><br><span class="line">                ex.initCause(e);</span><br><span class="line"></span><br><span class="line">                throw ex;</span><br><span class="line"></span><br><span class="line">            &#125; finally &#123;</span><br><span class="line"></span><br><span class="line">                // Don&apos;t retain static reference on context.</span><br><span class="line"></span><br><span class="line">                mConstructorArgs[0] = lastContext;</span><br><span class="line"></span><br><span class="line">                mConstructorArgs[1] = null;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            Trace.traceEnd(Trace.TRACE_TAG_VIEW);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            return result;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>总结一下，就是：</p>
+            <h2 id="第三章-垃圾收集器与内存分配策略"><a href="#第三章-垃圾收集器与内存分配策略" class="headerlink" title="第三章 垃圾收集器与内存分配策略"></a>第三章 垃圾收集器与内存分配策略</h2><h2 id="对象已死吗？"><a href="#对象已死吗？" class="headerlink" title="对象已死吗？"></a>对象已死吗？</h2><h2 id="1-引用计数法"><a href="#1-引用计数法" class="headerlink" title="1.引用计数法"></a>1.引用计数法</h2><p>1.主流的Java虚拟机里面没有选用引用计数算法来管理内存，其中最主要的原因是他很难解决对象之间互相引用的问题。  </p>
+<h2 id="2-可达性分析算法"><a href="#2-可达性分析算法" class="headerlink" title="2.可达性分析算法"></a>2.可达性分析算法</h2><p>1.主流的商用程序语言的主流实现中都是用可达性分析来判断对象是否存活的2.从一个起始对象GC Roots开始向下搜索，搜索所走过的路径称为引用链，档一个对象到GC Roots没有任何引用链时，即从GC Roots到这个对象不可达，则证明此对象是不可用的3.在Java语言中，可作为GC Roots的对象包括一下四种：</p>
 <ul>
-<li>若attachToRoot为true且root不为null，则调用root.addView()方法</li>
-<li>若root为null，或者attachToRoot为false，则直接将temp赋于result(temp是通过root构造的，result就是root)</li>
+<li>虚拟机栈（栈帧中的本地变量表）中引用的对象  </li>
+<li>方法区中类静态属性引用的对象  </li>
+<li>方法区中常亮引用的对象  </li>
+<li>本地方法栈中JNI引用的对象  </li>
 </ul>
-<h2 id="何时为true，何时为false"><a href="#何时为true，何时为false" class="headerlink" title="何时为true，何时为false?"></a>何时为true，何时为false?</h2><p>就拿我们的Adapter来说吧，在创建item布局时，有下列几种情况：</p>
+<h2 id="3-再谈引用"><a href="#3-再谈引用" class="headerlink" title="3.再谈引用"></a>3.再谈引用</h2><p>1.Java的引用可以分为强引用、软引用、弱引用、虚引用：  </p>
 <ul>
-<li>inflate(<a href="http://r.layout.xxx/" target="_blank" rel="noopener">R.layout.xxx</a>,null);</li>
-<li>inflate(<a href="http://r.layout.xxx/" target="_blank" rel="noopener">R.layout.xxx</a>,parent,false);</li>
-<li>inflate(<a href="http://r.layout.xxx/" target="_blank" rel="noopener">R.layout.xxx</a>,parent,true);</li>
+<li>强引用：是指在程序代码中直接存在的引用，譬如引用new操作符创建的对象。只要强引用还存在，垃圾收集器就永远不会回收掉被引用的对象  </li>
+<li>软引用：还有用但是并非必需的引用，早系统将要发生内存溢出异常之前会把这些对象列进回收范围中进行二次回收，若还是没有足够的内存，才会抛出内存溢出异常  </li>
+<li>弱引用：非必需的对象，只能生存到下一次垃圾收集发生之前。当垃圾收集器工作时，无论内存是否够用都将回收这些对象  </li>
+<li>虚引用：一个对象是否有虚引用的存在完全不会对他的生存时间构成影响，也无法通过虚引用来取得一个对象实例  </li>
 </ul>
-<p>那么就讲一下这三种情况把。</p>
-<p>首先，inflate(<a href="http://r.layout.xxx/" target="_blank" rel="noopener">R.layout.xxx</a>,null) 。这是最简单的写法，这样生成的布局就是根据R.layout.xxx返回的View。要知道，这个布局文件中的宽高属性都是相当于父布局而言的。由于没有指定parent，所以他的宽高属性就失效了，因此不管你怎么改宽高属性，都无法按你想象的那样显示。</p>
-<p>然后，inflate(<a href="http://r.layout.xxx/" target="_blank" rel="noopener">R.layout.xxx</a>,parent,false)。相较于前者，这里加了父布局，不管后面是true还是false，由于有了parent，布局文件的宽高属性是有依靠了，这时候显示的宽高样式就是布局文件中的那样了。</p>
-<p>最后，inflate(<a href="http://r.layout.xxx/" target="_blank" rel="noopener">R.layout.xxx</a>,parent,true)。这样……等等，报错了？？？哦，不要惊奇，分析一下原因：首先，有了parent，所以可以正确处理布局文件的宽高属性。然后，既然attachToRoot为true，那么根据上面的源码就会知道，这里会调用root的addView方法。而如果root是listView等，由于他们是继承自AdapterView的，看看AdapterView的addView方法： </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line"></span><br><span class="line">    public void addView(View child) &#123;</span><br><span class="line"></span><br><span class="line">        throw new UnsupportedOperationException(&quot;addView(View) is not supported in AdapterView&quot;);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>不资磁啊，那好吧，如果换成RecyclerView呢？还是报错了，看看源码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">if (child.getParent() != null) &#123;</span><br><span class="line"></span><br><span class="line">            throw new IllegalStateException(&quot;The specified child already has a parent. &quot; +</span><br><span class="line"></span><br><span class="line">                    &quot;You must call removeView() on the child&apos;s parent first.&quot;);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
-<p>现在知道了吧，adpater里面不要用true。那么什么时候用true呢？答案是fragment。在为fragment创建布局时，如果为true，那么这个布局文件就会被添加到父activity中盛放fragment的布局中。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/22/java-proxy/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="靖然是你">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/07/22/java-proxy/" itemprop="url">动态代理&静态代理</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2017-07-22T12:00:00+08:00">
-                2017-07-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>代理，就是对类做一个包装，通过使用这个包装好的类来使用本来要用的类，这样可以额外做一些操作。<br>代理分为静态代理和动态代理。</p>
-<h3 id="静态代理"><a href="#静态代理" class="headerlink" title="静态代理"></a>静态代理</h3><pre><code>实现起来很简单，一个接口用来提供要实现的方法，一个被代理类和一个代理类都要实现这个接口。同时，被代理类实现接口的方法后要做自己要做的事，而代理类则要在内部创建一个被代理类的实例，然后在实现的接口的方法中调用被代理类的那个方法，同时做一些自己的修饰。
-</code></pre><h3 id="动态代理"><a href="#动态代理" class="headerlink" title="动态代理"></a>动态代理</h3><p>不同于静态代理，动态代理的需求是当前有很多很多被代理类，要采用类似的代理方式。这个时候就要采用动态代理了。同样要定义接口及被代理类，区别在于代理类是通过反射动态生成的。具体：实现InvocationHandler这个接口，持有一个被代理类的对象object，然后实现：<br>/**</p>
-<pre><code> * 返回代理对象
- * @return
- */
-public Object newProxyInstance() {
-    return Proxy.newProxyInstance(proxied.getClass().getClassLoader(), proxied.getClass().getInterfaces(), this);
-}
-</code></pre><p>这个方法是用来获得代理的对象。然后最重要的是要实现：<br>/**</p>
-<pre><code> * 
- * @param proxy 代理对象
- * @param method 代理方法
- * @param args 方法参数
- * @return
- * @throws Throwable
- */
-@Override
-public Object invoke(Object proxy, Method method, Object[] args) throws Throwable { 
-    //将代理对象生成字节码到F盘上，方便反编译出java文件查看，实际动态代理是不需要自己生成的
-    addClassToDisk(proxy.getClass().getName(), ProxyClassImpl.class,&quot;F:/$Proxy0.class&quot;);
-    System.out.println(&quot;method:&quot;+method.getName());  
-    System.out.println(&quot;args:&quot;+args[0].getClass().getName());  
-    System.out.println(&quot;Before invoke method...&quot;);  
-    Object object=method.invoke(proxied, args);
-    System.out.println(&quot;After invoke method...&quot;);  
-    return object;  
-</code></pre><p>这个方法是用来调用构造器的。具体使用时，我们不需要使用invoke方法，只是：<br>1.获得被代理类的一个对象，传给handler来获得代理类<br>2.调用handler的newInstance方法获取一个代理类对象<br>3.这个时候已经生成好了代理类，我们可以直接用这个代理对象</p>
+<h2 id="4-生存还是死亡"><a href="#4-生存还是死亡" class="headerlink" title="4.生存还是死亡"></a>4.生存还是死亡</h2><p>1.要真正宣告一个对象死亡，需要两个标记过程：</p>
+<ul>
+<li>若对象在进行可达性分析后发现没有与GC Roots相连接的引用链，会被第一次标记并筛选。筛选的条件是此对象是否有必要执行finalize()方法  </li>
+<li>finalize()方法是对象逃脱死亡的最后一次机会，稍后GC会对对象进行第二次标记  </li>
+</ul>
+<p>2.当对象没有覆盖finalize()方法或者finalize()方法已经由虚拟机调用过，都视为finalize()没有必要执行  </p>
+<h2 id="5-回收方法区"><a href="#5-回收方法区" class="headerlink" title="5.回收方法区"></a>5.回收方法区</h2><p>1.永久代的垃圾收集主要回收两部分内容：废弃常量和无用的类2.类需要同时满足一下三个条件才能算是“无用的类”：</p>
+<ul>
+<li>该类所有的实例都已经被回收，即Java堆中不再有该类的实例  </li>
+<li>加载该类的ClassLoader已经被回收  </li>
+<li>该类对应的java.lang.Class对象没有在任何地方被调用，无法在任何地方通过反射访问该类的方法  </li>
+</ul>
+<h2 id="垃圾收集算法"><a href="#垃圾收集算法" class="headerlink" title="垃圾收集算法"></a>垃圾收集算法</h2><h2 id="1-标记-清楚算法"><a href="#1-标记-清楚算法" class="headerlink" title="1.标记-清楚算法"></a>1.标记-清楚算法</h2><p>1.算法分为两个阶段：标记和清除  </p>
+<ul>
+<li>标记：标记所有需要回收的对象  </li>
+<li>清除：统一回收所有被标记的对象  </li>
+</ul>
+<p>2.优点:简单，是后面其他算法的基础3.缺点：标记和清除的效率很低；标记清除之后会产生大量不连续的内存碎片，空间碎片太多会导致以后遇到大对象的时候无法找到足够的内存  </p>
+<h2 id="2-复制算法"><a href="#2-复制算法" class="headerlink" title="2.复制算法"></a>2.复制算法</h2><p>1.思路：将可用内存按容量分为两个块，每次只用其中之一。当这一块内存用完之后，将还存活的对象复制到另一边去，然后清除所有已经使用过的部分2.优点：实现简单，运行高效3.缺点：代价是将内存缩小了一部分，而且可能会需要额外的担保空间  </p>
+<h2 id="3-标记-整理算法"><a href="#3-标记-整理算法" class="headerlink" title="3.标记-整理算法"></a>3.标记-整理算法</h2><p>1.思路：标记过程和标记-清除一样，但是后续步骤不是直接对可回收对象进行清理，而是将所有活着的对象向一端移动，然后直接清理掉端边界以外的内存  </p>
+<h2 id="4-分代收集算法"><a href="#4-分代收集算法" class="headerlink" title="4.分代收集算法"></a>4.分代收集算法</h2><p>1.当前商用虚拟机都采用了这种算法，根据对象的存活周期将内存划分为几块，一般是把Java堆分为新生代和老生代，根据各个年代采用适当的收集算法2.新生代一般采用复制算法，老生代一搬采用 标记-清理 或者标记-整理 进行回收  </p>
+<h2 id="HotSpot的算法实现"><a href="#HotSpot的算法实现" class="headerlink" title="HotSpot的算法实现"></a>HotSpot的算法实现</h2><h2 id="1-枚举根节点"><a href="#1-枚举根节点" class="headerlink" title="1.枚举根节点"></a>1.枚举根节点</h2><p>1.目前主流的Java虚拟机使用的都是准确式GC，当执行系统停顿下来后并不需要一个不漏的检查完所有执行上下文和全局的引用变量，虚拟机应当有办法直接得知哪些地方存着对象的引用2.HotSpot使用一组称为OopMap的数据结构来记录哪些地方存着对象的引用3.在类加载过程中，HotSpot就把对象内什么偏移量上是什么类型的数据计算出来，在JIT编译过程中会在特定的位置记录下栈和寄存器中哪些位置是引用  </p>
+<h2 id="2-安全点"><a href="#2-安全点" class="headerlink" title="2.安全点"></a>2.安全点</h2><p>1.HotSpot没有为每条指令都生成OopMap，只是在特定位置记录了这些信息，这些位置称为安全点2.程序执行时并非在所有地方都能停顿下来开始GC，只有在到达安全点时才能暂停3.给多线程记录安全点时有两种方案：抢先式中断 和 主动式中断4.主动式中断的思想是当GC需要中断线程时不直接对线程进行操作，仅仅简单的设置一个标志，各个线程执行时主动去轮询这个标志，发现中断标志为真时就自己中断挂起  </p>
+<h2 id="3-安全区域"><a href="#3-安全区域" class="headerlink" title="3.安全区域"></a>3.安全区域</h2><p>1.为了处理“不执行”的程序的安全点问题，提出了安全区域来解决问题2.安全区域是指在一段代码片段之中，引用关系不会发生变化，在这个区域内的任何地方进行GC都是安全的3.虚拟机如歌具体的进行内存回收是由虚拟机所采用的GC收集器决定的，而通常虚拟机中往往不止有一种GC收集器  </p>
+<h2 id="垃圾收集器"><a href="#垃圾收集器" class="headerlink" title="垃圾收集器"></a>垃圾收集器</h2><ul>
+<li>如果说收集算法是内存回收的方法论，那么垃圾收集器就是内存回收的具体实现  </li>
+<li>不同的收集器应用的区域不同，到现在为止没有最好的收集器，也没有万能的收集器  </li>
+</ul>
+<h2 id="1-Serial收集器"><a href="#1-Serial收集器" class="headerlink" title="1.Serial收集器"></a>1.Serial收集器</h2><p>1.Serail收集器是“单线程”的，他在进行垃圾收集时必须暂停其他的所有线程，直到收集结束2.随着收集器的发展，用户线程的停顿时间越来越段，但任然无法消除3.Serial收集器是虚拟机运行在Client模式下默认的新生代收集器4.对于单个CPU坏境来说，Serial收集器由于没有线程交互的开销，专心做垃圾收集，可以获得很高的单线程收集效率  </p>
+<h2 id="2-ParNew收集器"><a href="#2-ParNew收集器" class="headerlink" title="2.ParNew收集器"></a>2.ParNew收集器</h2><p>1.ParNew收集器是Serial收集器的多线程版本2.ParNew收集器是运行在Server模式下虚拟机中首选的新生代收集器3.在垃圾收集器中“并发”与“并行”的概念：</p>
+<ul>
+<li>并行：多条垃圾收集线程并行工作，但此时用户线程仍然处于等待状态  </li>
+<li>并发：用户线程与垃圾收集线程同时执行（但不一定是并行的，可能会交替执行），用户程序在继续运行，而垃圾收集程序运行在另一个CPU上</li>
+</ul>
+<h2 id="3-Parallel-Scavenge收集器"><a href="#3-Parallel-Scavenge收集器" class="headerlink" title="3.Parallel Scavenge收集器"></a>3.Parallel Scavenge收集器</h2><p>1.Parallel Scavenge收集器是一个新生代收集器，采用复制算法2.Parallel Scavenge收集器的特点是他的关注点与其他收集器不同。其他收集器的目标是尽可能的缩短用户线程的停顿时间，而Parallel Scavenge收集器的目标是达到一个可控的吞吐量3.高吞吐量可以高效的利用CPU时间，尽快得完成程序的运算任务，主要适合在后台运算而不需要太多交互的任务4.GC停顿时间的缩短是以牺牲吞吐量和新生代空间来换取的5.Parallel Scavenge收集器也经常被称为“吞吐量优先”收集器  </p>
+<h2 id="4-Serail-Old收集器"><a href="#4-Serail-Old收集器" class="headerlink" title="4.Serail Old收集器"></a>4.Serail Old收集器</h2><p>1.Serial Old收集器是Serail收集器的老年代版本，是一个单线程收集器，使用标记-整理算法2.Serail Old收集器主要用于Clinet模式下3.Serail Old收集器另一种用途是作为CMS收集器的后备预案  </p>
+<h2 id="5-Parallel-Old收集器"><a href="#5-Parallel-Old收集器" class="headerlink" title="5.Parallel Old收集器"></a>5.Parallel Old收集器</h2><p>Parallel Old收集器是Parallel Scavenge收集器的老年代版本，使用多线程和标记-整理算法2，在注重吞吐量和CPU资源敏感的场合，都可以优先考虑Parallel Scavenge加Parallel Old收集器  </p>
+<h2 id="6-CMS收集器"><a href="#6-CMS收集器" class="headerlink" title="6.CMS收集器"></a>6.CMS收集器</h2><p>1.CMS收集器是一种以获取最短的回收停顿时间为目标的收集器2.CMS收集器基于标记-清楚算法实现，分为四个步骤：初始标记、并发标记、重新标记、并发清除3.步骤详解：</p>
+<ul>
+<li>初始标记：标记一下GC Roots能直接关联到的对象，速度很快  </li>
+<li>并发标记：进行GC Roots Tracing  </li>
+<li>重新标记：是为了修正那些在并发标记期间因用户程序继续运作而导致标记产生变动的那一部分对象的标记记录，在这一阶段的停顿时间会比初始标记阶段稍长一点  </li>
+</ul>
+<p>4.从总体上说，CMS收集器的内存回收过程是与用户线程一起并发执行的5.CMS收集器的缺点：  </p>
+<ul>
+<li>CMS收集器对CPU资源非常敏感  </li>
+<li>CMS收集器无法处理浮动垃圾，可能出现“Concurrent Mode Failure”失败而导致另一次Full FC的产生  </li>
+<li>由于CMS收集器采用了标记-清除算法，所以在回收结束时会有大量空间碎片产生，碎片过多时，在给大对象分配内存时会有很大麻烦  </li>
+</ul>
+<h2 id="7-G1收集器"><a href="#7-G1收集器" class="headerlink" title="7.G1收集器"></a>7.G1收集器</h2><p>1.G1收集器是一款面向服务端应用的垃圾收集器2.G1收集器具备以下特点：  </p>
+<ul>
+<li>并行与并发  </li>
+<li>分代收集</li>
+<li>空间整合：从整体上来看是基于“标记-整理”算法实现的，在局部上是基于复制算法实现的  </li>
+<li>可预测的停顿   </li>
+</ul>
+<p>3.G1收集器将整个Java堆划分为多个大小相等的独立区域，虽然还保留有新生代和老生代的概念，但新生代和老生代不再是物理隔的了，他们是一部分Region的集合4.G1收集器可以有计划地避免在整个Java堆中进行全区域的垃圾收集：跟踪各个Region里面的垃圾堆积的价值大小，在后台维护一个优先列表，每次根据允许的收集时间，优先回收价值最大的Region5.在G1收集器中，使用Remembered Set来避免全堆扫描   </p>
+<h2 id="内存分配与回收的策略"><a href="#内存分配与回收的策略" class="headerlink" title="内存分配与回收的策略"></a>内存分配与回收的策略</h2><p>对象的内存分配，往大方向讲，就是在堆上分配，主要分配在新生代的Eden区上，如果启动了本地线程分配缓冲，将按线程优先在TLAB上分配，少数情况也可能会直接分配在老年代中，具体的分配规则取决于虚拟机自己的设置  </p>
+<h2 id="1-对象优先在Eden区分配"><a href="#1-对象优先在Eden区分配" class="headerlink" title="1.对象优先在Eden区分配"></a>1.对象优先在Eden区分配</h2><p>1.大多数情况下，对象优先在新生代的Eden区分配2.当Eden区没有足够的空间时，虚拟机将发起一次Minor GC3.Minor GC与Full GC：</p>
+<ul>
+<li>Minor GC：新生代GC，非常频繁，回收速度快  </li>
+<li>Fulll GC：老年代GC，又称为Major GC，经常会伴随一次Minor GC，速度比较慢  </li>
+</ul>
+<h2 id="2-大对象直接进入老年代"><a href="#2-大对象直接进入老年代" class="headerlink" title="2.大对象直接进入老年代"></a>2.大对象直接进入老年代</h2><p>1.大对象是指需要大量连续的内存空间的Java对象2.虚拟机提供了一个参数：PretenureSizeThreshold，大于这个参数的对象将直接在老年代分配  </p>
+<h2 id="3-长期存活的对象将进入老年代"><a href="#3-长期存活的对象将进入老年代" class="headerlink" title="3.长期存活的对象将进入老年代"></a>3.长期存活的对象将进入老年代</h2><p>1.虚拟机给每个对象定义了一个对象年龄计数器（Age），对象每经过一次Minor GC后仍然存活，且能被Survivor容纳的话，年龄就 +1 ，当年龄增加到一定程度（默认为15），就会被晋升到老年代中，这个阈值可以通过参数 MaxTenuringThreshold 来设置  </p>
+<h2 id="4-动态对象年龄的判定"><a href="#4-动态对象年龄的判定" class="headerlink" title="4.动态对象年龄的判定"></a>4.动态对象年龄的判定</h2><p>1.为了更好的适应不同程序的内存状况，对象年龄不是必须到达阈值才会进入老年代2.当Survivor空间中相同年龄所有对象大小的总和大于Survivor空间的一半，或年龄大于等于该年龄的对象就可以直接进入老年代  </p>
+<h2 id="5-空间分配担保"><a href="#5-空间分配担保" class="headerlink" title="5.空间分配担保"></a>5.空间分配担保</h2><p>1.在发生Minor GC之前，虚拟机会首先检查老年代可用最大内存空间是否大于新生代对象总空间—若大于，则会进行一次安全的Minor GC2.若上述条件不成立，则虚拟机会查看HandlePromotionFailure设置值是否允许担保失败，若不允许，则进行一次FULL GC3.若允许担保失败，则虚拟机会检查老年代最大可用的连续空间是否大于历次晋升到老年代的对象的平均大小，若大于，则进行一次冒险的Minor GC，否则进行一次FULL GC4.若担保失败，还是会进行一次FULL GC。之所以要冒险的原因是为了避免频繁的FULL GC  </p>
 
           
         
@@ -1462,7 +1462,7 @@ public Object invoke(Object proxy, Method method, Object[] args) throws Throwabl
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/22/android-viewbus/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
+      <meta itemprop="name" content="Levent-J">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
@@ -1488,9 +1488,9 @@ public Object invoke(Object proxy, Method method, Object[] args) throws Throwabl
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">發表於</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2017-07-22T10:00:00+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-22T10:00:00+08:00">
                 2017-07-22
               </time>
             
@@ -1635,7 +1635,7 @@ public Object invoke(Object proxy, Method method, Object[] args) throws Throwabl
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/19/android-ipc/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
+      <meta itemprop="name" content="Levent-J">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
@@ -1661,9 +1661,9 @@ public Object invoke(Object proxy, Method method, Object[] args) throws Throwabl
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">發表於</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2017-07-19T12:00:00+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-19T12:00:00+08:00">
                 2017-07-19
               </time>
             
@@ -1789,7 +1789,7 @@ public Object invoke(Object proxy, Method method, Object[] args) throws Throwabl
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-author-name" itemprop="name">Levent-J</p>
               <p class="site-description motion-element" itemprop="description">一只Android小菜鸡学习之路</p>
           </div>
 
@@ -1801,7 +1801,7 @@ public Object invoke(Object proxy, Method method, Object[] args) throws Throwabl
                 <a href="/archives/">
               
                   <span class="site-state-item-count">19</span>
-                  <span class="site-state-item-name">文章</span>
+                  <span class="site-state-item-name">日志</span>
                 </a>
               </div>
             
@@ -1814,7 +1814,7 @@ public Object invoke(Object proxy, Method method, Object[] args) throws Throwabl
               <div class="site-state-item site-state-tags">
                 
                   <span class="site-state-item-count">3</span>
-                  <span class="site-state-item-name">標籤</span>
+                  <span class="site-state-item-name">标签</span>
                 
               </div>
             
@@ -1854,13 +1854,13 @@ public Object invoke(Object proxy, Method method, Object[] args) throws Throwabl
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">John Doe</span>
+  <span class="author" itemprop="copyrightHolder">Levent-J</span>
 
   
 </div>
 
 
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 強力驅動</div>
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
 
 
@@ -1868,7 +1868,7 @@ public Object invoke(Object proxy, Method method, Object[] args) throws Throwabl
 
 
 
-  <div class="theme-info">主題 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
 
 
 

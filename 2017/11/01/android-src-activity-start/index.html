@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="zh-hk">
+<html class="theme-next muse use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -86,7 +86,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/11/01/android-src-activity-start/index.html">
 <meta property="og:site_name" content="靖然是你">
 <meta property="og:description" content="Activity启动流程就拿最简单的启动方式，即startActivity(Intent)来看，首先是在Activity.java中： 1234@Override   public void startActivity(Intent intent) &amp;#123;       this.startActivity(intent, null);   &amp;#125; 调用重载的startActivity(">
-<meta property="og:locale" content="zh-hk">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2018-10-16T07:09:13.331Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android源码学习笔记-Activity启动流程及生命周期函数的调用时间">
@@ -138,7 +138,7 @@
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-hk">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
   
@@ -186,7 +186,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            首頁
+            首页
           </a>
         </li>
       
@@ -196,7 +196,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            歸檔
+            归档
           </a>
         </li>
       
@@ -236,7 +236,7 @@
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/01/android-src-activity-start/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
+      <meta itemprop="name" content="Levent-J">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
@@ -260,9 +260,9 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">發表於</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2017-11-01T12:00:00+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-01T12:00:00+08:00">
                 2017-11-01
               </time>
             
@@ -364,8 +364,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/08/10/java-jvm-end/" rel="next" title="《深入理解JVM》读书总结">
-                <i class="fa fa-chevron-left"></i> 《深入理解JVM》读书总结
+              <a href="/2017/11/01/android-src-handler/" rel="next" title="Android源码学习笔记-Handelr通信">
+                <i class="fa fa-chevron-left"></i> Android源码学习笔记-Handelr通信
               </a>
             
           </div>
@@ -374,8 +374,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/11/01/android-src-handler/" rel="prev" title="Android源码学习笔记-Handelr通信">
-                Android源码学习笔记-Handelr通信 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/11/18/android-src-activity-content/" rel="prev" title="Android源码学习笔记-Activity 布局">
+                Android源码学习笔记-Activity 布局 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -430,10 +430,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目錄
+            文章目录
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            本站概覽
+            站点概览
           </li>
         </ul>
       
@@ -442,7 +442,7 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-author-name" itemprop="name">Levent-J</p>
               <p class="site-description motion-element" itemprop="description">一只Android小菜鸡学习之路</p>
           </div>
 
@@ -454,7 +454,7 @@
                 <a href="/archives/">
               
                   <span class="site-state-item-count">19</span>
-                  <span class="site-state-item-name">文章</span>
+                  <span class="site-state-item-name">日志</span>
                 </a>
               </div>
             
@@ -467,7 +467,7 @@
               <div class="site-state-item site-state-tags">
                 
                   <span class="site-state-item-count">3</span>
-                  <span class="site-state-item-name">標籤</span>
+                  <span class="site-state-item-name">标签</span>
                 
               </div>
             
@@ -523,13 +523,13 @@
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">John Doe</span>
+  <span class="author" itemprop="copyrightHolder">Levent-J</span>
 
   
 </div>
 
 
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 強力驅動</div>
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
 
 
@@ -537,7 +537,7 @@
 
 
 
-  <div class="theme-info">主題 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
 
 
 
