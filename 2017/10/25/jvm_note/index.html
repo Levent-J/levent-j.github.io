@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java,Jvm," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前段时间看完了《深入理解Java虚拟机》，收获很多，在阅读过程记录了笔记">
+<meta name="keywords" content="Java,Jvm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《深入理解Java虚拟机》读书笔记">
+<meta property="og:url" content="http://yoursite.com/2017/10/25/jvm_note/index.html">
+<meta property="og:site_name" content="靖然是你">
+<meta property="og:description" content="前段时间看完了《深入理解Java虚拟机》，收获很多，在阅读过程记录了笔记">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-10-25T03:22:09.540Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《深入理解Java虚拟机》读书笔记">
+<meta name="twitter:description" content="前段时间看完了《深入理解Java虚拟机》，收获很多，在阅读过程记录了笔记">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/10/25/jvm_note/"/>
+
+
+
+
+
+  <title>《深入理解Java虚拟机》读书笔记 | 靖然是你</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">靖然是你</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">哇啦啦啦</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/25/jvm_note/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Levent-J">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="靖然是你">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">《深入理解Java虚拟机》读书笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-25T11:08:26+08:00">
+                2017-10-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  前段时间看完了《深入理解Java虚拟机》，收获很多，在阅读过程记录了笔记
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>首先，java程序可以“一次编写，到处运行”就是因为有Java虚拟机这个东西作为容器。Java虚拟机作为一个中间层，向上接受由我们编写的代码生成的字节码，向下给机器提供可以被直接执行的目标代码，这就有了Java的“平台无关性”的基础。通过这个定义我们知道，一切可以编译出字节码的语言都可以获得这种“平台无关性”，也就是说像一些类Java语言比如Groovy Scala等，因为用他们也可以生成字节码，所以也可以用Java虚拟机来执行，也就具有了平台无关性。所以Java虚拟机并不只是为Java这一种语言服务的，他在一开始被创造出来的时候就被明确要具有这种拓展性。Android虚拟机其实也就是Java虚拟机的一种衍生，通过学习Java虚拟机对Android开发也是有帮助的。Java虚拟机对Java的支持可以从以下几个方面来讲：内存管理机制，类加载机制和优化。</p>
+<h1 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h1><p>先说内存管理。内存管理，就是Java虚拟机在运行时管理如何为程序划分内存区域，如何分配内存，内存用完如何回收。</p>
+<h3 id="内存区域"><a href="#内存区域" class="headerlink" title="内存区域"></a>内存区域</h3><p>先讲一下内存区域的划分。Java虚拟机把内存分为很多数据区域，不同的区域用途和生存周期不同。我们常常直接接触到的是运行时数据区，可以细分为：方法区、堆、虚拟机栈、本地方法栈、程序计数器。这几个区域中，方法区和堆是所有线程共享的，所有线程都可以访问，而虚拟机栈、本地方法栈、程序计数器是线程隔离的，每个线程有自己独立的区域，线程之间是不共享的。</p>
+<ul>
+<li>程序计数器：相当于一个程序执行过程中的行号指示器，类似于操作系统中的ip，指向当前执行的虚拟机字节码地址。如果执行的是Java方法，计数器就记录者正在执行的虚拟机字节码指令的地址。如果是native 方法，计数器为空</li>
+<li>虚拟机栈：虚拟机栈就是java方法的内存模型，每一个线程在执行时会有自己的一个虚拟机栈，在运行过程中把所调用方法封装为一个栈帧，然后将栈帧存放在栈里面。栈帧包含了一个方法执行时的相关信息，包括方法用到的局部变量，操作数，动态链接等。</li>
+<li>本地方法栈：类似于虚拟机栈，只不过他存放的是Native方法。</li>
+<li>堆：堆是相对来说占内存最大的一块，用来存放所有线程创建的类的对象实例。方法调用中如果创建了对象，会把这个对象实例存放在堆，然后将对于这个对象的引用存放在栈中，这样就可以方法对象了。对于内存的回收，也就是对堆内存的回收了。</li>
+<li>方法区：存放虚拟机加载的类的信息和一些常量、静态变量等，这些内容一般是不可变的。</li>
+</ul>
+<h3 id="OOM和StackOverFlow"><a href="#OOM和StackOverFlow" class="headerlink" title="OOM和StackOverFlow"></a>OOM和StackOverFlow</h3><p>OOM和StackOverFlow就是在运行时数据区出现的。前面说了，虚拟机栈会把每次调用的方法作封装为一个栈帧存起来。这些栈帧肯定是要占内存的，而栈的内存也是有限的。如果栈帧很多一直没有释放，这时候又来了一个栈帧，这个栈帧已经没有空间可以容纳了，有两种情况。如果这种虚拟机栈不支持动态扩展，那么将会抛出StackOverFlow异常。如果支持动态扩展，那么这个栈会请求再扩展部分空间。当然内存不是无穷的，如果频繁的扩展内存，以至于无法再继续扩展了，这时候会抛出OutOfMemory异常。</p>
+<p>除此之外，堆得空间也是有限的。由于创建的对象都是要在堆中分配内存，那么如果堆中空间不足，没有足够的内存空间用来给新的对象分配内存，这时候也会抛出OutOfMemory异常。</p>
+<h3 id="内存分配与回收"><a href="#内存分配与回收" class="headerlink" title="内存分配与回收"></a>内存分配与回收</h3><p>创建一个对象，就在堆中给这个内存分配一块内存。当对象不再被使用，所占的内存就被回收，用来给其他对象。要回收内存，就要知道哪些对象会被回收，什么时候会被回收，回收的具体算法是怎么一个操作。</p>
+<h4 id="对象的创建——分代"><a href="#对象的创建——分代" class="headerlink" title="对象的创建——分代"></a>对象的创建——分代</h4><p>一个对象的创建过程很简单，比如我new一个对象，虚拟机发现这条指令后，会先看看new 后面跟着的那个参数能否在常量池中定位到一个类的符号引用，并且检查那个类是否已经被加载过。如果没有，则进行一次类的加载工作（具体细节后面会讲）。加载完成后，虚拟机会为新的对象在堆中分配一块内存，具体分配多少，在类加载完之后其实就已经定了。分配完内存，之后会将这个对象的实例字段初始化为零值。最后，会对对象进行一些设置，比如设置哈希码，分代年龄信息，这个对象属于哪个类之类的。</p>
+<p>这一系列工作做完，这个对象才算是被创建成功了，之后才会去调用相关代码，按照我们的意愿真正做一次初始化。</p>
+<p>创建好一个对象，还需要一个引用来持有他，这样我们才能使用。引用是放在虚拟机栈 栈帧的本地变量表中的。引用有两种形式，一种是直接持有对象地址，一种是持有一个句柄，句柄保存在堆中，包含着对象的地址，是间接访问。直接访问速度快，间接访问在对象频繁移动时比较有优势。</p>
+<h4 id="哪些对象会被回收？——可达性分析算法"><a href="#哪些对象会被回收？——可达性分析算法" class="headerlink" title="哪些对象会被回收？——可达性分析算法"></a>哪些对象会被回收？——可达性分析算法</h4><p>选择回收哪些对象，虚拟机有很多算法，常见的有引用计数法和可达性分析算法。引用计数法的思路就是为每一个对象设一个值，用来计算被引用的次数。只要有一个对于对象的引用存在，就让这个数字加一。这样如果一个对象没有任何引用，那么引用计数为零，这个对象就会被标记为“可回收”。但是这样有一个很严重的bug，那就是如果我有两个对象，已经不再使用，但是他们互相引用，那么他们的引用计数就永远不会为零，那么就不会被回收。</p>
+<p>现在大部分虚拟机都采用了“可达性分析算法”，这一算法显然要比引用计数法不知道高到哪里去了。他的思想是，将一些特定的对象作为GC Roots，然后从这个节点向下寻找对其他对象的引用。如果一个对象到GC Roots没有引用链，那么就可以被回收了。在Java虚拟机中，被规定作为GC Roots的对象有：</p>
+<ul>
+<li>虚拟机栈中引用的对象</li>
+<li>方法区中 静态属性引用的对象</li>
+<li>方法区中 常量引用的对象</li>
+<li>JNI引用的对象</li>
+</ul>
+<p>所以我们日常开发过程中遇到的内存泄漏，很大一部分原因就是本该被回收的对象无意之中被GC Roots引用到了，比如写的static这样的静态字段引用的对象，这样他就不会被回收了</p>
+<h4 id="回收的算法？——多种混合"><a href="#回收的算法？——多种混合" class="headerlink" title="回收的算法？——多种混合"></a>回收的算法？——多种混合</h4><p>知道哪些对象要被回收，接下来就是具体如何回收的问题了。垃圾回收算法有很多，常见的有标记-清楚法，标记-整理法，复制算法，分代收集等。现在的虚拟机基本上都是采用以分代收集为基础，搭配其他算法一起合作完成的。这些算法就不一一介绍了，有兴趣大家可以查一查。</p>
+<p>具体：根据对象的生存周期对内存划分为新生代 老生代，在新生代中因为每次都会有大量对象被回收，比较频繁，因此采用了复制算法。而老生代相对来说回收的对象少，没那么频繁，而且对象普遍比较大，因此采用了标记-清楚或标记-整理算法。</p>
+<h4 id="回收的过程？——双重标记"><a href="#回收的过程？——双重标记" class="headerlink" title="回收的过程？——双重标记"></a>回收的过程？——双重标记</h4><p>具体的回收过程是，当在GC时发现一个对象可被回收，就会先对他做一次标记，这是第一次标记。之后会筛选一下，如果一个对象的finalized()方法是否有必要被执行。如果有，那么就会被放置到一个队列中，之后虚拟机会单独的处理这一队列中的对象，依次调用他们的finalized()方法，这里是对象复活的唯一机会。之后又会统一进行一次标记，如果这次标记标记成功，那么对象就会被认定为死亡，会立刻被回收。</p>
+<h4 id="GC的时机？——动态年龄判定"><a href="#GC的时机？——动态年龄判定" class="headerlink" title="GC的时机？——动态年龄判定"></a>GC的时机？——动态年龄判定</h4><p>虚拟机针对对内存回收，又把堆分为了两个区，新生代和老年代。新生代又分为一个Eden区和两个Survivor区。每次分配内存，如果对象比较大的话直接进入老年代。否则，先进入Eden区和一个Survivor区，同时会为每一个对象设一个年龄值。之后会周期性的在某个安全点检查一下，对于新生代的对象，将可回收的对象回收掉，将剩余的对象复制到另一个Survivor区，这一过程中会对年龄值加一。这一过程叫做Minor GC，是属于新生代的GC。当某些对象年龄值比较大时，会将他们移动到老年代去。当然在这之前会先查看一下老年代剩余空间是否满足移动。如果不能满足，就会对老年代进行一次GC，这一过程叫做Full GC。而这个检查对象是否可GC得时机，也就是GC的时机，一般是确定的被称作“安全点”。在这一时机进行检查，是不会影响程序正常运行的。</p>
+<h4 id="灵活的控制——四大引用"><a href="#灵活的控制——四大引用" class="headerlink" title="灵活的控制——四大引用"></a>灵活的控制——四大引用</h4><p>GC的流程大致就是这样。我们知道Java中引用有四种，分别是强、软、弱、虚。这四种引用的区别就在于GC的过程中：</p>
+<ul>
+<li>强引用：直接通过类名new一个对象，这样直接创建的对对象的引用叫做强引用。被强引用的对象，一般是不会被回收掉的。</li>
+<li>软引用：被软引用持有的对象，只有在“不回收就要内存溢出”的时候，才会回收</li>
+<li>弱引用：被弱引用持有的对象，在每次GC都会被回收</li>
+<li>虚引用：无任何时机作用，只是一个标记，为了能使对象被回收时做一些系统通知什么的</li>
+</ul>
+<h1 id="类加载机制"><a href="#类加载机制" class="headerlink" title="类加载机制"></a>类加载机制</h1><p>Java实现平台无关性的基石，就是字节码。在Java虚拟机中，有一个class文件这个概念。一般情况下，每一个类都会产生一个class文件，其内容就是字节码。虚拟机执行字节码，其实就是加载了类的class文件。Android中有两种虚拟机，Dalvik虚拟机和ART虚拟机。他们属于Java虚拟机的衍生，区别在于两个：</p>
+<ul>
+<li>Java虚拟机是基于栈架构的，DVM和ART是基于寄存器架构的</li>
+<li>Java虚拟机执行的是字节码，而DVM ART都不一样。DVM会将class文件重新封装为dex文件，执行dex字节码。ART会在DVM的基础上进一步转化为本地机器码再执行。</li>
+</ul>
+<p>类加载，就是说加载每一个class，而和class相对应的也就是class文件了，所以有必要大致了解一下class文件结构。</p>
+<h3 id="Class文件结构"><a href="#Class文件结构" class="headerlink" title="Class文件结构"></a>Class文件结构</h3><p>任何一个class文件都对应着唯一一个类或者接口的定义信息。但是类或者接口又不必一定非要在class文件中（比如动态的通过类加载器加载）。class文件是一组二进制流，其中包含额类的虽有相关信息，非常紧凑的排列在一起，很严格的规定了第几位到第几位是什么，主要包含了魔数，常量池等数据信息。</p>
+<p>这不部分内容看起来还是很无聊的，主要关注其中一部门就好啦。比如一开头的4个字节是魔数，魔数的唯一作用是确定这个文件是否可以被虚拟机接受。</p>
+<p>还比如，其中有一段被称为常量池入口，这个很重要了。常量池是class文件结构与其他项目关联最多的数据类型，相当于一个资源池。通过这个常量池入口，可以获得常量池信息。常量池具体而言，存放着两种类型：字面量和符号引用。</p>
+<ul>
+<li>字面量：就是字面量，比如文本字符串这样的。</li>
+<li>符号引用：包括三种常亮：类和接口的全限定名、字段的名称和描述符、方法的名称和描述符。</li>
+</ul>
+<p>他们的作用就是在虚拟机运行时，通过常量池入口，在常量池中找到对应的符号引用，从而找到引用的类或者方法等。</p>
+<h3 id="类加载机制-1"><a href="#类加载机制-1" class="headerlink" title="类加载机制"></a>类加载机制</h3><p>类的生命周期氛围7个阶段：</p>
+<p>加载  验证  准备  解析  初始化  使用  卸载</p>
+<p>其中，验证  准备  解析 三个步骤又可以合并为  链接</p>
+<p>所以类加载的过程就是 加载 链接 初始化了</p>
+<h4 id="加载的时机——按需加载"><a href="#加载的时机——按需加载" class="headerlink" title="加载的时机——按需加载"></a>加载的时机——按需加载</h4><p>虚拟机并没有规定类的加载过程什么时候开始，只是明确了类加载的生命周期是固定的。但是比较特别的是“初始化”。我们需要用到一个类的时候，就一定要“初始化”，而其他在他之前的步骤，自然也就必须要调用了。因此可以这样概括为：加载、验证、准备、解析，这个过程是不确定的，由不同虚拟机自己控制，可能不知道哪个时候就进行了。但是当我们需要用到一个类时，就必须要立刻从加载开始执行到初始化结束，之后才能使用。</p>
+<p>那么什么时候需要这个类呢，以下几种常见情况：</p>
+<ul>
+<li>new一个对象，或者调用一个类的静态字段或者静态方法</li>
+<li>反射调用一个类</li>
+<li>子类加载前要先加载父类</li>
+<li>虚拟机刚启动时执行主类</li>
+</ul>
+<p>这些情况，都是属于对类的主动引用。</p>
+<h4 id="加载的过程——五步走"><a href="#加载的过程——五步走" class="headerlink" title="加载的过程——五步走"></a>加载的过程——五步走</h4><p>前面说过了，类的加载过程是类的生命周期前五个步骤：</p>
+<ul>
+<li><p>加载：</p>
+<ul>
+<li>通过一个类的全限定名来获取定义此类的二进制字节流</li>
+<li>将这个字节流所代表的静态存储结构转化为方法区的运行时数据结构</li>
+<li>在内存中生成一个代表这个类的class对象，作为方法区这个类的各种数据访问入口</li>
+</ul>
+<p>因为加载这个过程没有限制具体的来源，所以衍生出了很多新东西，比如Jar包的读取，从网络中加载类等。</p>
+<p>这是对于简单类而言的。对于数组，不会通过类加载器加载，而是由虚拟机直接创建，之后才会递归的加载数组中的引用类。</p>
+</li>
+<li><p>验证：验证是链接过程的第一步，目的是确保Class文件的字节流中包含的信息符合当前虚拟机的要求，且不会危害虚拟机本身的安全。验证主要有四类：</p>
+<ul>
+<li>文件格式验证：字节流是否符合Class文件格式规范</li>
+<li>元数据验证：语义分析，符合语言规范</li>
+<li>字节码验证：分析数据流，确定语义是合法的，符合逻辑的。</li>
+<li>符号引用验证：验证符号引用合法性</li>
+</ul>
+</li>
+<li><p>准备：正式为类量分配内存并设置初值。类变量要分配在方法去中，设置初值的是类变量而不是实例变量。</p>
+</li>
+<li><p>解析：将常量池内的符号引用替换为直接引用。前面说过，符号引用只是以简单的通过名称等信息指出引用的方法或类，。那么在这里才会真正的将符号引用转换为直接引用，即对于方法区类的引用。直接引用类似于指针，所以这一过程可以理解为从名称到地址的转化。</p>
+</li>
+<li><p>初始化：前面是加载和链接的过程，这里就是类加载过程的最后一步了。所谓的初始化阶段，就是真正执行在类中写的代码了。比如实例变量的初始化和构造器等。初始化阶段也可以理解为调用类的构造器的过程。</p>
+</li>
+</ul>
+<h4 id="加载的工具——类加载器"><a href="#加载的工具——类加载器" class="headerlink" title="加载的工具——类加载器"></a>加载的工具——类加载器</h4><p>前面说过，第一步“加载”过程，要通过一个类的全限定名来获取这个类的二进制字节流。这个过程，是要借助于一股虚拟机外部的工具来进行的，这一工具就是类加载器。每一个类，都有一个针对他的类加载器。两个类是否相同，不但要比较他本身，还要比较他们的类加载器。</p>
+<p>类加载器可以分为三类：</p>
+<ul>
+<li>启动类加载器：由C++编写，属于虚拟机的一部分，是属于很基础的加载器，回加载Java目录下lib中的类。</li>
+<li>扩展类加载器：可以由开发者使用</li>
+<li>应用类加载器：也叫做系统类加载器，加载用户类路径上自己指定的类，我们平时使用也基本是使用这个。</li>
+</ul>
+<p>而具体的加载逻辑，被称为“双亲委派模型”，即首先有一个根部的加载器“启动类加载器”，其下有一个儿子叫“扩展类加载器”，其下是“应用程序类加载器”，最后是“自定义类加载器”。具体流程：</p>
+<p>一个类收到了加载的请求，首先会把请求委托给父类加载，每一个加载器都是如此。这样最终会把请求交给根节点的“启动类加载器”。之后如果父加载器可以加载，就会直接加载。否则，会将请求再传下来。</p>
+<h1 id="虚拟机优化"><a href="#虚拟机优化" class="headerlink" title="虚拟机优化"></a>虚拟机优化</h1><p>Java的编译期，是一个极不确定的过程。因为Java的编译期很多，有前端编译期，有后端编译器，还有静态提前编译器。前端编译期负责将.java转化为简单的.class，后端编译器负责将字节码转换为机器码，如JIT。静态提前编译器会将.java直接翻译为本地机器码，如AOT。因此，编译期并不能很精准的分类，因此只能大概分为“早期”和“晚期”。</p>
+<h3 id="早期优化"><a href="#早期优化" class="headerlink" title="早期优化"></a>早期优化</h3><p>早期阶段，可以概括的看做前端编译器将.java转化为.class的过程。这一阶段的优化又可以称作编译期优化。</p>
+<p>这一阶段其实和其他语言的编译期优化类似，无非就是词法、语法分析，语义分析，然后做一些语言层面的优化。比如，语法糖、注解的处理，还有字符串拼接。Java语法糖不多，但是挺实用的，诸如类型擦除啊，自动拆箱、装箱啊。注解是在编译时进行优化，具体在运行时才会体现出作用。还有一个例子，我们都知道String StringBuilder StringBuffer区别。都说每次用”+”链接两个字符串的时候都会new一个String，这样会很耗内存。其实这个说法并不全对。如果仅仅是一个个拼接，哪怕是换行，编译器如果识别到，都会为我们优化，即将他们作为一个String对象。只有个别情况，比如在循环结构中频繁的链接字符串，才会出现刚才说的那个问题。</p>
+<h3 id="运行期优化"><a href="#运行期优化" class="headerlink" title="运行期优化"></a>运行期优化</h3><p>运行期优化，比较熟知的比如JIT和AOT。虚拟机之所以这样分开，是为了增加虚拟机扩展性，也就是说普通的前端编译期只接受Java。而后端编译器则可以接受像Groovy等语言。同时JIT和AOT对编译的性能优化很大，因此也就被选作Android中Java虚拟机所使用的编译器了。</p>
+<p>先说JIT，他是将字节码转换为了机器码，这是DVM采用的编译器。他的特点可以打个比方，比如让你背一首诗，而且还要当着我的面背出来，还要重复背好几次，那么你肯定需要背好久，才能一次念出来。通过JIT，我可以让你照着书，看一个字背一句。这样背起来就很轻松了。但是JIT也不一定真的就远比普通的解释器执行慢。在JVM中，JIT是针对热点代码的，对于这些代码才会进行JIT编译。因此JIT就编译本身转化过程而言也是比较慢的，快是快在执行上。还是那个例子，如果只让你大概总结一下意思，就背几句诗，那么你翻书还不如直接背的快。而对于热点诗句，你能看一眼念一句，那么这个速度是相当快的。</p>
+<p>再说AOT。AOT是直接将.java转换为本地机器码。拿上面那个例子来说，我给你的这篇古诗，其实你以前就背过一部分，所以现在再背一小部分就可以了，所以速度快，但是代价是，需要提前准备，因此占据脑容量大。</p>
+<p>在Android中，以前的DVM采用了JIT，而现在的ART采用了AOT。具体区别在于DVM编译时，安装过程比较快，占空间小，但是执行比较慢。而AOT则是安装过程慢，占空间大，但是执行快。    </p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/Jvm/" rel="tag"># Jvm</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/25/source-binder/" rel="next" title="Android源码分析-从AIDL了解Binder机制">
+                <i class="fa fa-chevron-left"></i> Android源码分析-从AIDL了解Binder机制
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/11/28/source-activity-setcontent-/" rel="prev" title="Android源码分析——Activity的绘制">
+                Android源码分析——Activity的绘制 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Levent-J</p>
+              <p class="site-description motion-element" itemprop="description">记录一只Android小菜鸡学习的点点滴滴</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内存管理"><span class="nav-number">2.</span> <span class="nav-text">内存管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#内存区域"><span class="nav-number">2.0.1.</span> <span class="nav-text">内存区域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OOM和StackOverFlow"><span class="nav-number">2.0.2.</span> <span class="nav-text">OOM和StackOverFlow</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内存分配与回收"><span class="nav-number">2.0.3.</span> <span class="nav-text">内存分配与回收</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#对象的创建——分代"><span class="nav-number">2.0.3.1.</span> <span class="nav-text">对象的创建——分代</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#哪些对象会被回收？——可达性分析算法"><span class="nav-number">2.0.3.2.</span> <span class="nav-text">哪些对象会被回收？——可达性分析算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#回收的算法？——多种混合"><span class="nav-number">2.0.3.3.</span> <span class="nav-text">回收的算法？——多种混合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#回收的过程？——双重标记"><span class="nav-number">2.0.3.4.</span> <span class="nav-text">回收的过程？——双重标记</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GC的时机？——动态年龄判定"><span class="nav-number">2.0.3.5.</span> <span class="nav-text">GC的时机？——动态年龄判定</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#灵活的控制——四大引用"><span class="nav-number">2.0.3.6.</span> <span class="nav-text">灵活的控制——四大引用</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#类加载机制"><span class="nav-number">3.</span> <span class="nav-text">类加载机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Class文件结构"><span class="nav-number">3.0.1.</span> <span class="nav-text">Class文件结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类加载机制-1"><span class="nav-number">3.0.2.</span> <span class="nav-text">类加载机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#加载的时机——按需加载"><span class="nav-number">3.0.2.1.</span> <span class="nav-text">加载的时机——按需加载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#加载的过程——五步走"><span class="nav-number">3.0.2.2.</span> <span class="nav-text">加载的过程——五步走</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#加载的工具——类加载器"><span class="nav-number">3.0.2.3.</span> <span class="nav-text">加载的工具——类加载器</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#虚拟机优化"><span class="nav-number">4.</span> <span class="nav-text">虚拟机优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#早期优化"><span class="nav-number">4.0.1.</span> <span class="nav-text">早期优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行期优化"><span class="nav-number">4.0.2.</span> <span class="nav-text">运行期优化</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Levent-J</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
