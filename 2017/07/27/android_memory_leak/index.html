@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Android,Java,内存泄漏," />
+  <meta name="keywords" content="Java,Android,内存泄漏," />
 
 
 
@@ -80,26 +80,26 @@
 
 
 <meta name="description" content="最近在项目中偶尔会发现内存泄漏现象。一开始还是一脸懵逼的查来查去，一直没有个清晰地思路。这几天闲下来，打算认真整理学习一下。我在这里从一个“如何主动造成内存泄漏”的角度来学习，然后熟悉一下不同方法检测的结果如何，这样以后再遇到相关问题时就能够很快的解决了。">
-<meta name="keywords" content="Android,Java,内存泄漏">
+<meta name="keywords" content="Java,Android,内存泄漏">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android内存泄漏那些事儿">
 <meta property="og:url" content="http://yoursite.com/2017/07/27/android_memory_leak/index.html">
 <meta property="og:site_name" content="靖然是你">
 <meta property="og:description" content="最近在项目中偶尔会发现内存泄漏现象。一开始还是一脸懵逼的查来查去，一直没有个清晰地思路。这几天闲下来，打算认真整理学习一下。我在这里从一个“如何主动造成内存泄漏”的角度来学习，然后熟悉一下不同方法检测的结果如何，这样以后再遇到相关问题时就能够很快的解决了。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/img/leak/code.jpg">
-<meta property="og:image" content="http://yoursite.com/img/leak/moniter.jpg">
-<meta property="og:image" content="http://yoursite.com/img/leak/activity1.jpg">
-<meta property="og:image" content="http://yoursite.com/img/leak/activity2.jpg">
-<meta property="og:image" content="http://yoursite.com/img/leak/analyzer.jpg">
-<meta property="og:image" content="http://yoursite.com/img/leak/results.jpg">
-<meta property="og:image" content="http://yoursite.com/img/leak/inner.jpg">
-<meta property="og:image" content="http://yoursite.com/img/leak/ref.jpg">
-<meta property="og:updated_time" content="2018-10-25T03:25:06.547Z">
+<meta property="og:image" content="http://blog-lwj.oss-cn-shenzhen.aliyuncs.com/memory-leak/code.jpg">
+<meta property="og:image" content="http://blog-lwj.oss-cn-shenzhen.aliyuncs.com/memory-leak/moniter.jpg">
+<meta property="og:image" content="http://blog-lwj.oss-cn-shenzhen.aliyuncs.com/memory-leak/activity1.jpg">
+<meta property="og:image" content="http://blog-lwj.oss-cn-shenzhen.aliyuncs.com/memory-leak/activity2.jpg">
+<meta property="og:image" content="http://blog-lwj.oss-cn-shenzhen.aliyuncs.com/memory-leak/analyzer.jpg">
+<meta property="og:image" content="http://blog-lwj.oss-cn-shenzhen.aliyuncs.com/memory-leak/results.jpg">
+<meta property="og:image" content="http://blog-lwj.oss-cn-shenzhen.aliyuncs.com/memory-leak/inner.jpg">
+<meta property="og:image" content="http://blog-lwj.oss-cn-shenzhen.aliyuncs.com/memory-leak/ref.jpg">
+<meta property="og:updated_time" content="2018-10-25T08:22:54.581Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android内存泄漏那些事儿">
 <meta name="twitter:description" content="最近在项目中偶尔会发现内存泄漏现象。一开始还是一脸懵逼的查来查去，一直没有个清晰地思路。这几天闲下来，打算认真整理学习一下。我在这里从一个“如何主动造成内存泄漏”的角度来学习，然后熟悉一下不同方法检测的结果如何，这样以后再遇到相关问题时就能够很快的解决了。">
-<meta name="twitter:image" content="http://yoursite.com/img/leak/code.jpg">
+<meta name="twitter:image" content="http://blog-lwj.oss-cn-shenzhen.aliyuncs.com/memory-leak/code.jpg">
 
 
 
@@ -355,9 +355,9 @@
 <h2 id="如何检测泄漏"><a href="#如何检测泄漏" class="headerlink" title="如何检测泄漏"></a>如何检测泄漏</h2><p>最简单的方法自然就是使用leakcanary了。只要给自己的项目加上这个工具，在发生泄漏的时候很快就会有提示。具体使用方法看<a href="https://www.liaohuqiu.net/cn/posts/leak-canary-read-me/" target="_blank" rel="noopener">这里</a>。</p>
 <p>除此之外，android studio的刀耕火种的方式也不错，在这里我拿一个例子来示范一下我是怎么用的。</p>
 <h3 id="一次leak检测过程"><a href="#一次leak检测过程" class="headerlink" title="一次leak检测过程"></a>一次leak检测过程</h3><h4 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h4><p>首先，我写了两个activity，一个MainActivity，一个MemoryLeakActivity，逻辑是：MainActivity中有个按钮，点击会调到MemoryLeakActivity，在这个activity中会故意发生内存泄漏，代码如下：</p>
-<p><img src="/img/leak/code.jpg" alt="">  </p>
+<p><img src="http://blog-lwj.oss-cn-shenzhen.aliyuncs.com/memory-leak/code.jpg" alt="">  </p>
 <p>在开始之前，再熟悉一下这个</p>
-<p><img src="/img/leak/moniter.jpg" alt=""> </p>
+<p><img src="http://blog-lwj.oss-cn-shenzhen.aliyuncs.com/memory-leak/moniter.jpg" alt=""> </p>
 <p>（原谅我拙劣的画笔）</p>
 <p>这个Monitors可以观察当前选中app的运行状态，现在只需要关注我标了123的地方。</p>
 <p>首先这个Memory就是当前app的内存使用状况：</p>
@@ -365,18 +365,18 @@
 <p>2.手动进行一次gc</p>
 <p>3.这一块很重要，首先他有两个部分，蓝色和灰色。蓝色部分是当前内存使用大小，灰色部分是这个app被限制的最大内存大小。当蓝色部分越来越大，最后和灰色部分一样时，说明我们内存使用很多了即将内存不足，此时会进行一次gc同时将回灰色部分即限制的大小提高。</p>
 <h4 id="肉眼观察"><a href="#肉眼观察" class="headerlink" title="肉眼观察"></a>肉眼观察</h4><p>好了，介绍完这个工具，我们开始动手实践。首先打开app，点击按钮跳到会发生泄漏的activity上，再按返回键，然后再次按下按钮……这样反复操作：</p>
-<p><img src="/img/leak/activity1.jpg" alt=""> </p>
-<p><img src="/img/leak/activity2.jpg" alt=""> </p>
+<p><img src="http://blog-lwj.oss-cn-shenzhen.aliyuncs.com/memory-leak/activity1.jpg" alt=""> </p>
+<p><img src="http://blog-lwj.oss-cn-shenzhen.aliyuncs.com/memory-leak/activity2.jpg" alt=""> </p>
 <p>与此同时，观察monitors的memory窗口，会发现蓝色部分在每一次开启新activity时会增长一部分，这很正常。但是在返回时，明明activity被“退出”了，但是蓝色部分还是没有变化。反复几次之后，蓝色部分一直在增长。也就是说当前内存越用越多，可以推断已经发生内存泄漏啦~</p>
 <h4 id="自动分析"><a href="#自动分析" class="headerlink" title="自动分析"></a>自动分析</h4><p>接下来由android studio来分析一下。在反复几次上面的操作之后，返回MainActivity，然后点击dump java heap按钮，然后等一会儿，android studio在为我们dump此时的horof文件。在成功后，会自动打开：</p>
-<p><img src="/img/leak/analyzer.jpg" alt=""> </p>
+<p><img src="http://blog-lwj.oss-cn-shenzhen.aliyuncs.com/memory-leak/analyzer.jpg" alt=""> </p>
 <p>如图在这个界面中，我们看最右面有一个栏叫 Analyzer Tasks，打开它，会发现有两个选项。我们是来看activity的内存泄漏的，那就把那个查重复字符串的√去掉。然后点右边那个绿色小三角，会发现下面Analysis Results栏里面展示出了当前泄露的Activity引用：</p>
-<p><img src="/img/leak/results.jpg" alt=""> </p>
+<p><img src="http://blog-lwj.oss-cn-shenzhen.aliyuncs.com/memory-leak/results.jpg" alt=""> </p>
 <p>点击第一个item，最下方Reference Tree栏中便展示出了具体的引用：</p>
-<p><img src="/img/leak/inner.jpg" alt=""> </p>
+<p><img src="http://blog-lwj.oss-cn-shenzhen.aliyuncs.com/memory-leak/inner.jpg" alt=""> </p>
 <p>一般来说，第一个就是我们发生泄漏的地方。在图中，this$0的意思是隐式的引用。也就是说，我们的activity是因为一个内部类而发生了内存泄漏。</p>
 <p>再点击刚才results中第二个item，看一下下方的reference tree:</p>
-<p><img src="/img/leak/ref.jpg" alt=""> </p>
+<p><img src="http://blog-lwj.oss-cn-shenzhen.aliyuncs.com/memory-leak/ref.jpg" alt=""> </p>
 <p>可以看到显式的有一个leakCntextRef引用，这说明我们有一个名为leakCntextRef的引用持有了activity。回过头看看我们的代码，果然，验证的没错。</p>
 <h4 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h4><p>android studio的分析还算比较简单而且内容较少，我们可以把这个hprof导出，然后用mat来分析，具体看<a href="https://mingjunli.gitbooks.io/mat/content/" target="_blank" rel="noopener">这里</a>。</p>
 <h2 id="怎么解决泄漏"><a href="#怎么解决泄漏" class="headerlink" title="怎么解决泄漏"></a>怎么解决泄漏</h2><p>既然发生了泄漏，那就要解决它，避免问题出现。那么怎么解决呢？很简单，泄漏是因为持有了activity引用导致无法被销毁，那么只有两个选择：及时取消引用，或者让这个引用多待一会，但是该gc的时候就销毁。</p>
@@ -409,9 +409,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Android/" rel="tag"># Android</a>
-          
             <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
           
             <a href="/tags/内存泄漏/" rel="tag"># 内存泄漏</a>
           

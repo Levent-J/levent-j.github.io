@@ -87,14 +87,14 @@
 <meta property="og:site_name" content="靖然是你">
 <meta property="og:description" content="以AIDL为入口，探究Binder机制的原理">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/img/binder/img1.jpg">
-<meta property="og:image" content="http://yoursite.com/img/binder/img2.jpg">
-<meta property="og:image" content="http://yoursite.com/img/binder/img3.jpg">
-<meta property="og:updated_time" content="2018-10-25T07:07:53.478Z">
+<meta property="og:image" content="http://blog-lwj.oss-cn-shenzhen.aliyuncs.com/binder/img1.jpg">
+<meta property="og:image" content="http://blog-lwj.oss-cn-shenzhen.aliyuncs.com/binder/img2.jpg">
+<meta property="og:image" content="http://blog-lwj.oss-cn-shenzhen.aliyuncs.com/binder/img3.jpg">
+<meta property="og:updated_time" content="2018-10-25T08:19:44.786Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android源码分析-从AIDL了解Binder机制">
 <meta name="twitter:description" content="以AIDL为入口，探究Binder机制的原理">
-<meta name="twitter:image" content="http://yoursite.com/img/binder/img1.jpg">
+<meta name="twitter:image" content="http://blog-lwj.oss-cn-shenzhen.aliyuncs.com/binder/img1.jpg">
 
 
 
@@ -340,13 +340,13 @@
 <p>这两者，构成了Binder机制的核心。</p>
 <p>举个例子，现在又两个进程A和B，A要访问B中的一个对象obj的方法f()，这就是跨进程通信了。那么在这之前，进程B会将自己注册在ServiceManager中，也就是说在这里存在一个表，进程B首先会把自己的信息作为一条数据插入在表中。之后，进程A要访问进程B，只需要访问这个ServiceManager，在这里查找B的先关信息，然后他就可以得到这个对象obj，之后就可以直接调用方法f()。  </p>
 <p>在这个流程里面，实际上并没有真的获取到对象obj，只是获取了一个obj的代理对象。实际对象还是在进程B中。调用f()时，传入的参数只会交给这个代理对象，然后代理对象再负责把数据交给真实对象。而在这整个流程之中，A和B还有ServiceManager都是进程，他们之间的数据交换都是要直接交给Binder驱动的。说起来有点乱，画个图就看出来了：  </p>
-<p><img src="/img/binder/img1.jpg" alt="">  </p>
+<p><img src="http://blog-lwj.oss-cn-shenzhen.aliyuncs.com/binder/img1.jpg" alt="">  </p>
 <p>图中，虚线表示两者之间不是直接交互，因为这三者之间的交互实际上都是通过实线做的。  </p>
 <h2 id="从AIDL到Binder"><a href="#从AIDL到Binder" class="headerlink" title="从AIDL到Binder"></a>从AIDL到Binder</h2><p>AIDL说白了其实就是帮我实现了一个可以用作Binder通信的类，抛开AIDL,我们自己也可以写一个差不多的，也可以用。通过AIDl自动生成的类，定义了一个内部类，并让内部类继承了Binder类。所以，我们只需继承Binder，也可以做简单的IPC了。</p>
-<p><img src="/img/binder/img2.jpg" alt="">  </p>
+<p><img src="http://blog-lwj.oss-cn-shenzhen.aliyuncs.com/binder/img2.jpg" alt="">  </p>
 <h2 id="从Client开始"><a href="#从Client开始" class="headerlink" title="从Client开始"></a>从Client开始</h2><p>从MyAidlClient开始，探寻一下Binder通信的流程。  </p>
 <p>首先，如图所示</p>
-<p><img src="/img/binder/img3.jpg" alt="">  </p>
+<p><img src="http://blog-lwj.oss-cn-shenzhen.aliyuncs.com/binder/img3.jpg" alt="">  </p>
 <p>通过已经获得的IBinder对象，这里调用asInterface()方法，返回了一个IMyAidlInterface类的对象，调用他的add()方法。那就从这里开始：  </p>
 <p>IMyAidlInterface.java:  </p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">         * Cast an IBinder object into an com.levent_j.myaidlserver.IMyAidlInterface interface,</span></span><br><span class="line"><span class="comment">         * generating a proxy if needed.</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">static</span> com.levent_j.myaidlserver.<span class="function">IMyAidlInterface <span class="title">asInterface</span><span class="params">(android.os.IBinder obj)</span> </span>&#123;</span><br><span class="line">            <span class="comment">//非空判断</span></span><br><span class="line">            <span class="keyword">if</span> ((obj == <span class="keyword">null</span>)) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//查找本地是否存在 如果存在，则直接可以使用，就不需要跨进程通信了</span></span><br><span class="line">            android.os.IInterface iin = obj.queryLocalInterface(DESCRIPTOR);</span><br><span class="line">            <span class="keyword">if</span> (((iin != <span class="keyword">null</span>) &amp;&amp; (iin <span class="keyword">instanceof</span> com.levent_j.myaidlserver.IMyAidlInterface))) &#123;</span><br><span class="line">                <span class="keyword">return</span> ((com.levent_j.myaidlserver.IMyAidlInterface) iin);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//没有找到，那么就只能跨进程通信了</span></span><br><span class="line">            <span class="comment">//这里通过IBinder对象创建了一个Proxy对象并返回</span></span><br><span class="line">            <span class="comment">//从名字就可以看得出，返回了一个代理对象</span></span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> com.levent_j.myaidlserver.IMyAidlInterface.Stub.Proxy(obj);</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
@@ -422,8 +422,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/10/25/source-startactivity/" rel="next" title="Android源码分析——Activity启动与生命周期">
-                <i class="fa fa-chevron-left"></i> Android源码分析——Activity启动与生命周期
+              <a href="/2017/10/25/jvm_note/" rel="next" title="《深入理解Java虚拟机》读书笔记">
+                <i class="fa fa-chevron-left"></i> 《深入理解Java虚拟机》读书笔记
               </a>
             
           </div>
@@ -432,8 +432,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/10/25/jvm_note/" rel="prev" title="《深入理解Java虚拟机》读书笔记">
-                《深入理解Java虚拟机》读书笔记 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/11/28/source-activity-setcontent-/" rel="prev" title="Android源码分析——Activity的绘制">
+                Android源码分析——Activity的绘制 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
