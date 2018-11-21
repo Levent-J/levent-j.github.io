@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Android,Unity3d," />
 
 
 
@@ -79,13 +79,13 @@
 
 
 
-<meta name="description" content="title: unity3d-android-sdkcategories: 学习笔记tags:   Android Unity3ddescription: 要在Unity使用Android SDK，有两种方案。一种是将Unity项目导出为Android项目，然后以第三方库依赖的形式接入Android导出的SDK，这种方式Android端就像应用开发一样正常写代码即可，不用考虑过多。而另一种方案，">
-<meta name="keywords" content="Android">
+<meta name="description" content="要在Unity使用Android SDK，有两种方案。一种是将Unity项目导出为Android项目，然后以第三方库依赖的形式接入Android导出的SDK，这种方式Android端就像应用开发一样正常写代码即可，不用考虑过多。而另一种方案，则是直接将Android导出的jar或者aar文件接入到Unity项目中。这种方案中，Android端就需要根据实际对Unity进行适配了。  本文将主要记录">
+<meta name="keywords" content="Android,Unity3d">
 <meta property="og:type" content="article">
-<meta property="og:title" content="靖然是你">
+<meta property="og:title" content="Android SDK for Unity">
 <meta property="og:url" content="http://yoursite.com/2018/11/19/unity3d-android-sdk/index.html">
 <meta property="og:site_name" content="靖然是你">
-<meta property="og:description" content="title: unity3d-android-sdkcategories: 学习笔记tags:   Android Unity3ddescription: 要在Unity使用Android SDK，有两种方案。一种是将Unity项目导出为Android项目，然后以第三方库依赖的形式接入Android导出的SDK，这种方式Android端就像应用开发一样正常写代码即可，不用考虑过多。而另一种方案，">
+<meta property="og:description" content="要在Unity使用Android SDK，有两种方案。一种是将Unity项目导出为Android项目，然后以第三方库依赖的形式接入Android导出的SDK，这种方式Android端就像应用开发一样正常写代码即可，不用考虑过多。而另一种方案，则是直接将Android导出的jar或者aar文件接入到Unity项目中。这种方案中，Android端就需要根据实际对Unity进行适配了。  本文将主要记录">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://blog-lwj.oss-cn-shenzhen.aliyuncs.com/unity-sdk/v1.png">
 <meta property="og:image" content="http://blog-lwj.oss-cn-shenzhen.aliyuncs.com/unity-sdk/v2.png">
@@ -98,10 +98,10 @@
 <meta property="og:image" content="http://blog-lwj.oss-cn-shenzhen.aliyuncs.com/unity-sdk/v9.png">
 <meta property="og:image" content="http://blog-lwj.oss-cn-shenzhen.aliyuncs.com/unity-sdk/v10.png">
 <meta property="og:image" content="http://blog-lwj.oss-cn-shenzhen.aliyuncs.com/unity-sdk/v11.png">
-<meta property="og:updated_time" content="2018-11-21T09:26:59.072Z">
+<meta property="og:updated_time" content="2018-11-21T09:30:31.360Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="靖然是你">
-<meta name="twitter:description" content="title: unity3d-android-sdkcategories: 学习笔记tags:   Android Unity3ddescription: 要在Unity使用Android SDK，有两种方案。一种是将Unity项目导出为Android项目，然后以第三方库依赖的形式接入Android导出的SDK，这种方式Android端就像应用开发一样正常写代码即可，不用考虑过多。而另一种方案，">
+<meta name="twitter:title" content="Android SDK for Unity">
+<meta name="twitter:description" content="要在Unity使用Android SDK，有两种方案。一种是将Unity项目导出为Android项目，然后以第三方库依赖的形式接入Android导出的SDK，这种方式Android端就像应用开发一样正常写代码即可，不用考虑过多。而另一种方案，则是直接将Android导出的jar或者aar文件接入到Unity项目中。这种方案中，Android端就需要根据实际对Unity进行适配了。  本文将主要记录">
 <meta name="twitter:image" content="http://blog-lwj.oss-cn-shenzhen.aliyuncs.com/unity-sdk/v1.png">
 
 
@@ -138,7 +138,7 @@
 
 
 
-  <title> | 靖然是你</title>
+  <title>Android SDK for Unity | 靖然是你</title>
   
 
 
@@ -262,7 +262,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline"></h1>
+          <h1 class="post-title" itemprop="name headline">Android SDK for Unity</h1>
         
 
         <div class="post-meta">
@@ -285,6 +285,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -297,6 +319,10 @@
 
           
 
+          
+              <div class="post-description">
+                  要在Unity使用Android SDK，有两种方案。一种是将Unity项目导出为Android项目，然后以第三方库依赖的形式接入Android导出的SDK，这种方式Android端就像应用开发一样正常写代码即可，不用考虑过多。而另一种方案，则是直接将Android导出的jar或者aar文件接入到Unity项目中。这种方案中，Android端就需要根据实际对Unity进行适配了。  本文将主要记录第二种方案的接入过程。
+              </div>
           
 
         </div>
@@ -312,14 +338,7 @@
       
 
       
-        <hr>
-<p>title: unity3d-android-sdk<br>categories: 学习笔记<br>tags: </p>
-<ul>
-<li>Android</li>
-<li>Unity3d<br>description: 要在Unity使用Android SDK，有两种方案。一种是将Unity项目导出为Android项目，然后以第三方库依赖的形式接入Android导出的SDK，这种方式Android端就像应用开发一样正常写代码即可，不用考虑过多。而另一种方案，则是直接将Android导出的jar或者aar文件接入到Unity项目中。这种方案中，Android端就需要根据实际对Unity进行适配了。  本文将主要记录第二种方案的接入过程。<br>date: 2018-11-19 11:34:18</li>
-</ul>
-<hr>
-<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><h3 id="生产apk"><a href="#生产apk" class="headerlink" title="生产apk"></a>生产apk</h3><p>首先新建一个Unity项目，写一个简单的游戏界面:  </p>
+        <h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><h3 id="生产apk"><a href="#生产apk" class="headerlink" title="生产apk"></a>生产apk</h3><p>首先新建一个Unity项目，写一个简单的游戏界面:  </p>
 <p><img src="http://blog-lwj.oss-cn-shenzhen.aliyuncs.com/unity-sdk/v1.png" alt="">    </p>
 <p>然后用Unity导出为apk:  </p>
 <p><img src="http://blog-lwj.oss-cn-shenzhen.aliyuncs.com/unity-sdk/v2.png" alt="">  </p>
@@ -396,6 +415,14 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+            <a href="/tags/Unity3d/" rel="tag"># Unity3d</a>
+          
+        </div>
       
 
       
@@ -513,7 +540,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
