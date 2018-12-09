@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="微观经济学," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="这里整理一下学习微观经济学的笔记">
+<meta name="keywords" content="微观经济学">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微观经济学原理学习笔记">
+<meta property="og:url" content="http://yoursite.com/2018/12/08/econ-note-micro/index.html">
+<meta property="og:site_name" content="靖然是你">
+<meta property="og:description" content="这里整理一下学习微观经济学的笔记">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-12-09T04:18:45.085Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="微观经济学原理学习笔记">
+<meta name="twitter:description" content="这里整理一下学习微观经济学的笔记">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/12/08/econ-note-micro/"/>
+
+
+
+
+
+  <title>微观经济学原理学习笔记 | 靖然是你</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">靖然是你</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">哇啦啦啦</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/08/econ-note-micro/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Levent-J">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="靖然是你">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">微观经济学原理学习笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-08T10:21:15+08:00">
+                2018-12-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/经济学/" itemprop="url" rel="index">
+                    <span itemprop="name">经济学</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  这里整理一下学习微观经济学的笔记
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="第一章-经济学十大原理"><a href="#第一章-经济学十大原理" class="headerlink" title="第一章 经济学十大原理"></a>第一章 经济学十大原理</h1><h2 id="人们如何做出决策"><a href="#人们如何做出决策" class="headerlink" title="人们如何做出决策"></a>人们如何做出决策</h2><ol>
+<li>人们总是很面临权衡取舍</li>
+<li>某种东西的成本是为了得到他所放弃的东西</li>
+<li>理性的人考虑边际量</li>
+<li>人们会对激励做出反应</li>
+</ol>
+<h2 id="人么如何互相影响"><a href="#人么如何互相影响" class="headerlink" title="人么如何互相影响"></a>人么如何互相影响</h2><ol>
+<li>贸易可以使每个人的状况都变得更好</li>
+<li>市场通常是组织经济活动的好方法</li>
+<li>政府有时可以改善市场结果</li>
+</ol>
+<h2 id="整体经济如何运行"><a href="#整体经济如何运行" class="headerlink" title="整体经济如何运行"></a>整体经济如何运行</h2><ol>
+<li>一国的生活水平取决于他生产物品与服务的能力</li>
+<li>当政府发行了过多货币时，物价上升</li>
+<li>社会面临着通货膨胀与失业之间的短期权衡取舍</li>
+</ol>
+<h1 id="第二章-像经济学家一样思考"><a href="#第二章-像经济学家一样思考" class="headerlink" title="第二章 像经济学家一样思考"></a>第二章 像经济学家一样思考</h1><ol>
+<li>经济学的科学方法：观察、理论和进一步观察</li>
+<li>微观经济学研究家庭和企业如何做出决策，以及他们如何在特定市场上相互贸易</li>
+<li>宏观经济学研究整体经济现象</li>
+</ol>
+<h1 id="第三章-相互依存性与贸易的好处"><a href="#第三章-相互依存性与贸易的好处" class="headerlink" title="第三章 相互依存性与贸易的好处"></a>第三章 相互依存性与贸易的好处</h1><ol>
+<li>绝对优势：一个生产者用比另一个生产者更少的投入生产另某种物品的能力</li>
+<li>比较优势：一个生产者以低于另一个生产者的机会成本生产某种物品的能力</li>
+<li>机会成本：为了得到某种东西所必须放弃的东西</li>
+<li>贸易可以使社会上每个人都获益，因为它事人们可以专门的从事他们具有比较优势的活动</li>
+<li>对从贸易中获益的双方而言，他们进行贸易的及价格在两种机会成本之间</li>
+<li>贸易的好处是基于比较优势，而不是绝对优势</li>
+</ol>
+<p>#第四章</p>
+<h2 id="市场与竞争"><a href="#市场与竞争" class="headerlink" title="市场与竞争"></a>市场与竞争</h2><ol>
+<li>市场：由某种物品或服务的买者与卖者组成的一个群体</li>
+<li>供给与需求是指人们在竞争市场上相互交易时的行为</li>
+<li>竞争市场：有许多买者与卖者，以至于每个人对市场价格的影响都微乎其微</li>
+</ol>
+<h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><ol>
+<li>需求量：卖者愿意并且能够购买的一种物品的数量</li>
+<li>需求定理：在其他条件不变时，一种物品的价格上升，对该物品需求量减少的观点</li>
+<li>一个市场的需求量是所有买者在每一个价格水平下需求量的总和</li>
+<li>正常物品：在其他条件不变时，收入增加引起需求增加的物品</li>
+<li>低档物品：在其他条件不变时，收入增加引起需求量减少的物品</li>
+<li>替代物品：一种物品的价格上升引起另一种物品的需求增加的两种物品</li>
+<li>互补品：一种物品的价格上升引起另一种物品的需求量减少的两种物品</li>
+<li>在需求-价格曲线中，只有当价格变动时，才会沿着需求曲线变动，其他任何一个变量的变动都将使需求曲线移动</li>
+</ol>
+<h2 id="供给"><a href="#供给" class="headerlink" title="供给"></a>供给</h2><ol>
+<li>供给量：卖者愿意并且能够出售的一种物品的数量</li>
+<li>供给定理：认为在其他条件不变时，一种物品的价格上升，该物品的供给量增加的观点</li>
+<li>市场供给量是在每种价格水平下所有卖者的供给量之和</li>
+</ol>
+<h2 id="供给与需求的结合"><a href="#供给与需求的结合" class="headerlink" title="供给与需求的结合"></a>供给与需求的结合</h2><ol>
+<li>均衡：市场价格达到使供给量与需求量相等的水平时的状态</li>
+<li>均衡价格：使供给与需求平衡的价格</li>
+<li>均衡数量：均衡价格下的供给与需求量</li>
+<li>过剩：供给量大于需求量</li>
+<li>短缺：供给量小于需求量</li>
+<li>供求定理：认为任何一种物品的价格都会自发调整，使该物品的供给与需求达到平衡的观点</li>
+<li>买者和卖者的行为ui自然而然的使市场趋向于均衡。当市场价格高于均衡价格时，存在物品过剩，引起市场价格下降。当市场价格低于均衡价格时，存在物品的短缺，引起市场价格上升。</li>
+<li>分析某个事件如何影响一个市场时，用供求图来考察，遵循三个步骤：1.确定该事件是使供给曲线移动，还是使需求曲线移动 2.确定曲线的移动方向 3.比较新均衡与原来的均衡</li>
+<li>在市场经济中，价格是引导经济决策从而配置稀缺资源的信号。对于每一种物品来说，价格确保了供给与需求的平衡，价格决定了买者选择购买多少这种物品以及卖者选择生产多少这种物品</li>
+</ol>
+<h1 id="弹性及其应用"><a href="#弹性及其应用" class="headerlink" title="弹性及其应用"></a>弹性及其应用</h1><h2 id="需求弹性"><a href="#需求弹性" class="headerlink" title="需求弹性"></a>需求弹性</h2><ol>
+<li>弹性：衡量需求量或供给量对某种决定因素变动的反应程度的指标</li>
+<li>需求价格弹性：衡量一种物品需求量对其价格变动的反应程度的指标，用需求量变动百分比处以价格变动百分比来计算</li>
+<li>有相近替代品的物品的需求量往往富有弹性</li>
+<li>必需品往往缺乏弹性，而奢侈品则富有弹性</li>
+<li>任何一个市场上的需求弹性都取决于我们如何定义市场的边界，狭窄定义的市场的需求弹性往往大于宽泛定义的市场的需求的弹性</li>
+<li>物品的需求往往在长期内更富有弹性</li>
+<li>中点法计算：计算(x1,y1)和(x2,y2)两点间的需求将价格弹性=((x2-x1)/((x2+x1)/2)) / (y2-y1)/((y2+y1)/2)</li>
+<li>总收益：一种物品的买者支付从而卖者得到的量，用该物品的价格乘以销售量来计算</li>
+<li>需求收入弹性：衡量一直物品需求量对消费者收入变动的反应程度的指标，用需求量变动的百分比除以收入变动百分比来计算</li>
+<li>需求的交叉价格弹性：衡量一种物品需求量对另一种物品价格变动的反应程度的指标，用第一种物品的需求量变动百分除以第二种物品的价格变动百分比来计算</li>
+</ol>
+<h2 id="供给弹性"><a href="#供给弹性" class="headerlink" title="供给弹性"></a>供给弹性</h2><ol>
+<li>供给价格弹性：衡量一种物品供给量对其价格变动反应程度的指标，用供给量变动的百分比除以价格变动百分比来计算</li>
+<li>弹性大于1 则富有弹性 弹性小于1 则缺乏弹性</li>
+<li>供给价格弹性衡量的是供给量对价格变动的反应程度，这种弹性往往取决于所考虑的时间长短，在大多数市场上，供给在长期比短期更富有弹性</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/微观经济学/" rel="tag"># 微观经济学</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/19/unity3d-android-sdk/" rel="next" title="Android SDK for Unity">
+                <i class="fa fa-chevron-left"></i> Android SDK for Unity
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Levent-J</p>
+              <p class="site-description motion-element" itemprop="description">记录一只Android小菜鸡学习的点点滴滴</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第一章-经济学十大原理"><span class="nav-number">1.</span> <span class="nav-text">第一章 经济学十大原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#人们如何做出决策"><span class="nav-number">1.1.</span> <span class="nav-text">人们如何做出决策</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#人么如何互相影响"><span class="nav-number">1.2.</span> <span class="nav-text">人么如何互相影响</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#整体经济如何运行"><span class="nav-number">1.3.</span> <span class="nav-text">整体经济如何运行</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第二章-像经济学家一样思考"><span class="nav-number">2.</span> <span class="nav-text">第二章 像经济学家一样思考</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第三章-相互依存性与贸易的好处"><span class="nav-number">3.</span> <span class="nav-text">第三章 相互依存性与贸易的好处</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#市场与竞争"><span class="nav-number">3.1.</span> <span class="nav-text">市场与竞争</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#需求"><span class="nav-number">3.2.</span> <span class="nav-text">需求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#供给"><span class="nav-number">3.3.</span> <span class="nav-text">供给</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#供给与需求的结合"><span class="nav-number">3.4.</span> <span class="nav-text">供给与需求的结合</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#弹性及其应用"><span class="nav-number">4.</span> <span class="nav-text">弹性及其应用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#需求弹性"><span class="nav-number">4.1.</span> <span class="nav-text">需求弹性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#供给弹性"><span class="nav-number">4.2.</span> <span class="nav-text">供给弹性</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Levent-J</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
