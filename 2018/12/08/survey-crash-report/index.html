@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Crash," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="记录一只Android小菜鸡学习的点点滴滴">
-<meta name="keywords" content="Android">
-<meta property="og:type" content="website">
-<meta property="og:title" content="标签">
-<meta property="og:url" content="http://yoursite.com/tags/index.html">
+<meta name="description" content="最近项目中需要加入一个Crash日志收集功能，要求接入简单且侵入性低，因此需要调研一下目前市面上国内国外的一些常见的日志收集工具，这里做一些总结。">
+<meta name="keywords" content="Crash">
+<meta property="og:type" content="article">
+<meta property="og:title" content="总结目前常见的Crash日志收集工具">
+<meta property="og:url" content="http://yoursite.com/2018/12/08/survey-crash-report/index.html">
 <meta property="og:site_name" content="靖然是你">
-<meta property="og:description" content="记录一只Android小菜鸡学习的点点滴滴">
+<meta property="og:description" content="最近项目中需要加入一个Crash日志收集功能，要求接入简单且侵入性低，因此需要调研一下目前市面上国内国外的一些常见的日志收集工具，这里做一些总结。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-07T02:22:14.281Z">
+<meta property="og:updated_time" content="2019-01-02T03:48:28.654Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="标签">
-<meta name="twitter:description" content="记录一只Android小菜鸡学习的点点滴滴">
+<meta name="twitter:title" content="总结目前常见的Crash日志收集工具">
+<meta name="twitter:description" content="最近项目中需要加入一个Crash日志收集功能，要求接入简单且侵入性低，因此需要调研一下目前市面上国内国外的一些常见的日志收集工具，这里做一些总结。">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/tags/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/12/08/survey-crash-report/"/>
 
 
 
 
 
-  <title>标签 | 靖然是你</title>
+  <title>总结目前常见的Crash日志收集工具 | 靖然是你</title>
   
 
 
@@ -251,40 +251,332 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/08/survey-crash-report/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Levent-J">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://blog-lwj.oss-cn-shenzhen.aliyuncs.com/avater.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="靖然是你">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline">标签</h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <div class="tag-cloud">
-            <div class="tag-cloud-title">
-                目前共计 13 个标签
-            </div>
-            <div class="tag-cloud-tags">
-              <a href="/tags/Activity/" style="font-size: 12px; color: #ccc">Activity</a> <a href="/tags/Android/" style="font-size: 30px; color: #111">Android</a> <a href="/tags/Binder/" style="font-size: 12px; color: #ccc">Binder</a> <a href="/tags/Crash/" style="font-size: 12px; color: #ccc">Crash</a> <a href="/tags/Hanlder/" style="font-size: 12px; color: #ccc">Hanlder</a> <a href="/tags/Java/" style="font-size: 24px; color: #4f4f4f">Java</a> <a href="/tags/Jvm/" style="font-size: 12px; color: #ccc">Jvm</a> <a href="/tags/MultiDex/" style="font-size: 18px; color: #8e8e8e">MultiDex</a> <a href="/tags/Schedule/" style="font-size: 12px; color: #ccc">Schedule</a> <a href="/tags/Unity3d/" style="font-size: 12px; color: #ccc">Unity3d</a> <a href="/tags/内存泄漏/" style="font-size: 12px; color: #ccc">内存泄漏</a> <a href="/tags/微观经济学/" style="font-size: 12px; color: #ccc">微观经济学</a> <a href="/tags/计算机/" style="font-size: 12px; color: #ccc">计算机</a>
-            </div>
-          </div>
+          <h1 class="post-title" itemprop="name headline">总结目前常见的Crash日志收集工具</h1>
         
-      </div>
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-08T10:21:15+08:00">
+                2018-12-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/工作总结/" itemprop="url" rel="index">
+                    <span itemprop="name">工作总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  最近项目中需要加入一个Crash日志收集功能，要求接入简单且侵入性低，因此需要调研一下目前市面上国内国外的一些常见的日志收集工具，这里做一些总结。
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <h2 id="调研结果"><a href="#调研结果" class="headerlink" title="调研结果"></a>调研结果</h2><table>
+<thead>
+<tr>
+<th></th>
+<th>接入</th>
+<th>上传</th>
+<th>错误类型</th>
+<th>错误参数</th>
+<th>高级检索</th>
+<th>统计分析</th>
+<th>收费</th>
+<th>其他亮点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://bugly.qq.com/v2/" target="_blank" rel="noopener">Bugly</a></td>
+<td>简单</td>
+<td>及时</td>
+<td>丰富</td>
+<td>用户、渠道、标签</td>
+<td>丰富</td>
+<td>中等</td>
+<td>免费</td>
+<td>可捕捉JS异常</td>
+</tr>
+<tr>
+<td><a href="http://crash.163yun.com/index.do" target="_blank" rel="noopener">网易云捕</a></td>
+<td>简单</td>
+<td>及时</td>
+<td>丰富</td>
+<td>用户、渠道、标签</td>
+<td>丰富</td>
+<td>详细</td>
+<td>收费</td>
+<td>体积小速度快</td>
+</tr>
+<tr>
+<td><a href="https://www.umeng.com/analytics" target="_blank" rel="noopener">友盟 U-APP</a></td>
+<td>简单</td>
+<td>较慢</td>
+<td>JAVA</td>
+<td>用户、渠道、标签</td>
+<td>简略</td>
+<td>中等</td>
+<td>免费</td>
+<td>提供了开关接口</td>
+</tr>
+<tr>
+<td><a href="https://www.bugtags.com/" target="_blank" rel="noopener">Bugtags</a></td>
+<td>复杂</td>
+<td>较慢</td>
+<td>丰富</td>
+<td>自定义键值对</td>
+<td>简略</td>
+<td>简略</td>
+<td>部分收费</td>
+<td>可上传截图，操作步骤</td>
+</tr>
+<tr>
+<td><a href="https://www.pgyer.com/" target="_blank" rel="noopener">蒲公英</a></td>
+<td>简单</td>
+<td>较慢</td>
+<td>JAVA</td>
+<td></td>
+<td></td>
+<td></td>
+<td>收费</td>
+<td>用户可主动上报bug</td>
+</tr>
+<tr>
+<td><a href="https://www.testin.cn/index.htm" target="_blank" rel="noopener">Testin</a></td>
+<td>简单</td>
+<td>及时</td>
+<td>丰富</td>
+<td>用户、渠道、标签</td>
+<td>丰富</td>
+<td>详细</td>
+<td>免费</td>
+<td>可上传截图</td>
+</tr>
+<tr>
+<td><a href="http://www.testplus.cn/crasheye" target="_blank" rel="noopener">Crasheye</a></td>
+<td>简单</td>
+<td>及时</td>
+<td>缺少ANR</td>
+<td>用户、渠道、标签</td>
+<td>丰富</td>
+<td>详细</td>
+<td>免费</td>
+<td>可捕捉脚本异常</td>
+</tr>
+<tr>
+<td><a href="https://mall.kaola.com/search.html?shopId=15662189&amp;zn=top&amp;zn=index&amp;zp=2&amp;zt=index&amp;zl=0" target="_blank" rel="noopener">LogReport</a></td>
+<td>简单</td>
+<td>及时</td>
+<td>缺少ANR</td>
+<td></td>
+<td></td>
+<td></td>
+<td>免费</td>
+<td>Gitub开源项目</td>
+</tr>
+<tr>
+<td><a href="https://github.com/MindorksOpenSource/CrashReporter?utm_source=android-arsenal.com&amp;utm_medium=referral&amp;utm_campaign=6190" target="_blank" rel="noopener">CrashReporter</a></td>
+<td>简单</td>
+<td>及时</td>
+<td>缺少ANR</td>
+<td></td>
+<td></td>
+<td></td>
+<td>免费</td>
+<td>Github开源项目</td>
+</tr>
+<tr>
+<td><a href="https://github.com/ACRA/acralyzer" target="_blank" rel="noopener">ACRA</a></td>
+<td>麻烦</td>
+<td>及时</td>
+<td>缺少ANR</td>
+<td></td>
+<td></td>
+<td></td>
+<td>免费</td>
+<td>Gitub开源项目xq</td>
+</tr>
+<tr>
+<td><a href="http://www.flurry.com/" target="_blank" rel="noopener">Flurry</a></td>
+<td>简单</td>
+<td>不稳定</td>
+<td>丰富</td>
+<td>自定义键值对</td>
+<td>简略</td>
+<td>详细</td>
+<td>免费</td>
+<td>分析图片很详细</td>
+</tr>
+<tr>
+<td><a href="https://get.fabric.io/" target="_blank" rel="noopener">crashlytics</a></td>
+<td>复杂</td>
+<td>不稳定</td>
+<td></td>
+<td>自定义键值对</td>
+<td>丰富</td>
+<td>详细</td>
+<td>免费</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://www.bugsnag.com/" target="_blank" rel="noopener">bugsnag</a></td>
+<td>简单</td>
+<td>不稳定</td>
+<td></td>
+<td>自定义table</td>
+<td>丰富</td>
+<td>详细</td>
+<td>按功能收费</td>
+</tr>
+</tbody>
+</table>
+
       
     </div>
     
     
     
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Crash/" rel="tag"># Crash</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/19/unity3d-android-sdk/" rel="next" title="Android SDK for Unity">
+                <i class="fa fa-chevron-left"></i> Android SDK for Unity
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/08/econ-note-micro/" rel="prev" title="微观经济学原理学习笔记">
+                微观经济学原理学习笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -317,8 +609,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -404,6 +705,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#调研结果"><span class="nav-number">1.</span> <span class="nav-text">调研结果</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
