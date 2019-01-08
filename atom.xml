@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>靖然是你</title>
+  
+  <subtitle>哇啦啦啦</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://yoursite.com/"/>
+  <updated>2019-01-08T03:37:38.165Z</updated>
+  <id>http://yoursite.com/</id>
+  
+  <author>
+    <name>Levent-J</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>我的书单</title>
+    <link href="http://yoursite.com/2019/01/08/book-list/"/>
+    <id>http://yoursite.com/2019/01/08/book-list/</id>
+    <published>2019-01-08T03:15:26.000Z</published>
+    <updated>2019-01-08T03:37:38.165Z</updated>
+    
+    <summary type="html">
+    
+      读万卷书，从这里开始
+    
+    </summary>
+    
+      <category term="碎碎念" scheme="http://yoursite.com/categories/%E7%A2%8E%E7%A2%8E%E5%BF%B5/"/>
+    
+    
+      <category term="读书" scheme="http://yoursite.com/tags/%E8%AF%BB%E4%B9%A6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>你好 2019</title>
+    <link href="http://yoursite.com/2019/01/06/hello-2019/"/>
+    <id>http://yoursite.com/2019/01/06/hello-2019/</id>
+    <published>2019-01-06T09:21:15.000Z</published>
+    <updated>2019-01-08T03:09:56.593Z</updated>
+    
+    <summary type="html">
+    
+      种一棵树最好的时间是十年前，其次是现在。
+    
+    </summary>
+    
+      <category term="碎碎念" scheme="http://yoursite.com/categories/%E7%A2%8E%E7%A2%8E%E5%BF%B5/"/>
+    
+    
+      <category term="计划" scheme="http://yoursite.com/tags/%E8%AE%A1%E5%88%92/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>总结目前常见的Crash日志收集工具</title>
+    <link href="http://yoursite.com/2018/12/08/survey-crash-report/"/>
+    <id>http://yoursite.com/2018/12/08/survey-crash-report/</id>
+    <published>2018-12-08T02:21:15.000Z</published>
+    <updated>2019-01-02T03:48:28.654Z</updated>
+    
+    <summary type="html">
+    
+      最近项目中需要加入一个Crash日志收集功能，要求接入简单且侵入性低，因此需要调研一下目前市面上国内国外的一些常见的日志收集工具，这里做一些总结。
+    
+    </summary>
+    
+      <category term="工作总结" scheme="http://yoursite.com/categories/%E5%B7%A5%E4%BD%9C%E6%80%BB%E7%BB%93/"/>
+    
+    
+      <category term="Crash" scheme="http://yoursite.com/tags/Crash/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>微观经济学原理学习笔记</title>
+    <link href="http://yoursite.com/2018/12/08/econ-note-micro/"/>
+    <id>http://yoursite.com/2018/12/08/econ-note-micro/</id>
+    <published>2018-12-08T02:21:15.000Z</published>
+    <updated>2019-01-07T03:59:04.798Z</updated>
+    
+    <summary type="html">
+    
+      这里整理一下学习微观经济学的笔记
+    
+    </summary>
+    
+      <category term="经济学" scheme="http://yoursite.com/categories/%E7%BB%8F%E6%B5%8E%E5%AD%A6/"/>
+    
+    
+      <category term="微观经济学" scheme="http://yoursite.com/tags/%E5%BE%AE%E8%A7%82%E7%BB%8F%E6%B5%8E%E5%AD%A6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android SDK for Unity</title>
+    <link href="http://yoursite.com/2018/11/19/unity3d-android-sdk/"/>
+    <id>http://yoursite.com/2018/11/19/unity3d-android-sdk/</id>
+    <published>2018-11-19T03:34:18.000Z</published>
+    <updated>2018-11-21T09:33:01.128Z</updated>
+    
+    <summary type="html">
+    
+      要在Unity使用Android SDK，有两种方案。一种是将Unity项目导出为Android项目，然后以第三方库依赖的形式接入Android导出的SDK，这种方式Android端就像应用开发一样正常写代码即可，不用考虑过多。而另一种方案，则是直接将Android导出的jar或者aar文件接入到Unity项目中。这种方案中，Android端就需要根据实际对Unity进行适配了。本文将主要记录第二种方案的接入过程。
+    
+    </summary>
+    
+      <category term="学习笔记" scheme="http://yoursite.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
+    
+      <category term="Unity3d" scheme="http://yoursite.com/tags/Unity3d/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android打包相关知识整理（二）</title>
+    <link href="http://yoursite.com/2018/11/02/android-pack-app-2/"/>
+    <id>http://yoursite.com/2018/11/02/android-pack-app-2/</id>
+    <published>2018-11-02T08:45:26.000Z</published>
+    <updated>2018-11-16T09:39:18.507Z</updated>
+    
+    <summary type="html">
+    
+      本篇主要分析Android Multidex的原理，通过Multidex来认识Android的类加载机。
+    
+    </summary>
+    
+      <category term="学习笔记" scheme="http://yoursite.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
+    
+      <category term="MultiDex" scheme="http://yoursite.com/tags/MultiDex/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android打包相关知识整理（一）</title>
+    <link href="http://yoursite.com/2018/10/29/android-pack-app-1/"/>
+    <id>http://yoursite.com/2018/10/29/android-pack-app-1/</id>
+    <published>2018-10-29T08:45:26.000Z</published>
+    <updated>2018-11-02T07:17:11.169Z</updated>
+    
+    <summary type="html">
+    
+      整理Android打包相关的一些知识点，内容包括了一些基础概念，apk打包、安装的流程。
+    
+    </summary>
+    
+      <category term="学习笔记" scheme="http://yoursite.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
+    
+      <category term="MultiDex" scheme="http://yoursite.com/tags/MultiDex/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>2018学习计划</title>
+    <link href="http://yoursite.com/2018/10/25/hello/"/>
+    <id>http://yoursite.com/2018/10/25/hello/</id>
+    <published>2018-10-25T03:08:26.000Z</published>
+    <updated>2018-11-21T09:27:41.735Z</updated>
+    
+    <summary type="html">
+    
+      小菜鸡的学习之路
+    
+    </summary>
+    
+      <category term="碎碎念" scheme="http://yoursite.com/categories/%E7%A2%8E%E7%A2%8E%E5%BF%B5/"/>
+    
+    
+      <category term="Schedule" scheme="http://yoursite.com/tags/Schedule/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android源码分析——Activity的绘制</title>
+    <link href="http://yoursite.com/2017/11/28/source-activity-setcontent-/"/>
+    <id>http://yoursite.com/2017/11/28/source-activity-setcontent-/</id>
+    <published>2017-11-28T03:08:26.000Z</published>
+    <updated>2018-10-25T07:10:59.112Z</updated>
+    
+    <summary type="html">
+    
+      分析源码，搞清楚Activity的setContent()背后的逻辑
+    
+    </summary>
+    
+      <category term="源码分析" scheme="http://yoursite.com/categories/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+    
+      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
+    
+      <category term="Activity" scheme="http://yoursite.com/tags/Activity/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>《深入理解Java虚拟机》读书笔记</title>
+    <link href="http://yoursite.com/2017/10/25/jvm_note/"/>
+    <id>http://yoursite.com/2017/10/25/jvm_note/</id>
+    <published>2017-10-25T03:08:26.000Z</published>
+    <updated>2018-10-25T03:22:09.540Z</updated>
+    
+    <summary type="html">
+    
+      前段时间看完了《深入理解Java虚拟机》，收获很多，在阅读过程记录了笔记
+    
+    </summary>
+    
+      <category term="学习笔记" scheme="http://yoursite.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="Java" scheme="http://yoursite.com/tags/Java/"/>
+    
+      <category term="Jvm" scheme="http://yoursite.com/tags/Jvm/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android源码分析-从AIDL了解Binder机制</title>
+    <link href="http://yoursite.com/2017/10/25/source-binder/"/>
+    <id>http://yoursite.com/2017/10/25/source-binder/</id>
+    <published>2017-10-25T03:08:26.000Z</published>
+    <updated>2018-10-25T08:19:44.786Z</updated>
+    
+    <summary type="html">
+    
+      以AIDL为入口，探究Binder机制的原理
+    
+    </summary>
+    
+      <category term="源码分析" scheme="http://yoursite.com/categories/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+    
+      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
+    
+      <category term="Binder" scheme="http://yoursite.com/tags/Binder/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android源码分析——Activity启动与生命周期</title>
+    <link href="http://yoursite.com/2017/10/25/source-startactivity/"/>
+    <id>http://yoursite.com/2017/10/25/source-startactivity/</id>
+    <published>2017-10-25T03:08:26.000Z</published>
+    <updated>2018-10-25T07:04:19.611Z</updated>
+    
+    <summary type="html">
+    
+      通过分析源码，了解AstartActivity()方法背后的逻辑，以及生命周期是如何执行的
+    
+    </summary>
+    
+      <category term="源码分析" scheme="http://yoursite.com/categories/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+    
+      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android内存泄漏那些事儿</title>
+    <link href="http://yoursite.com/2017/07/27/android_memory_leak/"/>
+    <id>http://yoursite.com/2017/07/27/android_memory_leak/</id>
+    <published>2017-07-27T03:08:26.000Z</published>
+    <updated>2018-10-25T08:22:54.581Z</updated>
+    
+    <summary type="html">
+    
+      最近在项目中偶尔会发现内存泄漏现象。一开始还是一脸懵逼的查来查去，一直没有个清晰地思路。这几天闲下来，打算认真整理学习一下。我在这里从一个“如何主动造成内存泄漏”的角度来学习，然后熟悉一下不同方法检测的结果如何，这样以后再遇到相关问题时就能够很快的解决了。
+    
+    </summary>
+    
+      <category term="学习笔记" scheme="http://yoursite.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
+    
+      <category term="Java" scheme="http://yoursite.com/tags/Java/"/>
+    
+      <category term="内存泄漏" scheme="http://yoursite.com/tags/%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>计算机基础知识复习</title>
+    <link href="http://yoursite.com/2017/07/25/review-cs/"/>
+    <id>http://yoursite.com/2017/07/25/review-cs/</id>
+    <published>2017-07-25T03:08:26.000Z</published>
+    <updated>2018-10-25T07:17:21.240Z</updated>
+    
+    <summary type="html">
+    
+      复习一下计算机基础知识吧~
+    
+    </summary>
+    
+      <category term="学习笔记" scheme="http://yoursite.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="计算机" scheme="http://yoursite.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android源码分析——Hanlder</title>
+    <link href="http://yoursite.com/2017/07/22/source-handler/"/>
+    <id>http://yoursite.com/2017/07/22/source-handler/</id>
+    <published>2017-07-22T03:08:26.000Z</published>
+    <updated>2018-10-25T07:21:14.619Z</updated>
+    
+    <summary type="html">
+    
+      Handler机制是Android中的通信机制，源码比较简单
+    
+    </summary>
+    
+      <category term="源码分析" scheme="http://yoursite.com/categories/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+    
+      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
+    
+      <category term="Hanlder" scheme="http://yoursite.com/tags/Hanlder/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android源码分析——事件分发机制</title>
+    <link href="http://yoursite.com/2017/07/22/source-view-bus/"/>
+    <id>http://yoursite.com/2017/07/22/source-view-bus/</id>
+    <published>2017-07-22T03:08:26.000Z</published>
+    <updated>2018-10-26T01:36:07.674Z</updated>
+    
+    <summary type="html">
+    
+      通过问题来学习一个东西是很好的方法。学习Android中View的事件体系，我也通过给自己提问题，在解决问题的同时也就知道了其中原理。
+    
+    </summary>
+    
+      <category term="源码分析" scheme="http://yoursite.com/categories/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+    
+      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
+    
+      <category term="Java" scheme="http://yoursite.com/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>inflate()方法的那些坑</title>
+    <link href="http://yoursite.com/2017/07/22/android-inflater/"/>
+    <id>http://yoursite.com/2017/07/22/android-inflater/</id>
+    <published>2017-07-22T03:08:26.000Z</published>
+    <updated>2018-10-25T06:59:53.481Z</updated>
+    
+    <summary type="html">
+    
+      LayoutInflater.inflate()这个方法，大家一定很熟悉——在给fragment添加布局文件，或者在RecyclerView的Adapter中为item添加布局时，都会用到。inflate()这个方法需要最多三个参数：resource，root，以及attachToRoot。参考源码，就知道了这里的resource是你具体要添加的那个布局文件，root是布局的根参数，那么attachToRoot是什么意思呢？什么时候为true，什么时候为false？
+    
+    </summary>
+    
+      <category term="学习笔记" scheme="http://yoursite.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
+    
+  </entry>
+  
+</feed>
