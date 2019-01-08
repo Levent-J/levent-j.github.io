@@ -5,9 +5,9 @@
   <subtitle>哇啦啦啦</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://yoursite.com/"/>
+  <link href="http://levent-j.com/"/>
   <updated>2019-01-08T03:37:38.165Z</updated>
-  <id>http://yoursite.com/</id>
+  <id>http://levent-j.com/</id>
   
   <author>
     <name>Levent-J</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>我的书单</title>
-    <link href="http://yoursite.com/2019/01/08/book-list/"/>
-    <id>http://yoursite.com/2019/01/08/book-list/</id>
+    <link href="http://levent-j.com/2019/01/08/book-list/"/>
+    <id>http://levent-j.com/2019/01/08/book-list/</id>
     <published>2019-01-08T03:15:26.000Z</published>
     <updated>2019-01-08T03:37:38.165Z</updated>
     
@@ -29,17 +29,17 @@
     
     </summary>
     
-      <category term="碎碎念" scheme="http://yoursite.com/categories/%E7%A2%8E%E7%A2%8E%E5%BF%B5/"/>
+      <category term="碎碎念" scheme="http://levent-j.com/categories/%E7%A2%8E%E7%A2%8E%E5%BF%B5/"/>
     
     
-      <category term="读书" scheme="http://yoursite.com/tags/%E8%AF%BB%E4%B9%A6/"/>
+      <category term="读书" scheme="http://levent-j.com/tags/%E8%AF%BB%E4%B9%A6/"/>
     
   </entry>
   
   <entry>
     <title>你好 2019</title>
-    <link href="http://yoursite.com/2019/01/06/hello-2019/"/>
-    <id>http://yoursite.com/2019/01/06/hello-2019/</id>
+    <link href="http://levent-j.com/2019/01/06/hello-2019/"/>
+    <id>http://levent-j.com/2019/01/06/hello-2019/</id>
     <published>2019-01-06T09:21:15.000Z</published>
     <updated>2019-01-08T03:09:56.593Z</updated>
     
@@ -49,17 +49,17 @@
     
     </summary>
     
-      <category term="碎碎念" scheme="http://yoursite.com/categories/%E7%A2%8E%E7%A2%8E%E5%BF%B5/"/>
+      <category term="碎碎念" scheme="http://levent-j.com/categories/%E7%A2%8E%E7%A2%8E%E5%BF%B5/"/>
     
     
-      <category term="计划" scheme="http://yoursite.com/tags/%E8%AE%A1%E5%88%92/"/>
+      <category term="计划" scheme="http://levent-j.com/tags/%E8%AE%A1%E5%88%92/"/>
     
   </entry>
   
   <entry>
     <title>总结目前常见的Crash日志收集工具</title>
-    <link href="http://yoursite.com/2018/12/08/survey-crash-report/"/>
-    <id>http://yoursite.com/2018/12/08/survey-crash-report/</id>
+    <link href="http://levent-j.com/2018/12/08/survey-crash-report/"/>
+    <id>http://levent-j.com/2018/12/08/survey-crash-report/</id>
     <published>2018-12-08T02:21:15.000Z</published>
     <updated>2019-01-02T03:48:28.654Z</updated>
     
@@ -69,17 +69,17 @@
     
     </summary>
     
-      <category term="工作总结" scheme="http://yoursite.com/categories/%E5%B7%A5%E4%BD%9C%E6%80%BB%E7%BB%93/"/>
+      <category term="工作总结" scheme="http://levent-j.com/categories/%E5%B7%A5%E4%BD%9C%E6%80%BB%E7%BB%93/"/>
     
     
-      <category term="Crash" scheme="http://yoursite.com/tags/Crash/"/>
+      <category term="Crash" scheme="http://levent-j.com/tags/Crash/"/>
     
   </entry>
   
   <entry>
     <title>微观经济学原理学习笔记</title>
-    <link href="http://yoursite.com/2018/12/08/econ-note-micro/"/>
-    <id>http://yoursite.com/2018/12/08/econ-note-micro/</id>
+    <link href="http://levent-j.com/2018/12/08/econ-note-micro/"/>
+    <id>http://levent-j.com/2018/12/08/econ-note-micro/</id>
     <published>2018-12-08T02:21:15.000Z</published>
     <updated>2019-01-07T03:59:04.798Z</updated>
     
@@ -89,17 +89,17 @@
     
     </summary>
     
-      <category term="经济学" scheme="http://yoursite.com/categories/%E7%BB%8F%E6%B5%8E%E5%AD%A6/"/>
+      <category term="经济学" scheme="http://levent-j.com/categories/%E7%BB%8F%E6%B5%8E%E5%AD%A6/"/>
     
     
-      <category term="微观经济学" scheme="http://yoursite.com/tags/%E5%BE%AE%E8%A7%82%E7%BB%8F%E6%B5%8E%E5%AD%A6/"/>
+      <category term="微观经济学" scheme="http://levent-j.com/tags/%E5%BE%AE%E8%A7%82%E7%BB%8F%E6%B5%8E%E5%AD%A6/"/>
     
   </entry>
   
   <entry>
     <title>Android SDK for Unity</title>
-    <link href="http://yoursite.com/2018/11/19/unity3d-android-sdk/"/>
-    <id>http://yoursite.com/2018/11/19/unity3d-android-sdk/</id>
+    <link href="http://levent-j.com/2018/11/19/unity3d-android-sdk/"/>
+    <id>http://levent-j.com/2018/11/19/unity3d-android-sdk/</id>
     <published>2018-11-19T03:34:18.000Z</published>
     <updated>2018-11-21T09:33:01.128Z</updated>
     
@@ -109,19 +109,19 @@
     
     </summary>
     
-      <category term="学习笔记" scheme="http://yoursite.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+      <category term="学习笔记" scheme="http://levent-j.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
     
-      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
+      <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
     
-      <category term="Unity3d" scheme="http://yoursite.com/tags/Unity3d/"/>
+      <category term="Unity3d" scheme="http://levent-j.com/tags/Unity3d/"/>
     
   </entry>
   
   <entry>
     <title>Android打包相关知识整理（二）</title>
-    <link href="http://yoursite.com/2018/11/02/android-pack-app-2/"/>
-    <id>http://yoursite.com/2018/11/02/android-pack-app-2/</id>
+    <link href="http://levent-j.com/2018/11/02/android-pack-app-2/"/>
+    <id>http://levent-j.com/2018/11/02/android-pack-app-2/</id>
     <published>2018-11-02T08:45:26.000Z</published>
     <updated>2018-11-16T09:39:18.507Z</updated>
     
@@ -131,19 +131,19 @@
     
     </summary>
     
-      <category term="学习笔记" scheme="http://yoursite.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+      <category term="学习笔记" scheme="http://levent-j.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
     
-      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
+      <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
     
-      <category term="MultiDex" scheme="http://yoursite.com/tags/MultiDex/"/>
+      <category term="MultiDex" scheme="http://levent-j.com/tags/MultiDex/"/>
     
   </entry>
   
   <entry>
     <title>Android打包相关知识整理（一）</title>
-    <link href="http://yoursite.com/2018/10/29/android-pack-app-1/"/>
-    <id>http://yoursite.com/2018/10/29/android-pack-app-1/</id>
+    <link href="http://levent-j.com/2018/10/29/android-pack-app-1/"/>
+    <id>http://levent-j.com/2018/10/29/android-pack-app-1/</id>
     <published>2018-10-29T08:45:26.000Z</published>
     <updated>2018-11-02T07:17:11.169Z</updated>
     
@@ -153,19 +153,19 @@
     
     </summary>
     
-      <category term="学习笔记" scheme="http://yoursite.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+      <category term="学习笔记" scheme="http://levent-j.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
     
-      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
+      <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
     
-      <category term="MultiDex" scheme="http://yoursite.com/tags/MultiDex/"/>
+      <category term="MultiDex" scheme="http://levent-j.com/tags/MultiDex/"/>
     
   </entry>
   
   <entry>
     <title>2018学习计划</title>
-    <link href="http://yoursite.com/2018/10/25/hello/"/>
-    <id>http://yoursite.com/2018/10/25/hello/</id>
+    <link href="http://levent-j.com/2018/10/25/hello/"/>
+    <id>http://levent-j.com/2018/10/25/hello/</id>
     <published>2018-10-25T03:08:26.000Z</published>
     <updated>2018-11-21T09:27:41.735Z</updated>
     
@@ -175,17 +175,17 @@
     
     </summary>
     
-      <category term="碎碎念" scheme="http://yoursite.com/categories/%E7%A2%8E%E7%A2%8E%E5%BF%B5/"/>
+      <category term="碎碎念" scheme="http://levent-j.com/categories/%E7%A2%8E%E7%A2%8E%E5%BF%B5/"/>
     
     
-      <category term="Schedule" scheme="http://yoursite.com/tags/Schedule/"/>
+      <category term="Schedule" scheme="http://levent-j.com/tags/Schedule/"/>
     
   </entry>
   
   <entry>
     <title>Android源码分析——Activity的绘制</title>
-    <link href="http://yoursite.com/2017/11/28/source-activity-setcontent-/"/>
-    <id>http://yoursite.com/2017/11/28/source-activity-setcontent-/</id>
+    <link href="http://levent-j.com/2017/11/28/source-activity-setcontent-/"/>
+    <id>http://levent-j.com/2017/11/28/source-activity-setcontent-/</id>
     <published>2017-11-28T03:08:26.000Z</published>
     <updated>2018-10-25T07:10:59.112Z</updated>
     
@@ -195,41 +195,19 @@
     
     </summary>
     
-      <category term="源码分析" scheme="http://yoursite.com/categories/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+      <category term="源码分析" scheme="http://levent-j.com/categories/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
     
     
-      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
+      <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
     
-      <category term="Activity" scheme="http://yoursite.com/tags/Activity/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>《深入理解Java虚拟机》读书笔记</title>
-    <link href="http://yoursite.com/2017/10/25/jvm_note/"/>
-    <id>http://yoursite.com/2017/10/25/jvm_note/</id>
-    <published>2017-10-25T03:08:26.000Z</published>
-    <updated>2018-10-25T03:22:09.540Z</updated>
-    
-    <summary type="html">
-    
-      前段时间看完了《深入理解Java虚拟机》，收获很多，在阅读过程记录了笔记
-    
-    </summary>
-    
-      <category term="学习笔记" scheme="http://yoursite.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    
-    
-      <category term="Java" scheme="http://yoursite.com/tags/Java/"/>
-    
-      <category term="Jvm" scheme="http://yoursite.com/tags/Jvm/"/>
+      <category term="Activity" scheme="http://levent-j.com/tags/Activity/"/>
     
   </entry>
   
   <entry>
     <title>Android源码分析-从AIDL了解Binder机制</title>
-    <link href="http://yoursite.com/2017/10/25/source-binder/"/>
-    <id>http://yoursite.com/2017/10/25/source-binder/</id>
+    <link href="http://levent-j.com/2017/10/25/source-binder/"/>
+    <id>http://levent-j.com/2017/10/25/source-binder/</id>
     <published>2017-10-25T03:08:26.000Z</published>
     <updated>2018-10-25T08:19:44.786Z</updated>
     
@@ -239,19 +217,19 @@
     
     </summary>
     
-      <category term="源码分析" scheme="http://yoursite.com/categories/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+      <category term="源码分析" scheme="http://levent-j.com/categories/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
     
     
-      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
+      <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
     
-      <category term="Binder" scheme="http://yoursite.com/tags/Binder/"/>
+      <category term="Binder" scheme="http://levent-j.com/tags/Binder/"/>
     
   </entry>
   
   <entry>
     <title>Android源码分析——Activity启动与生命周期</title>
-    <link href="http://yoursite.com/2017/10/25/source-startactivity/"/>
-    <id>http://yoursite.com/2017/10/25/source-startactivity/</id>
+    <link href="http://levent-j.com/2017/10/25/source-startactivity/"/>
+    <id>http://levent-j.com/2017/10/25/source-startactivity/</id>
     <published>2017-10-25T03:08:26.000Z</published>
     <updated>2018-10-25T07:04:19.611Z</updated>
     
@@ -261,17 +239,39 @@
     
     </summary>
     
-      <category term="源码分析" scheme="http://yoursite.com/categories/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+      <category term="源码分析" scheme="http://levent-j.com/categories/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
     
     
-      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
+      <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>《深入理解Java虚拟机》读书笔记</title>
+    <link href="http://levent-j.com/2017/10/25/jvm_note/"/>
+    <id>http://levent-j.com/2017/10/25/jvm_note/</id>
+    <published>2017-10-25T03:08:26.000Z</published>
+    <updated>2018-10-25T03:22:09.540Z</updated>
+    
+    <summary type="html">
+    
+      前段时间看完了《深入理解Java虚拟机》，收获很多，在阅读过程记录了笔记
+    
+    </summary>
+    
+      <category term="学习笔记" scheme="http://levent-j.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="Java" scheme="http://levent-j.com/tags/Java/"/>
+    
+      <category term="Jvm" scheme="http://levent-j.com/tags/Jvm/"/>
     
   </entry>
   
   <entry>
     <title>Android内存泄漏那些事儿</title>
-    <link href="http://yoursite.com/2017/07/27/android_memory_leak/"/>
-    <id>http://yoursite.com/2017/07/27/android_memory_leak/</id>
+    <link href="http://levent-j.com/2017/07/27/android_memory_leak/"/>
+    <id>http://levent-j.com/2017/07/27/android_memory_leak/</id>
     <published>2017-07-27T03:08:26.000Z</published>
     <updated>2018-10-25T08:22:54.581Z</updated>
     
@@ -281,21 +281,21 @@
     
     </summary>
     
-      <category term="学习笔记" scheme="http://yoursite.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+      <category term="学习笔记" scheme="http://levent-j.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
     
-      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
+      <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
     
-      <category term="Java" scheme="http://yoursite.com/tags/Java/"/>
+      <category term="Java" scheme="http://levent-j.com/tags/Java/"/>
     
-      <category term="内存泄漏" scheme="http://yoursite.com/tags/%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F/"/>
+      <category term="内存泄漏" scheme="http://levent-j.com/tags/%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F/"/>
     
   </entry>
   
   <entry>
     <title>计算机基础知识复习</title>
-    <link href="http://yoursite.com/2017/07/25/review-cs/"/>
-    <id>http://yoursite.com/2017/07/25/review-cs/</id>
+    <link href="http://levent-j.com/2017/07/25/review-cs/"/>
+    <id>http://levent-j.com/2017/07/25/review-cs/</id>
     <published>2017-07-25T03:08:26.000Z</published>
     <updated>2018-10-25T07:17:21.240Z</updated>
     
@@ -305,61 +305,17 @@
     
     </summary>
     
-      <category term="学习笔记" scheme="http://yoursite.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+      <category term="学习笔记" scheme="http://levent-j.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
     
-      <category term="计算机" scheme="http://yoursite.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Android源码分析——Hanlder</title>
-    <link href="http://yoursite.com/2017/07/22/source-handler/"/>
-    <id>http://yoursite.com/2017/07/22/source-handler/</id>
-    <published>2017-07-22T03:08:26.000Z</published>
-    <updated>2018-10-25T07:21:14.619Z</updated>
-    
-    <summary type="html">
-    
-      Handler机制是Android中的通信机制，源码比较简单
-    
-    </summary>
-    
-      <category term="源码分析" scheme="http://yoursite.com/categories/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
-    
-    
-      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
-    
-      <category term="Hanlder" scheme="http://yoursite.com/tags/Hanlder/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Android源码分析——事件分发机制</title>
-    <link href="http://yoursite.com/2017/07/22/source-view-bus/"/>
-    <id>http://yoursite.com/2017/07/22/source-view-bus/</id>
-    <published>2017-07-22T03:08:26.000Z</published>
-    <updated>2018-10-26T01:36:07.674Z</updated>
-    
-    <summary type="html">
-    
-      通过问题来学习一个东西是很好的方法。学习Android中View的事件体系，我也通过给自己提问题，在解决问题的同时也就知道了其中原理。
-    
-    </summary>
-    
-      <category term="源码分析" scheme="http://yoursite.com/categories/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
-    
-    
-      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
-    
-      <category term="Java" scheme="http://yoursite.com/tags/Java/"/>
+      <category term="计算机" scheme="http://levent-j.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA/"/>
     
   </entry>
   
   <entry>
     <title>inflate()方法的那些坑</title>
-    <link href="http://yoursite.com/2017/07/22/android-inflater/"/>
-    <id>http://yoursite.com/2017/07/22/android-inflater/</id>
+    <link href="http://levent-j.com/2017/07/22/android-inflater/"/>
+    <id>http://levent-j.com/2017/07/22/android-inflater/</id>
     <published>2017-07-22T03:08:26.000Z</published>
     <updated>2018-10-25T06:59:53.481Z</updated>
     
@@ -369,10 +325,54 @@
     
     </summary>
     
-      <category term="学习笔记" scheme="http://yoursite.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+      <category term="学习笔记" scheme="http://levent-j.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
     
-      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
+      <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android源码分析——Hanlder</title>
+    <link href="http://levent-j.com/2017/07/22/source-handler/"/>
+    <id>http://levent-j.com/2017/07/22/source-handler/</id>
+    <published>2017-07-22T03:08:26.000Z</published>
+    <updated>2018-10-25T07:21:14.619Z</updated>
+    
+    <summary type="html">
+    
+      Handler机制是Android中的通信机制，源码比较简单
+    
+    </summary>
+    
+      <category term="源码分析" scheme="http://levent-j.com/categories/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+    
+      <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
+    
+      <category term="Hanlder" scheme="http://levent-j.com/tags/Hanlder/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android源码分析——事件分发机制</title>
+    <link href="http://levent-j.com/2017/07/22/source-view-bus/"/>
+    <id>http://levent-j.com/2017/07/22/source-view-bus/</id>
+    <published>2017-07-22T03:08:26.000Z</published>
+    <updated>2018-10-26T01:36:07.674Z</updated>
+    
+    <summary type="html">
+    
+      通过问题来学习一个东西是很好的方法。学习Android中View的事件体系，我也通过给自己提问题，在解决问题的同时也就知道了其中原理。
+    
+    </summary>
+    
+      <category term="源码分析" scheme="http://levent-j.com/categories/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+    
+      <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
+    
+      <category term="Java" scheme="http://levent-j.com/tags/Java/"/>
     
   </entry>
   
