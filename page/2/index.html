@@ -299,7 +299,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://levent-j.com/2017/10/25/source-startactivity/">
+    <link itemprop="mainEntityOfPage" href="http://levent-j.com/2017/10/25/source-binder/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Levent-J">
@@ -318,7 +318,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/10/25/source-startactivity/" itemprop="url">Android源码分析——Activity启动与生命周期</a></h1>
+                <a class="post-title-link" href="/2017/10/25/source-binder/" itemprop="url">Android源码分析-从AIDL了解Binder机制</a></h1>
         
 
         <div class="post-meta">
@@ -371,8 +371,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/10/25/source-startactivity/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2017/10/25/source-startactivity/" itemprop="commentCount"></span>
+                <a href="/2017/10/25/source-binder/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2017/10/25/source-binder/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -380,7 +380,7 @@
 
           
           
-             <span id="/2017/10/25/source-startactivity/" class="leancloud_visitors" data-flag-title="Android源码分析——Activity启动与生命周期">
+             <span id="/2017/10/25/source-binder/" class="leancloud_visitors" data-flag-title="Android源码分析-从AIDL了解Binder机制">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -412,10 +412,10 @@
 
       
         
-          通过分析源码，了解AstartActivity()方法背后的逻辑，以及生命周期是如何执行的
+          以AIDL为入口，探究Binder机制的原理
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/10/25/source-startactivity/">
+            <a class="btn" href="/2017/10/25/source-binder/">
               阅读全文 &raquo;
             </a>
           </div>
@@ -583,6 +583,173 @@
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/10/25/jvm_note/">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://levent-j.com/2017/10/25/source-startactivity/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Levent-J">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://blog-lwj.oss-cn-shenzhen.aliyuncs.com/avater.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="靖然是你">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/10/25/source-startactivity/" itemprop="url">Android源码分析——Activity启动与生命周期</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-25T11:08:26+08:00">
+                2017-10-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/源码分析/" itemprop="url" rel="index">
+                    <span itemprop="name">源码分析</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/10/25/source-startactivity/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2017/10/25/source-startactivity/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/10/25/source-startactivity/" class="leancloud_visitors" data-flag-title="Android源码分析——Activity启动与生命周期">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          通过分析源码，了解AstartActivity()方法背后的逻辑，以及生命周期是如何执行的
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/10/25/source-startactivity/">
               阅读全文 &raquo;
             </a>
           </div>
@@ -967,7 +1134,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://levent-j.com/2017/07/22/android-inflater/">
+    <link itemprop="mainEntityOfPage" href="http://levent-j.com/2017/07/22/source-view-bus/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Levent-J">
@@ -986,7 +1153,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/07/22/android-inflater/" itemprop="url">inflate()方法的那些坑</a></h1>
+                <a class="post-title-link" href="/2017/07/22/source-view-bus/" itemprop="url">Android源码分析——事件分发机制</a></h1>
         
 
         <div class="post-meta">
@@ -1021,8 +1188,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">学习笔记</span>
+                  <a href="/categories/源码分析/" itemprop="url" rel="index">
+                    <span itemprop="name">源码分析</span>
                   </a>
                 </span>
 
@@ -1039,8 +1206,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/07/22/android-inflater/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2017/07/22/android-inflater/" itemprop="commentCount"></span>
+                <a href="/2017/07/22/source-view-bus/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2017/07/22/source-view-bus/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1048,7 +1215,7 @@
 
           
           
-             <span id="/2017/07/22/android-inflater/" class="leancloud_visitors" data-flag-title="inflate()方法的那些坑">
+             <span id="/2017/07/22/source-view-bus/" class="leancloud_visitors" data-flag-title="Android源码分析——事件分发机制">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1080,10 +1247,10 @@
 
       
         
-          LayoutInflater.inflate()这个方法，大家一定很熟悉——在给fragment添加布局文件，或者在RecyclerView的Adapter中为item添加布局时，都会用到。inflate()这个方法需要最多三个参数：resource，root，以及attachToRoot。参考源码，就知道了这里的resource是你具体要添加的那个布局文件，root是布局的根参数，那么attachToRoot是什么意思呢？什么时候为true，什么时候为false？
+          通过问题来学习一个东西是很好的方法。学习Android中View的事件体系，我也通过给自己提问题，在解决问题的同时也就知道了其中原理。
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/07/22/android-inflater/">
+            <a class="btn" href="/2017/07/22/source-view-bus/">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1301,7 +1468,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://levent-j.com/2017/07/22/source-view-bus/">
+    <link itemprop="mainEntityOfPage" href="http://levent-j.com/2017/07/22/android-inflater/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Levent-J">
@@ -1320,7 +1487,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/07/22/source-view-bus/" itemprop="url">Android源码分析——事件分发机制</a></h1>
+                <a class="post-title-link" href="/2017/07/22/android-inflater/" itemprop="url">inflate()方法的那些坑</a></h1>
         
 
         <div class="post-meta">
@@ -1355,8 +1522,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/源码分析/" itemprop="url" rel="index">
-                    <span itemprop="name">源码分析</span>
+                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
                   </a>
                 </span>
 
@@ -1373,8 +1540,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/07/22/source-view-bus/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2017/07/22/source-view-bus/" itemprop="commentCount"></span>
+                <a href="/2017/07/22/android-inflater/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2017/07/22/android-inflater/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1382,7 +1549,7 @@
 
           
           
-             <span id="/2017/07/22/source-view-bus/" class="leancloud_visitors" data-flag-title="Android源码分析——事件分发机制">
+             <span id="/2017/07/22/android-inflater/" class="leancloud_visitors" data-flag-title="inflate()方法的那些坑">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1414,10 +1581,10 @@
 
       
         
-          通过问题来学习一个东西是很好的方法。学习Android中View的事件体系，我也通过给自己提问题，在解决问题的同时也就知道了其中原理。
+          LayoutInflater.inflate()这个方法，大家一定很熟悉——在给fragment添加布局文件，或者在RecyclerView的Adapter中为item添加布局时，都会用到。inflate()这个方法需要最多三个参数：resource，root，以及attachToRoot。参考源码，就知道了这里的resource是你具体要添加的那个布局文件，root是布局的根参数，那么attachToRoot是什么意思呢？什么时候为true，什么时候为false？
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/07/22/source-view-bus/">
+            <a class="btn" href="/2017/07/22/android-inflater/">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1509,7 +1676,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1520,7 +1687,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1531,7 +1698,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
