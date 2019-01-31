@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://levent-j.com/"/>
-  <updated>2019-01-21T01:54:58.097Z</updated>
+  <updated>2019-01-31T12:13:44.041Z</updated>
   <id>http://levent-j.com/</id>
   
   <author>
@@ -15,6 +15,54 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>时间都去哪了</title>
+    <link href="http://levent-j.com/2019/01/31/whare_my_time/"/>
+    <id>http://levent-j.com/2019/01/31/whare_my_time/</id>
+    <published>2019-01-31T03:29:33.000Z</published>
+    <updated>2019-01-31T12:13:44.041Z</updated>
+    
+    <summary type="html">
+    
+      时间都去哪了？
+    
+    </summary>
+    
+      <category term="杂谈" scheme="http://levent-j.com/categories/%E6%9D%82%E8%B0%88/"/>
+    
+    
+      <category term="时间" scheme="http://levent-j.com/tags/%E6%97%B6%E9%97%B4/"/>
+    
+      <category term="思考" scheme="http://levent-j.com/tags/%E6%80%9D%E8%80%83/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android签名机制</title>
+    <link href="http://levent-j.com/2019/01/30/android-sign/"/>
+    <id>http://levent-j.com/2019/01/30/android-sign/</id>
+    <published>2019-01-30T08:17:21.000Z</published>
+    <updated>2019-01-30T08:36:51.141Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;# &lt;/p&gt;
+
+      
+    
+    </summary>
+    
+      <category term="学习笔记" scheme="http://levent-j.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
+    
+      <category term="签名" scheme="http://levent-j.com/tags/%E7%AD%BE%E5%90%8D/"/>
+    
+  </entry>
   
   <entry>
     <title>解读权限标签 &amp;ltpermission&amp;gt  和 &amp;ltuses-permission&amp;gt</title>
@@ -32,9 +80,9 @@
       <category term="Android" scheme="http://levent-j.com/categories/Android/"/>
     
     
-      <category term="权限" scheme="http://levent-j.com/tags/%E6%9D%83%E9%99%90/"/>
-    
       <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
+    
+      <category term="权限" scheme="http://levent-j.com/tags/%E6%9D%83%E9%99%90/"/>
     
       <category term="permission" scheme="http://levent-j.com/tags/permission/"/>
     

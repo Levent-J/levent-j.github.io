@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[时间都去哪了]]></title>
+    <url>%2F2019%2F01%2F31%2Fwhare_my_time%2F</url>
+    <content type="text"><![CDATA[时间都去哪了？一天有24小时 早上9：00开始工作，到11：30去吃饭；下午14:00开始工作，到晚上18:00。我的实际工作时间，最多能算7个小时。 早饭、午饭、晚饭共计算1个小时 午休占半个小时 上下班路上花去1个小时 早晚洗漱共计半小时 晚上十二点睡觉到早上七点起床，有七个小时 以上，共计17个小时。。。 也就是说，我本来有将近七个小时，是可以自由支配的。 但是我实际体验到的确是，每天不知道干了些什么就到了12点，总是不甘心就那么早睡觉，要熬夜。一熬，就是快一点了。 为什么呢？我的七个小时，都去哪了？ 换个思路早上七点起床，洗漱+走路到公司，8点半左右到公司。那么八点半到九点半上班之间，去掉早餐时间，我起码有一个半小时的时间（可能还多一点），这段时间，就是我可以自由支配的。 十一点半（或更晚）去吃午饭，大概最晚十二点半能回到工位。距离一点半午休，还有一个多小时，也是我可以支配的。 如果坚持晚上十二点睡觉，算上晚上回家+运动+洗澡时间，大概一个半小时，那我最晚，晚上十点就要离开公司。所以晚饭后六点半到晚上十点之间，我也有三个半（可能少一点）的时间可以自由支配。 新的计划好了，去掉乱七八糟浪费的碎片时间，我实际上可以用来学习的时间有五个半小时。 其实，五个半小时还可以再细分。 早上一段时间，中午一段时间，和晚上一段时间。其中晚上时间最多，早上可以调整，中午最多只有一个小时。 早上适合看书，晚上适合戴上耳机搞会代码什么的，中午一个小时，还是拿来娱乐休息吧 最后，让我再重新制定以下我的作息吧： 早上六点半起床，七点左右到公司。 然后开始看书。 八点半左右，去吃早餐，大概十分钟，吃完回来练练书法，然后整理下当天的计划，开始工作。 午饭后玩会游戏，到一点半左右，休息。 晚饭后短暂休整，六点半，最迟七点，开始学习。 晚上九点半，准时下班，回家大概十点。 到家换衣服运动，到十点半左右，回家洗澡。 十一点，睡觉。 这样，每天晚上至少能睡7个小时，学习时间也有五个小时。 新的一年，一定要坚持良这样的作息时间！]]></content>
+      <categories>
+        <category>杂谈</category>
+      </categories>
+      <tags>
+        <tag>时间</tag>
+        <tag>思考</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Android签名机制]]></title>
+    <url>%2F2019%2F01%2F30%2Fandroid-sign%2F</url>
+    <content type="text"><![CDATA[#]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+        <tag>签名</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[解读权限标签 &ltpermission&gt 和 &ltuses-permission&gt]]></title>
     <url>%2F2019%2F01%2F17%2Fandroid-permission%2F</url>
     <content type="text"><![CDATA[最近在项目中遇到一个问题，不同的包在安装时有冲突，后一个安装的应用会被提示已经有相同的权限被声明了，因此无法安装。看了下两个包的 AndroidManifest.xml 文件，确实有相同名称的 &lt;permission&gt; 和 &lt;uses-permission&gt; 标签。那么这个 &lt;permission&gt; 标签和 &lt;uses-permission&gt; 标签有什么区别呢？ 权限首先，什么是权限？我有一个应用A，一个应用B，现在应用A想使用应用B的一些功能，那么Android系统为了安全起见，肯定不能让我们随便就调用了。应用B必须先声明一些权限，对应于开放给外界调用的功能。应用A要用，必须要先注册这些权限，相当于获取了一块通行证。 我们在 AndroidManifest.xml 文件中所见到的权限标签有两种， &lt;permission&gt; 和 &lt;uses-permission&gt; 。他们的区别，在官网文档有很详细的解释： &lt;permission&gt; &lt;uses-permission&gt; 大概总结一下，就是 &lt;permission&gt; 标签用来声明、定义一个权限，而 &lt;uses-permission&gt; 标签用来申请一个权限。除此之外，还有一些权限相关的标签，比如 &lt;permission-group&gt; 和 &lt;permission-tree&gt; ，这两个都是和 &lt;permission&gt; 相关的。其中 &lt;permission-group&gt; 用来声明一个权限组，在定义单个具体权限时可以将其分配到指定的权限组中，这样一个权限组就包含了多个具体权限。当申请权限组中一个单个权限成功时，同一个组内的其他权限也会自动获取到，可谓“一荣俱荣”。另外一个标签 &lt;permission-tree&gt; 则是为一组权限声明一个基础的命名空间，相当于一组权限的前缀，是可以用代码动态添加的，而且其名字必须要至少两个 . 符号。 permission1234567&lt;permission android:description="string resource" &lt;!--描述信息（展示给用户）--&gt; android:icon="drawable resource" android:label="string resource" &lt;!--权限的名称（展示给用户）--&gt; android:name="string" &lt;!--权限的名称（唯一标示）--&gt; android:permissionGroup="string" &lt;!--所属权限组--&gt; android:protectionLevel=["normal" | "dangerous" | &lt;!--权限等级--&gt; "signature" | ...] /&gt; 这里要注意一点， name 属性必须是唯一的！官方文档是这么说的： Note: The system does not allow multiple packages to declare a permission with the same name, unless all the packages are signed with the same certificate. If a package declares a permission, the system does not permit the user to install other packages with the same permission name, unless those packages are signed with the same certificate as the first package. To avoid naming collisions, we recommend using reverse-domain-style naming for custom permissions, for example com.example.myapp.ENGAGE_HYPERSPACE. 也就是说，这一名称在系统中是唯一的，他是什么在系统中注册的就是什么，和你的包名什么的没有关系。因此Google建议采用和包名类似的命名方式。 此外， protectionLevel 这一属性表示这一权限的等级，不同等级的权限有不同的待遇： normal: 任何应用都可以申请这一权限，而且在安装时默认授予，不会直接给用户提示 dangerous：任何应用都可以申请这一权限，但是会给用户提示，在5.0 6.0以后的系统，甚至需要应用动态获取，而无法再安装时一次获取 signature：只有与声明这一权限的应用使用了相同的私钥签名的应用才可以申请。 signatureAndSystem：除了满足signature的应用可以申请外，存放在系统目录 /system/app 目录下也可以申请。 难怪我们安装时会提示权限冲突，原来是因为有两个 &lt;permission&gt; 标签使用了相同的 name 值。 uses-permission&lt;uses-permission&gt; 权限的相关属性就简单的多： 12&lt;uses-permission android:name="string" &lt;!--权限名称--&gt; android:maxSdkVersion="integer" /&gt; &lt;!--权限需要的最大Sdk版本--&gt; 这里的 name 属性所指的便是由 &lt;permission&gt; 标签所声明时使用的 name 属性了。 所以权限冲突和这一标签是没关系的。亲测之后发现，只要不存在相同的 &lt;permission&gt; ，即使存在两个一样的 &lt;uses-permission&gt; 也是可以的。 举个栗子在源码目录的 frameworks/base/core/ 目录下的 AndroidManifest.xml 文件中，声明了一些系统常见的权限。这儿截取一部分来看： 12345678910111213141516171819202122232425262728293031323334&lt;!-- ====================================================================== --&gt; &lt;!-- RUNTIME PERMISSIONS --&gt; &lt;!-- ====================================================================== --&gt; &lt;eat-comment /&gt; &lt;!-- ====================================================================== --&gt; &lt;!-- Permissions for accessing user's contacts including personal profile --&gt; &lt;!-- ====================================================================== --&gt; &lt;eat-comment /&gt; &lt;!-- Used for runtime permissions related to user's contacts and profile. --&gt; &lt;permission-group android:name="android.permission-group.CONTACTS" android:icon="@drawable/perm_group_contacts" android:label="@string/permgrouplab_contacts" android:description="@string/permgroupdesc_contacts" android:priority="100" /&gt; &lt;!-- Allows an application to read the user's contacts data. &lt;p&gt;Protection level: dangerous --&gt; &lt;permission android:name="android.permission.READ_CONTACTS" android:permissionGroup="android.permission-group.CONTACTS" android:label="@string/permlab_readContacts" android:description="@string/permdesc_readContacts" android:protectionLevel="dangerous" /&gt; &lt;!-- Allows an application to write the user's contacts data. &lt;p&gt;Protection level: dangerous --&gt; &lt;permission android:name="android.permission.WRITE_CONTACTS" android:permissionGroup="android.permission-group.CONTACTS" android:label="@string/permlab_writeContacts" android:description="@string/permdesc_writeContacts" android:protectionLevel="dangerous" /&gt; 拿通讯录权限举例。首先这里声明了一个权限组 android.permission-group.CONTACTS 。之后，分别定义了一个通讯录的读权限、一个通讯录的写权限，且他们的 permissionGroup 属性都指向了刚刚声明的权限组名称。因此，这两个权限便同属于一个权限组。此外，看看 label 和 description 属性的值是什么。在同级的 res 目录下可以看到各种语言版本的 strings.xml 文件，看看中文版怎么说吧： &lt;string name="permlab_readContacts" msgid="8348481131899886131"&gt;"读取您的通讯录"&lt;/string&gt; &lt;string name="permdesc_readContacts" product="tablet" msgid="5294866856941149639"&gt;"允许该应用读取您平板电脑上存储的联系人的相关数据，包括您通过打电话、发送电子邮件或以其他方式与特定个人通信的频率。此权限可让应用保存您的联系人数据，而恶意应用可能会在您不知情的情况下分享联系人数据。"&lt;/string&gt; &lt;string name="permdesc_readContacts" product="tv" msgid="1839238344654834087"&gt;"允许应用读取您的电视上存储的联系人相关数据，包括您与特定联系人通话、发送电子邮件或通过其他方式进行通信的频率。此权限可让应用保存您的联系人数据，而且恶意应用可能会在您不知情的情况下分享联系人数据。"&lt;/string&gt; &lt;string name="permdesc_readContacts" product="default" msgid="8440654152457300662"&gt;"允许该应用读取您手机上存储的联系人的相关数据，包括您通过打电话、发送电子邮件或以其他方式与特定个人通信的频率。此权限可让应用保存您的联系人数据，而恶意应用可能会在您不知情的情况下分享联系人数据。"&lt;/string&gt; &lt;string name="permlab_writeContacts" msgid="5107492086416793544"&gt;"修改您的通讯录"&lt;/string&gt; &lt;string name="permdesc_writeContacts" product="tablet" msgid="897243932521953602"&gt;"允许该应用修改您平板电脑上存储的联系人的相关数据，包括您通过打电话、发送电子邮件或以其他方式与特定联系人通信的频率。此权限可让应用删除联系人数据。"&lt;/string&gt; &lt;string name="permdesc_writeContacts" product="tv" msgid="5438230957000018959"&gt;"允许应用修改您的电视上存储的联系人相关数据，包括您与特定联系人通话、发送电子邮件或通过其他方式进行通信的频率。此权限可让应用删除联系人数据。"&lt;/string&gt; &lt;string name="permdesc_writeContacts" product="default" msgid="589869224625163558"&gt;"允许该应用修改您手机上存储的联系人的相关数据，包括您通过打电话、发送电子邮件或以其他方式与特定联系人通信的频率。此权限可让应用删除联系人数据。"&lt;/string&gt; 就很清楚了，在应用主动请求获取这一权限时，会弹出一个dialog，询问用户是否给予这一权限。而dialog的内容，便是由这儿的 label 和 description 组成的。]]></content>
@@ -8,8 +32,8 @@
         <category>Android</category>
       </categories>
       <tags>
-        <tag>权限</tag>
         <tag>Android</tag>
+        <tag>权限</tag>
         <tag>permission</tag>
       </tags>
   </entry>
