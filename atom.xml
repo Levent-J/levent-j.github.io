@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://levent-j.com/"/>
-  <updated>2019-01-31T12:13:44.041Z</updated>
+  <updated>2019-02-05T09:34:49.818Z</updated>
   <id>http://levent-j.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://levent-j.com/2019/01/31/whare_my_time/"/>
     <id>http://levent-j.com/2019/01/31/whare_my_time/</id>
     <published>2019-01-31T03:29:33.000Z</published>
-    <updated>2019-01-31T12:13:44.041Z</updated>
+    <updated>2019-02-05T09:34:49.818Z</updated>
     
     <summary type="html">
     
@@ -29,7 +29,7 @@
     
     </summary>
     
-      <category term="杂谈" scheme="http://levent-j.com/categories/%E6%9D%82%E8%B0%88/"/>
+      <category term="随笔" scheme="http://levent-j.com/categories/%E9%9A%8F%E7%AC%94/"/>
     
     
       <category term="时间" scheme="http://levent-j.com/tags/%E6%97%B6%E9%97%B4/"/>
@@ -43,7 +43,7 @@
     <link href="http://levent-j.com/2019/01/30/android-sign/"/>
     <id>http://levent-j.com/2019/01/30/android-sign/</id>
     <published>2019-01-30T08:17:21.000Z</published>
-    <updated>2019-01-30T08:36:51.141Z</updated>
+    <updated>2019-02-05T09:33:57.608Z</updated>
     
     <summary type="html">
     
@@ -55,7 +55,7 @@
     
     </summary>
     
-      <category term="学习笔记" scheme="http://levent-j.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+      <category term="Android" scheme="http://levent-j.com/categories/Android/"/>
     
     
       <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
@@ -69,7 +69,7 @@
     <link href="http://levent-j.com/2019/01/17/android-permission/"/>
     <id>http://levent-j.com/2019/01/17/android-permission/</id>
     <published>2019-01-17T06:43:27.000Z</published>
-    <updated>2019-01-21T01:54:58.097Z</updated>
+    <updated>2019-02-05T09:33:52.861Z</updated>
     
     <summary type="html">
     
@@ -93,7 +93,7 @@
     <link href="http://levent-j.com/2019/01/08/book-list/"/>
     <id>http://levent-j.com/2019/01/08/book-list/</id>
     <published>2019-01-08T03:15:26.000Z</published>
-    <updated>2019-01-25T06:49:22.884Z</updated>
+    <updated>2019-02-05T09:30:44.117Z</updated>
     
     <summary type="html">
     
@@ -101,7 +101,7 @@
     
     </summary>
     
-      <category term="碎碎念" scheme="http://levent-j.com/categories/%E7%A2%8E%E7%A2%8E%E5%BF%B5/"/>
+      <category term="随笔" scheme="http://levent-j.com/categories/%E9%9A%8F%E7%AC%94/"/>
     
     
       <category term="读书" scheme="http://levent-j.com/tags/%E8%AF%BB%E4%B9%A6/"/>
@@ -113,7 +113,7 @@
     <link href="http://levent-j.com/2019/01/06/hello-2019/"/>
     <id>http://levent-j.com/2019/01/06/hello-2019/</id>
     <published>2019-01-06T09:21:15.000Z</published>
-    <updated>2019-01-21T02:54:04.222Z</updated>
+    <updated>2019-02-05T09:31:03.082Z</updated>
     
     <summary type="html">
     
@@ -121,10 +121,30 @@
     
     </summary>
     
-      <category term="碎碎念" scheme="http://levent-j.com/categories/%E7%A2%8E%E7%A2%8E%E5%BF%B5/"/>
+      <category term="随笔" scheme="http://levent-j.com/categories/%E9%9A%8F%E7%AC%94/"/>
     
     
       <category term="计划" scheme="http://levent-j.com/tags/%E8%AE%A1%E5%88%92/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>总结目前常见的Crash日志收集工具</title>
+    <link href="http://levent-j.com/2018/12/08/survey-crash-report/"/>
+    <id>http://levent-j.com/2018/12/08/survey-crash-report/</id>
+    <published>2018-12-08T02:21:15.000Z</published>
+    <updated>2019-02-05T09:33:18.432Z</updated>
+    
+    <summary type="html">
+    
+      最近项目中需要加入一个Crash日志收集功能，要求接入简单且侵入性低，因此需要调研一下目前市面上国内国外的一些常见的日志收集工具，这里做一些总结。
+    
+    </summary>
+    
+      <category term="Android" scheme="http://levent-j.com/categories/Android/"/>
+    
+    
+      <category term="Crash" scheme="http://levent-j.com/tags/Crash/"/>
     
   </entry>
   
@@ -133,7 +153,7 @@
     <link href="http://levent-j.com/2018/12/08/econ-note-micro/"/>
     <id>http://levent-j.com/2018/12/08/econ-note-micro/</id>
     <published>2018-12-08T02:21:15.000Z</published>
-    <updated>2019-01-07T03:59:04.798Z</updated>
+    <updated>2019-02-05T09:34:06.495Z</updated>
     
     <summary type="html">
     
@@ -149,31 +169,11 @@
   </entry>
   
   <entry>
-    <title>总结目前常见的Crash日志收集工具</title>
-    <link href="http://levent-j.com/2018/12/08/survey-crash-report/"/>
-    <id>http://levent-j.com/2018/12/08/survey-crash-report/</id>
-    <published>2018-12-08T02:21:15.000Z</published>
-    <updated>2019-01-02T03:48:28.654Z</updated>
-    
-    <summary type="html">
-    
-      最近项目中需要加入一个Crash日志收集功能，要求接入简单且侵入性低，因此需要调研一下目前市面上国内国外的一些常见的日志收集工具，这里做一些总结。
-    
-    </summary>
-    
-      <category term="工作总结" scheme="http://levent-j.com/categories/%E5%B7%A5%E4%BD%9C%E6%80%BB%E7%BB%93/"/>
-    
-    
-      <category term="Crash" scheme="http://levent-j.com/tags/Crash/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Android SDK for Unity</title>
     <link href="http://levent-j.com/2018/11/19/unity3d-android-sdk/"/>
     <id>http://levent-j.com/2018/11/19/unity3d-android-sdk/</id>
     <published>2018-11-19T03:34:18.000Z</published>
-    <updated>2018-11-21T09:33:01.128Z</updated>
+    <updated>2019-02-05T09:33:26.625Z</updated>
     
     <summary type="html">
     
@@ -181,7 +181,7 @@
     
     </summary>
     
-      <category term="学习笔记" scheme="http://levent-j.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+      <category term="Android" scheme="http://levent-j.com/categories/Android/"/>
     
     
       <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
@@ -195,7 +195,7 @@
     <link href="http://levent-j.com/2018/11/02/android-pack-app-2/"/>
     <id>http://levent-j.com/2018/11/02/android-pack-app-2/</id>
     <published>2018-11-02T08:45:26.000Z</published>
-    <updated>2018-11-16T09:39:18.507Z</updated>
+    <updated>2019-02-05T09:33:49.879Z</updated>
     
     <summary type="html">
     
@@ -203,7 +203,7 @@
     
     </summary>
     
-      <category term="学习笔记" scheme="http://levent-j.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+      <category term="Android" scheme="http://levent-j.com/categories/Android/"/>
     
     
       <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
@@ -217,7 +217,7 @@
     <link href="http://levent-j.com/2018/10/29/android-pack-app-1/"/>
     <id>http://levent-j.com/2018/10/29/android-pack-app-1/</id>
     <published>2018-10-29T08:45:26.000Z</published>
-    <updated>2018-11-02T07:17:11.169Z</updated>
+    <updated>2019-02-05T09:33:46.416Z</updated>
     
     <summary type="html">
     
@@ -225,7 +225,7 @@
     
     </summary>
     
-      <category term="学习笔记" scheme="http://levent-j.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+      <category term="Android" scheme="http://levent-j.com/categories/Android/"/>
     
     
       <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
@@ -239,7 +239,7 @@
     <link href="http://levent-j.com/2018/10/25/hello/"/>
     <id>http://levent-j.com/2018/10/25/hello/</id>
     <published>2018-10-25T03:08:26.000Z</published>
-    <updated>2018-11-21T09:27:41.735Z</updated>
+    <updated>2019-02-05T09:31:15.719Z</updated>
     
     <summary type="html">
     
@@ -247,7 +247,7 @@
     
     </summary>
     
-      <category term="碎碎念" scheme="http://levent-j.com/categories/%E7%A2%8E%E7%A2%8E%E5%BF%B5/"/>
+      <category term="随笔" scheme="http://levent-j.com/categories/%E9%9A%8F%E7%AC%94/"/>
     
     
       <category term="Schedule" scheme="http://levent-j.com/tags/Schedule/"/>
@@ -259,7 +259,7 @@
     <link href="http://levent-j.com/2017/11/28/source-activity-setcontent-/"/>
     <id>http://levent-j.com/2017/11/28/source-activity-setcontent-/</id>
     <published>2017-11-28T03:08:26.000Z</published>
-    <updated>2018-10-25T07:10:59.112Z</updated>
+    <updated>2019-02-05T09:35:55.352Z</updated>
     
     <summary type="html">
     
@@ -267,7 +267,7 @@
     
     </summary>
     
-      <category term="源码分析" scheme="http://levent-j.com/categories/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+      <category term="Android源码分析" scheme="http://levent-j.com/categories/Android%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
     
     
       <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
@@ -277,11 +277,31 @@
   </entry>
   
   <entry>
+    <title>Android源码分析——Activity启动与生命周期</title>
+    <link href="http://levent-j.com/2017/10/25/source-startactivity/"/>
+    <id>http://levent-j.com/2017/10/25/source-startactivity/</id>
+    <published>2017-10-25T03:08:26.000Z</published>
+    <updated>2019-02-05T09:32:43.877Z</updated>
+    
+    <summary type="html">
+    
+      通过分析源码，了解AstartActivity()方法背后的逻辑，以及生命周期是如何执行的
+    
+    </summary>
+    
+      <category term="Android源码分析" scheme="http://levent-j.com/categories/Android%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+    
+      <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Android源码分析-从AIDL了解Binder机制</title>
     <link href="http://levent-j.com/2017/10/25/source-binder/"/>
     <id>http://levent-j.com/2017/10/25/source-binder/</id>
     <published>2017-10-25T03:08:26.000Z</published>
-    <updated>2018-10-25T08:19:44.786Z</updated>
+    <updated>2019-02-05T09:32:30.030Z</updated>
     
     <summary type="html">
     
@@ -289,7 +309,7 @@
     
     </summary>
     
-      <category term="源码分析" scheme="http://levent-j.com/categories/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+      <category term="Android源码分析" scheme="http://levent-j.com/categories/Android%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
     
     
       <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
@@ -303,7 +323,7 @@
     <link href="http://levent-j.com/2017/10/25/jvm_note/"/>
     <id>http://levent-j.com/2017/10/25/jvm_note/</id>
     <published>2017-10-25T03:08:26.000Z</published>
-    <updated>2018-10-25T03:22:09.540Z</updated>
+    <updated>2019-02-05T09:34:20.980Z</updated>
     
     <summary type="html">
     
@@ -311,7 +331,7 @@
     
     </summary>
     
-      <category term="学习笔记" scheme="http://levent-j.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+      <category term="Java" scheme="http://levent-j.com/categories/Java/"/>
     
     
       <category term="Java" scheme="http://levent-j.com/tags/Java/"/>
@@ -321,31 +341,11 @@
   </entry>
   
   <entry>
-    <title>Android源码分析——Activity启动与生命周期</title>
-    <link href="http://levent-j.com/2017/10/25/source-startactivity/"/>
-    <id>http://levent-j.com/2017/10/25/source-startactivity/</id>
-    <published>2017-10-25T03:08:26.000Z</published>
-    <updated>2018-10-25T07:04:19.611Z</updated>
-    
-    <summary type="html">
-    
-      通过分析源码，了解AstartActivity()方法背后的逻辑，以及生命周期是如何执行的
-    
-    </summary>
-    
-      <category term="源码分析" scheme="http://levent-j.com/categories/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
-    
-    
-      <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Android内存泄漏那些事儿</title>
     <link href="http://levent-j.com/2017/07/27/android_memory_leak/"/>
     <id>http://levent-j.com/2017/07/27/android_memory_leak/</id>
     <published>2017-07-27T03:08:26.000Z</published>
-    <updated>2018-10-25T08:22:54.581Z</updated>
+    <updated>2019-02-05T09:34:01.252Z</updated>
     
     <summary type="html">
     
@@ -353,7 +353,7 @@
     
     </summary>
     
-      <category term="学习笔记" scheme="http://levent-j.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+      <category term="Android" scheme="http://levent-j.com/categories/Android/"/>
     
     
       <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
@@ -369,7 +369,7 @@
     <link href="http://levent-j.com/2017/07/25/review-cs/"/>
     <id>http://levent-j.com/2017/07/25/review-cs/</id>
     <published>2017-07-25T03:08:26.000Z</published>
-    <updated>2018-10-25T07:17:21.240Z</updated>
+    <updated>2019-02-05T09:32:14.536Z</updated>
     
     <summary type="html">
     
@@ -377,30 +377,10 @@
     
     </summary>
     
-      <category term="学习笔记" scheme="http://levent-j.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+      <category term="计算机科学" scheme="http://levent-j.com/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/"/>
     
     
       <category term="计算机" scheme="http://levent-j.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>inflate()方法的那些坑</title>
-    <link href="http://levent-j.com/2017/07/22/android-inflater/"/>
-    <id>http://levent-j.com/2017/07/22/android-inflater/</id>
-    <published>2017-07-22T03:08:26.000Z</published>
-    <updated>2018-10-25T06:59:53.481Z</updated>
-    
-    <summary type="html">
-    
-      LayoutInflater.inflate()这个方法，大家一定很熟悉——在给fragment添加布局文件，或者在RecyclerView的Adapter中为item添加布局时，都会用到。inflate()这个方法需要最多三个参数：resource，root，以及attachToRoot。参考源码，就知道了这里的resource是你具体要添加的那个布局文件，root是布局的根参数，那么attachToRoot是什么意思呢？什么时候为true，什么时候为false？
-    
-    </summary>
-    
-      <category term="学习笔记" scheme="http://levent-j.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    
-    
-      <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
     
   </entry>
   
@@ -409,7 +389,7 @@
     <link href="http://levent-j.com/2017/07/22/source-handler/"/>
     <id>http://levent-j.com/2017/07/22/source-handler/</id>
     <published>2017-07-22T03:08:26.000Z</published>
-    <updated>2018-10-25T07:21:14.619Z</updated>
+    <updated>2019-02-05T09:32:37.440Z</updated>
     
     <summary type="html">
     
@@ -417,7 +397,7 @@
     
     </summary>
     
-      <category term="源码分析" scheme="http://levent-j.com/categories/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+      <category term="Android源码分析" scheme="http://levent-j.com/categories/Android%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
     
     
       <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
@@ -431,7 +411,7 @@
     <link href="http://levent-j.com/2017/07/22/source-view-bus/"/>
     <id>http://levent-j.com/2017/07/22/source-view-bus/</id>
     <published>2017-07-22T03:08:26.000Z</published>
-    <updated>2018-10-26T01:36:07.674Z</updated>
+    <updated>2019-02-05T09:32:48.981Z</updated>
     
     <summary type="html">
     
@@ -439,12 +419,32 @@
     
     </summary>
     
-      <category term="源码分析" scheme="http://levent-j.com/categories/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+      <category term="Android源码分析" scheme="http://levent-j.com/categories/Android%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
     
     
       <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
     
       <category term="Java" scheme="http://levent-j.com/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>inflate()方法的那些坑</title>
+    <link href="http://levent-j.com/2017/07/22/android-inflater/"/>
+    <id>http://levent-j.com/2017/07/22/android-inflater/</id>
+    <published>2017-07-22T03:08:26.000Z</published>
+    <updated>2019-02-05T09:33:41.658Z</updated>
+    
+    <summary type="html">
+    
+      LayoutInflater.inflate()这个方法，大家一定很熟悉——在给fragment添加布局文件，或者在RecyclerView的Adapter中为item添加布局时，都会用到。inflate()这个方法需要最多三个参数：resource，root，以及attachToRoot。参考源码，就知道了这里的resource是你具体要添加的那个布局文件，root是布局的根参数，那么attachToRoot是什么意思呢？什么时候为true，什么时候为false？
+    
+    </summary>
+    
+      <category term="Android" scheme="http://levent-j.com/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
     
   </entry>
   
