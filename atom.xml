@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://levent-j.com/"/>
-  <updated>2019-02-24T05:07:08.663Z</updated>
+  <updated>2019-02-24T10:19:31.164Z</updated>
   <id>http://levent-j.com/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>我对Git的一些理解</title>
+    <link href="http://levent-j.com/2019/02/24/lean-git/"/>
+    <id>http://levent-j.com/2019/02/24/lean-git/</id>
+    <published>2019-02-24T08:35:58.000Z</published>
+    <updated>2019-02-24T10:19:31.164Z</updated>
+    
+    <summary type="html">
+    
+      总结一些对Git的理解
+    
+    </summary>
+    
+      <category term="其他" scheme="http://levent-j.com/categories/%E5%85%B6%E4%BB%96/"/>
+    
+    
+      <category term="Git" scheme="http://levent-j.com/tags/Git/"/>
+    
+  </entry>
   
   <entry>
     <title>高分电影</title>
@@ -55,26 +75,6 @@
       <category term="UTC" scheme="http://levent-j.com/tags/UTC/"/>
     
       <category term="GMT" scheme="http://levent-j.com/tags/GMT/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>我对Git的一些理解</title>
-    <link href="http://levent-j.com/2019/02/08/lean-git/"/>
-    <id>http://levent-j.com/2019/02/08/lean-git/</id>
-    <published>2019-02-08T08:35:58.000Z</published>
-    <updated>2019-02-24T10:19:03.774Z</updated>
-    
-    <summary type="html">
-    
-      总结一些对Git的理解
-    
-    </summary>
-    
-      <category term="其他" scheme="http://levent-j.com/categories/%E5%85%B6%E4%BB%96/"/>
-    
-    
-      <category term="Git" scheme="http://levent-j.com/tags/Git/"/>
     
   </entry>
   
@@ -313,6 +313,28 @@
   </entry>
   
   <entry>
+    <title>《深入理解Java虚拟机》读书笔记</title>
+    <link href="http://levent-j.com/2017/10/25/jvm_note/"/>
+    <id>http://levent-j.com/2017/10/25/jvm_note/</id>
+    <published>2017-10-25T03:08:26.000Z</published>
+    <updated>2019-02-05T09:34:20.980Z</updated>
+    
+    <summary type="html">
+    
+      前段时间看完了《深入理解Java虚拟机》，收获很多，在阅读过程记录了笔记
+    
+    </summary>
+    
+      <category term="Java" scheme="http://levent-j.com/categories/Java/"/>
+    
+    
+      <category term="Java" scheme="http://levent-j.com/tags/Java/"/>
+    
+      <category term="Jvm" scheme="http://levent-j.com/tags/Jvm/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Android源码分析-从AIDL了解Binder机制</title>
     <link href="http://levent-j.com/2017/10/25/source-binder/"/>
     <id>http://levent-j.com/2017/10/25/source-binder/</id>
@@ -351,28 +373,6 @@
     
     
       <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>《深入理解Java虚拟机》读书笔记</title>
-    <link href="http://levent-j.com/2017/10/25/jvm_note/"/>
-    <id>http://levent-j.com/2017/10/25/jvm_note/</id>
-    <published>2017-10-25T03:08:26.000Z</published>
-    <updated>2019-02-05T09:34:20.980Z</updated>
-    
-    <summary type="html">
-    
-      前段时间看完了《深入理解Java虚拟机》，收获很多，在阅读过程记录了笔记
-    
-    </summary>
-    
-      <category term="Java" scheme="http://levent-j.com/categories/Java/"/>
-    
-    
-      <category term="Java" scheme="http://levent-j.com/tags/Java/"/>
-    
-      <category term="Jvm" scheme="http://levent-j.com/tags/Jvm/"/>
     
   </entry>
   
