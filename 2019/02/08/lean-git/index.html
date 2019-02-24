@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Android,签名," />
+  <meta name="keywords" content="Git," />
 
 
 
@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="#">
-<meta name="keywords" content="Android,签名">
+<meta name="description" content="总结一些对Git的理解">
+<meta name="keywords" content="Git">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android签名机制">
-<meta property="og:url" content="http://levent-j.com/2019/01/30/android-sign/index.html">
+<meta property="og:title" content="Git学习总结">
+<meta property="og:url" content="http://levent-j.com/2019/02/08/lean-git/index.html">
 <meta property="og:site_name" content="靖然是你">
-<meta property="og:description" content="#">
+<meta property="og:description" content="总结一些对Git的理解">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-02-05T09:33:57.608Z">
+<meta property="og:updated_time" content="2019-02-18T07:10:49.122Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android签名机制">
-<meta name="twitter:description" content="#">
+<meta name="twitter:title" content="Git学习总结">
+<meta name="twitter:description" content="总结一些对Git的理解">
 
 
 
@@ -122,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://levent-j.com/2019/01/30/android-sign/"/>
+  <link rel="canonical" href="http://levent-j.com/2019/02/08/lean-git/"/>
 
 
 
 
 
-  <title>Android签名机制 | 靖然是你</title>
+  <title>Git学习总结 | 靖然是你</title>
   
 
 
@@ -299,7 +299,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://levent-j.com/2019/01/30/android-sign/">
+    <link itemprop="mainEntityOfPage" href="http://levent-j.com/2019/02/08/lean-git/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Levent-J">
@@ -316,7 +316,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Android签名机制</h1>
+          <h1 class="post-title" itemprop="name headline">Git学习总结</h1>
         
 
         <div class="post-meta">
@@ -328,8 +328,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-30T16:17:21+08:00">
-                2019-01-30
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-08T16:35:58+08:00">
+                2019-02-08
               </time>
             
 
@@ -351,8 +351,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
+                  <a href="/categories/其他/" itemprop="url" rel="index">
+                    <span itemprop="name">其他</span>
                   </a>
                 </span>
 
@@ -369,8 +369,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/01/30/android-sign/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/01/30/android-sign/" itemprop="commentCount"></span>
+                <a href="/2019/02/08/lean-git/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/02/08/lean-git/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -378,7 +378,7 @@
 
           
           
-             <span id="/2019/01/30/android-sign/" class="leancloud_visitors" data-flag-title="Android签名机制">
+             <span id="/2019/02/08/lean-git/" class="leancloud_visitors" data-flag-title="Git学习总结">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -395,6 +395,10 @@
           
 
           
+              <div class="post-description">
+                  总结一些对Git的理解
+              </div>
+          
 
         </div>
       </header>
@@ -409,7 +413,10 @@
       
 
       
-        <p># </p>
+        <h2 id="VCS和DVCS"><a href="#VCS和DVCS" class="headerlink" title="VCS和DVCS"></a>VCS和DVCS</h2><p>git是一种分布式版本管理工具。那么首先要# pull和push<br>push冲突原因</p>
+<h2 id="rebase"><a href="#rebase" class="headerlink" title="rebase"></a>rebase</h2><p>基本原理<br>交互式-i</p>
+<h2 id="cherry-pick"><a href="#cherry-pick" class="headerlink" title="cherry-pick"></a>cherry-pick</h2><h2 id="严格审核提交内容"><a href="#严格审核提交内容" class="headerlink" title="严格审核提交内容"></a>严格审核提交内容</h2><p>不能滥用add -all<br>如何撤销一些add过的内容 包括checkout 和 git rm</p>
+<h2 id="log"><a href="#log" class="headerlink" title="log"></a>log</h2><p>包括log列表 log详情 log对比 以及reflog</p>
 
       
     </div>
@@ -430,7 +437,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://levent-j.com/2019/01/30/android-sign/" title="Android签名机制">http://levent-j.com/2019/01/30/android-sign/</a>
+    <a href="http://levent-j.com/2019/02/08/lean-git/" title="Git学习总结">http://levent-j.com/2019/02/08/lean-git/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -445,9 +452,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Android/" rel="tag"><i class="fa fa-tag"></i> Android</a>
-          
-            <a href="/tags/签名/" rel="tag"><i class="fa fa-tag"></i> 签名</a>
+            <a href="/tags/Git/" rel="tag"><i class="fa fa-tag"></i> Git</a>
           
         </div>
       
@@ -460,8 +465,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/01/17/android-permission/" rel="next" title="解读权限标签 &ltpermission&gt  和 &ltuses-permission&gt">
-                <i class="fa fa-chevron-left"></i> 解读权限标签 &ltpermission&gt  和 &ltuses-permission&gt
+              <a href="/2019/01/31/whare_my_time/" rel="next" title="时间都去哪了">
+                <i class="fa fa-chevron-left"></i> 时间都去哪了
               </a>
             
           </div>
@@ -470,8 +475,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/01/31/whare_my_time/" rel="prev" title="时间都去哪了">
-                时间都去哪了 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/02/11/time-standard/" rel="prev" title="关于时间 需要了解的一些东西">
+                关于时间 需要了解的一些东西 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -527,8 +532,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -547,7 +561,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -558,7 +572,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -569,7 +583,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -636,6 +650,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#VCS和DVCS"><span class="nav-number">1.</span> <span class="nav-text">VCS和DVCS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rebase"><span class="nav-number">2.</span> <span class="nav-text">rebase</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cherry-pick"><span class="nav-number">3.</span> <span class="nav-text">cherry-pick</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#严格审核提交内容"><span class="nav-number">4.</span> <span class="nav-text">严格审核提交内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#log"><span class="nav-number">5.</span> <span class="nav-text">log</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

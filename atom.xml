@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://levent-j.com/"/>
-  <updated>2019-02-05T09:34:49.818Z</updated>
+  <updated>2019-02-24T05:07:08.663Z</updated>
   <id>http://levent-j.com/</id>
   
   <author>
@@ -15,6 +15,68 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>高分电影</title>
+    <link href="http://levent-j.com/2019/02/17/movie-list/"/>
+    <id>http://levent-j.com/2019/02/17/movie-list/</id>
+    <published>2019-02-17T08:05:08.000Z</published>
+    <updated>2019-02-24T05:07:08.663Z</updated>
+    
+    <summary type="html">
+    
+      一些值得一看的好电影
+    
+    </summary>
+    
+      <category term="随笔" scheme="http://levent-j.com/categories/%E9%9A%8F%E7%AC%94/"/>
+    
+    
+      <category term="电影" scheme="http://levent-j.com/tags/%E7%94%B5%E5%BD%B1/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>关于时间 需要了解的一些东西</title>
+    <link href="http://levent-j.com/2019/02/11/time-standard/"/>
+    <id>http://levent-j.com/2019/02/11/time-standard/</id>
+    <published>2019-02-11T10:47:08.000Z</published>
+    <updated>2019-02-24T05:48:01.587Z</updated>
+    
+    <summary type="html">
+    
+      平时总是会遇到各种时间标准，这里做下总结
+    
+    </summary>
+    
+      <category term="其他" scheme="http://levent-j.com/categories/%E5%85%B6%E4%BB%96/"/>
+    
+    
+      <category term="UTC" scheme="http://levent-j.com/tags/UTC/"/>
+    
+      <category term="GMT" scheme="http://levent-j.com/tags/GMT/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Git学习总结</title>
+    <link href="http://levent-j.com/2019/02/08/lean-git/"/>
+    <id>http://levent-j.com/2019/02/08/lean-git/</id>
+    <published>2019-02-08T08:35:58.000Z</published>
+    <updated>2019-02-18T07:10:49.122Z</updated>
+    
+    <summary type="html">
+    
+      总结一些对Git的理解
+    
+    </summary>
+    
+      <category term="其他" scheme="http://levent-j.com/categories/%E5%85%B6%E4%BB%96/"/>
+    
+    
+      <category term="Git" scheme="http://levent-j.com/tags/Git/"/>
+    
+  </entry>
   
   <entry>
     <title>时间都去哪了</title>
@@ -35,32 +97,6 @@
       <category term="时间" scheme="http://levent-j.com/tags/%E6%97%B6%E9%97%B4/"/>
     
       <category term="思考" scheme="http://levent-j.com/tags/%E6%80%9D%E8%80%83/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Android签名机制</title>
-    <link href="http://levent-j.com/2019/01/30/android-sign/"/>
-    <id>http://levent-j.com/2019/01/30/android-sign/</id>
-    <published>2019-01-30T08:17:21.000Z</published>
-    <updated>2019-02-05T09:33:57.608Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;# &lt;/p&gt;
-
-      
-    
-    </summary>
-    
-      <category term="Android" scheme="http://levent-j.com/categories/Android/"/>
-    
-    
-      <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
-    
-      <category term="签名" scheme="http://levent-j.com/tags/%E7%AD%BE%E5%90%8D/"/>
     
   </entry>
   
@@ -129,26 +165,6 @@
   </entry>
   
   <entry>
-    <title>总结目前常见的Crash日志收集工具</title>
-    <link href="http://levent-j.com/2018/12/08/survey-crash-report/"/>
-    <id>http://levent-j.com/2018/12/08/survey-crash-report/</id>
-    <published>2018-12-08T02:21:15.000Z</published>
-    <updated>2019-02-05T09:33:18.432Z</updated>
-    
-    <summary type="html">
-    
-      最近项目中需要加入一个Crash日志收集功能，要求接入简单且侵入性低，因此需要调研一下目前市面上国内国外的一些常见的日志收集工具，这里做一些总结。
-    
-    </summary>
-    
-      <category term="Android" scheme="http://levent-j.com/categories/Android/"/>
-    
-    
-      <category term="Crash" scheme="http://levent-j.com/tags/Crash/"/>
-    
-  </entry>
-  
-  <entry>
     <title>微观经济学原理学习笔记</title>
     <link href="http://levent-j.com/2018/12/08/econ-note-micro/"/>
     <id>http://levent-j.com/2018/12/08/econ-note-micro/</id>
@@ -165,6 +181,26 @@
     
     
       <category term="微观经济学" scheme="http://levent-j.com/tags/%E5%BE%AE%E8%A7%82%E7%BB%8F%E6%B5%8E%E5%AD%A6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>总结目前常见的Crash日志收集工具</title>
+    <link href="http://levent-j.com/2018/12/08/survey-crash-report/"/>
+    <id>http://levent-j.com/2018/12/08/survey-crash-report/</id>
+    <published>2018-12-08T02:21:15.000Z</published>
+    <updated>2019-02-05T09:33:18.432Z</updated>
+    
+    <summary type="html">
+    
+      最近项目中需要加入一个Crash日志收集功能，要求接入简单且侵入性低，因此需要调研一下目前市面上国内国外的一些常见的日志收集工具，这里做一些总结。
+    
+    </summary>
+    
+      <category term="Android" scheme="http://levent-j.com/categories/Android/"/>
+    
+    
+      <category term="Crash" scheme="http://levent-j.com/tags/Crash/"/>
     
   </entry>
   
@@ -403,48 +439,6 @@
       <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
     
       <category term="Hanlder" scheme="http://levent-j.com/tags/Hanlder/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Android源码分析——事件分发机制</title>
-    <link href="http://levent-j.com/2017/07/22/source-view-bus/"/>
-    <id>http://levent-j.com/2017/07/22/source-view-bus/</id>
-    <published>2017-07-22T03:08:26.000Z</published>
-    <updated>2019-02-05T09:32:48.981Z</updated>
-    
-    <summary type="html">
-    
-      通过问题来学习一个东西是很好的方法。学习Android中View的事件体系，我也通过给自己提问题，在解决问题的同时也就知道了其中原理。
-    
-    </summary>
-    
-      <category term="Android源码分析" scheme="http://levent-j.com/categories/Android%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
-    
-    
-      <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
-    
-      <category term="Java" scheme="http://levent-j.com/tags/Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>inflate()方法的那些坑</title>
-    <link href="http://levent-j.com/2017/07/22/android-inflater/"/>
-    <id>http://levent-j.com/2017/07/22/android-inflater/</id>
-    <published>2017-07-22T03:08:26.000Z</published>
-    <updated>2019-02-05T09:33:41.658Z</updated>
-    
-    <summary type="html">
-    
-      LayoutInflater.inflate()这个方法，大家一定很熟悉——在给fragment添加布局文件，或者在RecyclerView的Adapter中为item添加布局时，都会用到。inflate()这个方法需要最多三个参数：resource，root，以及attachToRoot。参考源码，就知道了这里的resource是你具体要添加的那个布局文件，root是布局的根参数，那么attachToRoot是什么意思呢？什么时候为true，什么时候为false？
-    
-    </summary>
-    
-      <category term="Android" scheme="http://levent-j.com/categories/Android/"/>
-    
-    
-      <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
     
   </entry>
   
