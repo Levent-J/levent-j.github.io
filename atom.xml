@@ -59,11 +59,11 @@
   </entry>
   
   <entry>
-    <title>Git学习总结</title>
+    <title>我对Git的一些理解</title>
     <link href="http://levent-j.com/2019/02/08/lean-git/"/>
     <id>http://levent-j.com/2019/02/08/lean-git/</id>
     <published>2019-02-08T08:35:58.000Z</published>
-    <updated>2019-02-18T07:10:49.122Z</updated>
+    <updated>2019-02-24T10:19:03.774Z</updated>
     
     <summary type="html">
     
@@ -313,26 +313,6 @@
   </entry>
   
   <entry>
-    <title>Android源码分析——Activity启动与生命周期</title>
-    <link href="http://levent-j.com/2017/10/25/source-startactivity/"/>
-    <id>http://levent-j.com/2017/10/25/source-startactivity/</id>
-    <published>2017-10-25T03:08:26.000Z</published>
-    <updated>2019-02-05T09:32:43.877Z</updated>
-    
-    <summary type="html">
-    
-      通过分析源码，了解AstartActivity()方法背后的逻辑，以及生命周期是如何执行的
-    
-    </summary>
-    
-      <category term="Android源码分析" scheme="http://levent-j.com/categories/Android%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
-    
-    
-      <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Android源码分析-从AIDL了解Binder机制</title>
     <link href="http://levent-j.com/2017/10/25/source-binder/"/>
     <id>http://levent-j.com/2017/10/25/source-binder/</id>
@@ -351,6 +331,26 @@
       <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
     
       <category term="Binder" scheme="http://levent-j.com/tags/Binder/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android源码分析——Activity启动与生命周期</title>
+    <link href="http://levent-j.com/2017/10/25/source-startactivity/"/>
+    <id>http://levent-j.com/2017/10/25/source-startactivity/</id>
+    <published>2017-10-25T03:08:26.000Z</published>
+    <updated>2019-02-05T09:32:43.877Z</updated>
+    
+    <summary type="html">
+    
+      通过分析源码，了解AstartActivity()方法背后的逻辑，以及生命周期是如何执行的
+    
+    </summary>
+    
+      <category term="Android源码分析" scheme="http://levent-j.com/categories/Android%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+    
+      <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
     
   </entry>
   
