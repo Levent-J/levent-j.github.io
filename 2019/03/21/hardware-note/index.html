@@ -90,7 +90,7 @@
 <meta property="og:description" content="最近项目中遇到了因为硬件加速引起的一些问题，故这里深入学习了解一下关于硬件加速的一些东西">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://ws2.sinaimg.cn/large/006tKfTcly1fjn0huxdm5j30lr0q0n25.jpg">
-<meta property="og:updated_time" content="2019-03-21T08:23:44.008Z">
+<meta property="og:updated_time" content="2019-03-22T02:03:20.121Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="硬件加速">
 <meta name="twitter:description" content="最近项目中遇到了因为硬件加速引起的一些问题，故这里深入学习了解一下关于硬件加速的一些东西">
@@ -452,12 +452,22 @@
 <li>View级别:View层比较特殊，这里只允许关闭硬件加速，而无法开启。而且相关的接口并不是专门用来做硬件加速开关的，而是在给View设置Layer时“顺便”关闭了硬件加速：</li>
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">view.setLayerType(LAYER_TYPE_SOFTWARE, <span class="keyword">null</span>);</span><br></pre></td></tr></table></figure>
-<p>这个方法只是给View设置了一个LayerType，而且参数有三种：LAYER_TYPE_SOFTWARE LAYER_TYPE_HARDWARE LAYER_TYPE_NONE，这是什么意思呢？  </p>
-<p>引用一段扔物线大佬的解释：</p>
+<p>这个方法只是给View设置了一个LayerType，而且参数有三种：LAYER_TYPE_SOFTWARE LAYER_TYPE_HARDWARE LAYER_TYPE_NONE，这是什么意思呢？关于这一部分，在官网中有详细的解释：</p>
+<blockquote>
+<p> You currently cannot enable hardware acceleration at the view level. View layers have other functions besides disabling hardware acceleration. See View layers for more information about their uses.</p>
+</blockquote>
+<p>官方说在View层只能关闭，不能开启，至于为什么，引用一段扔物线大佬的解释：</p>
 <blockquote>
 <p>setLayerType() 这个方法，它的作用其实就是名字里的意思：设置 View Layer 的类型。所谓 View Layer，又称为离屏缓冲（Off-screen Buffer），它的作用是单独启用一块地方来绘制这个 View ，而不是使用软件绘制的 Bitmap 或者通过硬件加速的 GPU。这块「地方」可能是一块单独的 Bitmap，也可能是一块 OpenGL 的纹理（texture，OpenGL 的纹理可以简单理解为图像的意思），具体取决于硬件加速是否开启。采用什么来绘制 View 不是关键，关键在于当设置了 View Layer 的时候，它的绘制会被缓存下来，而且缓存的是最终的绘制结果，而不是像硬件加速那样只是把 GPU 的操作保存下来再交给 GPU 去计算。通过这样更进一步的缓存方式，View 的重绘效率进一步提高了：只要绘制的内容没有变，那么不论是 CPU 绘制还是 GPU 绘制，它们都不用重新计算，而只要只用之前缓存的绘制结果就可以了。</p>
 </blockquote>
-<p>所以，如果给View设置了Layer，且值为SOFTWARE，那么就是用软件来做View Layer，自然就关闭了硬件加速。而如果硬件加速已经关闭，参数HARDWARE的作用跟SOFTWARE一样，自然也无法开启硬件加速。而值为NONE时，直接就关闭了ViewLayer，所以在View层只能关闭、不能开启。</p>
+<p>所以，如果给View设置了Layer，且值为SOFTWARE，那么就是用软件来做View Layer，自然就关闭了硬件加速。而如果硬件加速已经关闭，参数HARDWARE的作用跟SOFTWARE一样，自然也无法开启硬件加速。而值为NONE时，直接就关闭了ViewLayer，所以在View层只能关闭、不能开启，正如官方文档所说：</p>
+<blockquote>
+<ul>
+<li>LAYER_TYPE_NONE: The view is rendered normally and is not backed by an off-screen buffer. This is the default behavior.</li>
+<li>LAYER_TYPE_HARDWARE: The view is rendered in hardware into a hardware texture if the application is hardware accelerated. If the application is not hardware accelerated, this layer type behaves the same as LAYER_TYPE_SOFTWARE.</li>
+<li>LAYER_TYPE_SOFTWARE: The view is rendered in software into a bitmap.</li>
+</ul>
+</blockquote>
 
       
     </div>

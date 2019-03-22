@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://levent-j.com/"/>
-  <updated>2019-03-21T08:23:44.008Z</updated>
+  <updated>2019-03-22T02:03:20.121Z</updated>
   <id>http://levent-j.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://levent-j.com/2019/03/21/hardware-note/"/>
     <id>http://levent-j.com/2019/03/21/hardware-note/</id>
     <published>2019-03-21T02:24:11.000Z</published>
-    <updated>2019-03-21T08:23:44.008Z</updated>
+    <updated>2019-03-22T02:03:20.121Z</updated>
     
     <summary type="html">
     
@@ -136,9 +136,9 @@
       <category term="Android" scheme="http://levent-j.com/categories/Android/"/>
     
     
-      <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
-    
       <category term="权限" scheme="http://levent-j.com/tags/%E6%9D%83%E9%99%90/"/>
+    
+      <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
     
       <category term="permission" scheme="http://levent-j.com/tags/permission/"/>
     
@@ -333,28 +333,6 @@
   </entry>
   
   <entry>
-    <title>Android源码分析-从AIDL了解Binder机制</title>
-    <link href="http://levent-j.com/2017/10/25/source-binder/"/>
-    <id>http://levent-j.com/2017/10/25/source-binder/</id>
-    <published>2017-10-25T03:08:26.000Z</published>
-    <updated>2019-02-05T09:32:30.030Z</updated>
-    
-    <summary type="html">
-    
-      以AIDL为入口，探究Binder机制的原理
-    
-    </summary>
-    
-      <category term="Android源码分析" scheme="http://levent-j.com/categories/Android%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
-    
-    
-      <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
-    
-      <category term="Binder" scheme="http://levent-j.com/tags/Binder/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Android源码分析——Activity启动与生命周期</title>
     <link href="http://levent-j.com/2017/10/25/source-startactivity/"/>
     <id>http://levent-j.com/2017/10/25/source-startactivity/</id>
@@ -393,6 +371,28 @@
       <category term="Java" scheme="http://levent-j.com/tags/Java/"/>
     
       <category term="Jvm" scheme="http://levent-j.com/tags/Jvm/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android源码分析-从AIDL了解Binder机制</title>
+    <link href="http://levent-j.com/2017/10/25/source-binder/"/>
+    <id>http://levent-j.com/2017/10/25/source-binder/</id>
+    <published>2017-10-25T03:08:26.000Z</published>
+    <updated>2019-02-05T09:32:30.030Z</updated>
+    
+    <summary type="html">
+    
+      以AIDL为入口，探究Binder机制的原理
+    
+    </summary>
+    
+      <category term="Android源码分析" scheme="http://levent-j.com/categories/Android%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+    
+      <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
+    
+      <category term="Binder" scheme="http://levent-j.com/tags/Binder/"/>
     
   </entry>
   
