@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://levent-j.com/"/>
-  <updated>2019-03-22T02:03:20.121Z</updated>
+  <updated>2019-06-09T07:29:53.066Z</updated>
   <id>http://levent-j.com/</id>
   
   <author>
@@ -15,6 +15,46 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>无题</title>
+    <link href="http://levent-j.com/2019/06/09/think-june/"/>
+    <id>http://levent-j.com/2019/06/09/think-june/</id>
+    <published>2019-06-09T07:21:46.000Z</published>
+    <updated>2019-06-09T07:29:53.066Z</updated>
+    
+    <summary type="html">
+    
+      诶。。。
+    
+    </summary>
+    
+      <category term="无" scheme="http://levent-j.com/categories/%E6%97%A0/"/>
+    
+    
+      <category term="无" scheme="http://levent-j.com/tags/%E6%97%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>AndroidTV开发 输入相关总结</title>
+    <link href="http://levent-j.com/2019/05/15/android-tv-input-key/"/>
+    <id>http://levent-j.com/2019/05/15/android-tv-input-key/</id>
+    <published>2019-05-15T03:33:26.000Z</published>
+    <updated>2019-06-09T06:40:56.022Z</updated>
+    
+    <summary type="html">
+    
+      描述
+    
+    </summary>
+    
+      <category term="分类" scheme="http://levent-j.com/categories/%E5%88%86%E7%B1%BB/"/>
+    
+    
+      <category term="标签" scheme="http://levent-j.com/tags/%E6%A0%87%E7%AD%BE/"/>
+    
+  </entry>
   
   <entry>
     <title>硬件加速</title>
@@ -136,9 +176,9 @@
       <category term="Android" scheme="http://levent-j.com/categories/Android/"/>
     
     
-      <category term="权限" scheme="http://levent-j.com/tags/%E6%9D%83%E9%99%90/"/>
-    
       <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
+    
+      <category term="权限" scheme="http://levent-j.com/tags/%E6%9D%83%E9%99%90/"/>
     
       <category term="permission" scheme="http://levent-j.com/tags/permission/"/>
     
@@ -185,26 +225,6 @@
   </entry>
   
   <entry>
-    <title>总结目前常见的Crash日志收集工具</title>
-    <link href="http://levent-j.com/2018/12/08/survey-crash-report/"/>
-    <id>http://levent-j.com/2018/12/08/survey-crash-report/</id>
-    <published>2018-12-08T02:21:15.000Z</published>
-    <updated>2019-02-05T09:33:18.432Z</updated>
-    
-    <summary type="html">
-    
-      最近项目中需要加入一个Crash日志收集功能，要求接入简单且侵入性低，因此需要调研一下目前市面上国内国外的一些常见的日志收集工具，这里做一些总结。
-    
-    </summary>
-    
-      <category term="Android" scheme="http://levent-j.com/categories/Android/"/>
-    
-    
-      <category term="Crash" scheme="http://levent-j.com/tags/Crash/"/>
-    
-  </entry>
-  
-  <entry>
     <title>微观经济学原理学习笔记</title>
     <link href="http://levent-j.com/2018/12/08/econ-note-micro/"/>
     <id>http://levent-j.com/2018/12/08/econ-note-micro/</id>
@@ -221,6 +241,26 @@
     
     
       <category term="微观经济学" scheme="http://levent-j.com/tags/%E5%BE%AE%E8%A7%82%E7%BB%8F%E6%B5%8E%E5%AD%A6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>总结目前常见的Crash日志收集工具</title>
+    <link href="http://levent-j.com/2018/12/08/survey-crash-report/"/>
+    <id>http://levent-j.com/2018/12/08/survey-crash-report/</id>
+    <published>2018-12-08T02:21:15.000Z</published>
+    <updated>2019-02-05T09:33:18.432Z</updated>
+    
+    <summary type="html">
+    
+      最近项目中需要加入一个Crash日志收集功能，要求接入简单且侵入性低，因此需要调研一下目前市面上国内国外的一些常见的日志收集工具，这里做一些总结。
+    
+    </summary>
+    
+      <category term="Android" scheme="http://levent-j.com/categories/Android/"/>
+    
+    
+      <category term="Crash" scheme="http://levent-j.com/tags/Crash/"/>
     
   </entry>
   
@@ -333,26 +373,6 @@
   </entry>
   
   <entry>
-    <title>Android源码分析——Activity启动与生命周期</title>
-    <link href="http://levent-j.com/2017/10/25/source-startactivity/"/>
-    <id>http://levent-j.com/2017/10/25/source-startactivity/</id>
-    <published>2017-10-25T03:08:26.000Z</published>
-    <updated>2019-02-05T09:32:43.877Z</updated>
-    
-    <summary type="html">
-    
-      通过分析源码，了解AstartActivity()方法背后的逻辑，以及生命周期是如何执行的
-    
-    </summary>
-    
-      <category term="Android源码分析" scheme="http://levent-j.com/categories/Android%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
-    
-    
-      <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
-    
-  </entry>
-  
-  <entry>
     <title>《深入理解Java虚拟机》读书笔记</title>
     <link href="http://levent-j.com/2017/10/25/jvm_note/"/>
     <id>http://levent-j.com/2017/10/25/jvm_note/</id>
@@ -397,46 +417,22 @@
   </entry>
   
   <entry>
-    <title>Android内存泄漏那些事儿</title>
-    <link href="http://levent-j.com/2017/07/27/android_memory_leak/"/>
-    <id>http://levent-j.com/2017/07/27/android_memory_leak/</id>
-    <published>2017-07-27T03:08:26.000Z</published>
-    <updated>2019-02-05T09:34:01.252Z</updated>
+    <title>Android源码分析——Activity启动与生命周期</title>
+    <link href="http://levent-j.com/2017/10/25/source-startactivity/"/>
+    <id>http://levent-j.com/2017/10/25/source-startactivity/</id>
+    <published>2017-10-25T03:08:26.000Z</published>
+    <updated>2019-02-05T09:32:43.877Z</updated>
     
     <summary type="html">
     
-      最近在项目中偶尔会发现内存泄漏现象。一开始还是一脸懵逼的查来查去，一直没有个清晰地思路。这几天闲下来，打算认真整理学习一下。我在这里从一个“如何主动造成内存泄漏”的角度来学习，然后熟悉一下不同方法检测的结果如何，这样以后再遇到相关问题时就能够很快的解决了。
+      通过分析源码，了解AstartActivity()方法背后的逻辑，以及生命周期是如何执行的
     
     </summary>
     
-      <category term="Android" scheme="http://levent-j.com/categories/Android/"/>
+      <category term="Android源码分析" scheme="http://levent-j.com/categories/Android%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
     
     
       <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
-    
-      <category term="Java" scheme="http://levent-j.com/tags/Java/"/>
-    
-      <category term="内存泄漏" scheme="http://levent-j.com/tags/%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>计算机基础知识复习</title>
-    <link href="http://levent-j.com/2017/07/25/review-cs/"/>
-    <id>http://levent-j.com/2017/07/25/review-cs/</id>
-    <published>2017-07-25T03:08:26.000Z</published>
-    <updated>2019-02-05T09:32:14.536Z</updated>
-    
-    <summary type="html">
-    
-      复习一下计算机基础知识吧~
-    
-    </summary>
-    
-      <category term="计算机科学" scheme="http://levent-j.com/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/"/>
-    
-    
-      <category term="计算机" scheme="http://levent-j.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA/"/>
     
   </entry>
   
