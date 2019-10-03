@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://levent-j.com/"/>
-  <updated>2019-06-09T06:40:56.022Z</updated>
+  <updated>2019-10-03T11:32:55.582Z</updated>
   <id>http://levent-j.com/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>关于编码</title>
+    <link href="http://levent-j.com/2019/10/03/about-encode/"/>
+    <id>http://levent-j.com/2019/10/03/about-encode/</id>
+    <published>2019-10-03T11:23:35.000Z</published>
+    <updated>2019-10-03T11:32:55.582Z</updated>
+    
+    <summary type="html">
+    
+      ASCII Unicode Utf-8，这些都是什么鬼？来捋一捋
+    
+    </summary>
+    
+      <category term="计算机科学" scheme="http://levent-j.com/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/"/>
+    
+    
+      <category term="编码" scheme="http://levent-j.com/tags/%E7%BC%96%E7%A0%81/"/>
+    
+  </entry>
   
   <entry>
     <title>AndroidTV开发 输入相关总结</title>
@@ -417,28 +437,6 @@
       <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
     
       <category term="Hanlder" scheme="http://levent-j.com/tags/Hanlder/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Android源码分析——事件分发机制</title>
-    <link href="http://levent-j.com/2017/07/22/source-view-bus/"/>
-    <id>http://levent-j.com/2017/07/22/source-view-bus/</id>
-    <published>2017-07-22T03:08:26.000Z</published>
-    <updated>2019-02-05T09:32:48.981Z</updated>
-    
-    <summary type="html">
-    
-      通过问题来学习一个东西是很好的方法。学习Android中View的事件体系，我也通过给自己提问题，在解决问题的同时也就知道了其中原理。
-    
-    </summary>
-    
-      <category term="Android源码分析" scheme="http://levent-j.com/categories/Android%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
-    
-    
-      <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
-    
-      <category term="Java" scheme="http://levent-j.com/tags/Java/"/>
     
   </entry>
   
