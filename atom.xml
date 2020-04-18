@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://levent-j.com/"/>
-  <updated>2020-01-07T02:08:35.840Z</updated>
+  <updated>2020-04-18T15:42:12.183Z</updated>
   <id>http://levent-j.com/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>TensorFlow Lite + GPUImage 实现AI背景虚化（一）</title>
+    <link href="http://levent-j.com/2020/04/06/aibokehblur/"/>
+    <id>http://levent-j.com/2020/04/06/aibokehblur/</id>
+    <published>2020-04-06T12:26:11.000Z</published>
+    <updated>2020-04-18T15:42:12.183Z</updated>
+    
+    <summary type="html">
+    
+      如何用TensorFlow Lite结合GPUImage在Android中实现AI背景虚化
+    
+    </summary>
+    
+      <category term="Android" scheme="http://levent-j.com/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
+    
+      <category term="TensorFlow Lite" scheme="http://levent-j.com/tags/TensorFlow-Lite/"/>
+    
+      <category term="GPUImage" scheme="http://levent-j.com/tags/GPUImage/"/>
+    
+  </entry>
   
   <entry>
     <title>Hello 2020</title>
@@ -371,30 +395,6 @@
     
     
       <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Android内存泄漏那些事儿</title>
-    <link href="http://levent-j.com/2017/07/27/android_memory_leak/"/>
-    <id>http://levent-j.com/2017/07/27/android_memory_leak/</id>
-    <published>2017-07-27T03:08:26.000Z</published>
-    <updated>2019-02-05T09:34:01.252Z</updated>
-    
-    <summary type="html">
-    
-      最近在项目中偶尔会发现内存泄漏现象。一开始还是一脸懵逼的查来查去，一直没有个清晰地思路。这几天闲下来，打算认真整理学习一下。我在这里从一个“如何主动造成内存泄漏”的角度来学习，然后熟悉一下不同方法检测的结果如何，这样以后再遇到相关问题时就能够很快的解决了。
-    
-    </summary>
-    
-      <category term="Android" scheme="http://levent-j.com/categories/Android/"/>
-    
-    
-      <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
-    
-      <category term="Java" scheme="http://levent-j.com/tags/Java/"/>
-    
-      <category term="内存泄漏" scheme="http://levent-j.com/tags/%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F/"/>
     
   </entry>
   

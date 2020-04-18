@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Android,Java,内存泄漏," />
+  <meta name="keywords" content="Android,TensorFlow Lite,GPUImage," />
 
 
 
@@ -81,27 +81,22 @@
 
 
 
-<meta name="description" content="最近在项目中偶尔会发现内存泄漏现象。一开始还是一脸懵逼的查来查去，一直没有个清晰地思路。这几天闲下来，打算认真整理学习一下。我在这里从一个“如何主动造成内存泄漏”的角度来学习，然后熟悉一下不同方法检测的结果如何，这样以后再遇到相关问题时就能够很快的解决了。">
-<meta name="keywords" content="Android,Java,内存泄漏">
+<meta name="description" content="如何用TensorFlow Lite结合GPUImage在Android中实现AI背景虚化">
+<meta name="keywords" content="Android,TensorFlow Lite,GPUImage">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android内存泄漏那些事儿">
-<meta property="og:url" content="http://levent-j.com/2017/07/27/android_memory_leak/index.html">
+<meta property="og:title" content="TensorFlow Lite + GPUImage 实现AI背景虚化（一）">
+<meta property="og:url" content="http://levent-j.com/2020/04/06/aibokehblur/index.html">
 <meta property="og:site_name" content="靖然是你">
-<meta property="og:description" content="最近在项目中偶尔会发现内存泄漏现象。一开始还是一脸懵逼的查来查去，一直没有个清晰地思路。这几天闲下来，打算认真整理学习一下。我在这里从一个“如何主动造成内存泄漏”的角度来学习，然后熟悉一下不同方法检测的结果如何，这样以后再遇到相关问题时就能够很快的解决了。">
+<meta property="og:description" content="如何用TensorFlow Lite结合GPUImage在Android中实现AI背景虚化">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://blog-lwj.oss-cn-shenzhen.aliyuncs.com/memory-leak/code.jpg">
-<meta property="og:image" content="http://blog-lwj.oss-cn-shenzhen.aliyuncs.com/memory-leak/moniter.jpg">
-<meta property="og:image" content="http://blog-lwj.oss-cn-shenzhen.aliyuncs.com/memory-leak/activity1.jpg">
-<meta property="og:image" content="http://blog-lwj.oss-cn-shenzhen.aliyuncs.com/memory-leak/activity2.jpg">
-<meta property="og:image" content="http://blog-lwj.oss-cn-shenzhen.aliyuncs.com/memory-leak/analyzer.jpg">
-<meta property="og:image" content="http://blog-lwj.oss-cn-shenzhen.aliyuncs.com/memory-leak/results.jpg">
-<meta property="og:image" content="http://blog-lwj.oss-cn-shenzhen.aliyuncs.com/memory-leak/inner.jpg">
-<meta property="og:image" content="http://blog-lwj.oss-cn-shenzhen.aliyuncs.com/memory-leak/ref.jpg">
-<meta property="og:updated_time" content="2019-02-05T09:34:01.252Z">
+<meta property="og:image" content="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/tensorflow-lite/WX20200415-200818%402x.png">
+<meta property="og:image" content="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/tensorflow-lite/7921587224169_.pic.jpg">
+<meta property="og:image" content="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/tensorflow-lite/7931587224170_.pic.jpg">
+<meta property="og:updated_time" content="2020-04-18T15:42:12.183Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android内存泄漏那些事儿">
-<meta name="twitter:description" content="最近在项目中偶尔会发现内存泄漏现象。一开始还是一脸懵逼的查来查去，一直没有个清晰地思路。这几天闲下来，打算认真整理学习一下。我在这里从一个“如何主动造成内存泄漏”的角度来学习，然后熟悉一下不同方法检测的结果如何，这样以后再遇到相关问题时就能够很快的解决了。">
-<meta name="twitter:image" content="http://blog-lwj.oss-cn-shenzhen.aliyuncs.com/memory-leak/code.jpg">
+<meta name="twitter:title" content="TensorFlow Lite + GPUImage 实现AI背景虚化（一）">
+<meta name="twitter:description" content="如何用TensorFlow Lite结合GPUImage在Android中实现AI背景虚化">
+<meta name="twitter:image" content="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/tensorflow-lite/WX20200415-200818%402x.png">
 
 
 
@@ -131,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="http://levent-j.com/2017/07/27/android_memory_leak/"/>
+  <link rel="canonical" href="http://levent-j.com/2020/04/06/aibokehblur/"/>
 
 
 
 
 
-  <title>Android内存泄漏那些事儿 | 靖然是你</title>
+  <title>TensorFlow Lite + GPUImage 实现AI背景虚化（一） | 靖然是你</title>
   
 
 
@@ -308,7 +303,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://levent-j.com/2017/07/27/android_memory_leak/">
+    <link itemprop="mainEntityOfPage" href="http://levent-j.com/2020/04/06/aibokehblur/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Levent-J">
@@ -325,7 +320,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Android内存泄漏那些事儿</h1>
+          <h1 class="post-title" itemprop="name headline">TensorFlow Lite + GPUImage 实现AI背景虚化（一）</h1>
         
 
         <div class="post-meta">
@@ -337,8 +332,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-27T11:08:26+08:00">
-                2017-07-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-06T20:26:11+08:00">
+                2020-04-06
               </time>
             
 
@@ -378,8 +373,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/07/27/android_memory_leak/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2017/07/27/android_memory_leak/" itemprop="commentCount"></span>
+                <a href="/2020/04/06/aibokehblur/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/04/06/aibokehblur/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -387,7 +382,7 @@
 
           
           
-             <span id="/2017/07/27/android_memory_leak/" class="leancloud_visitors" data-flag-title="Android内存泄漏那些事儿">
+             <span id="/2020/04/06/aibokehblur/" class="leancloud_visitors" data-flag-title="TensorFlow Lite + GPUImage 实现AI背景虚化（一）">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -405,7 +400,7 @@
 
           
               <div class="post-description">
-                  最近在项目中偶尔会发现内存泄漏现象。一开始还是一脸懵逼的查来查去，一直没有个清晰地思路。这几天闲下来，打算认真整理学习一下。我在这里从一个“如何主动造成内存泄漏”的角度来学习，然后熟悉一下不同方法检测的结果如何，这样以后再遇到相关问题时就能够很快的解决了。
+                  如何用TensorFlow Lite结合GPUImage在Android中实现AI背景虚化
               </div>
           
 
@@ -422,63 +417,55 @@
       
 
       
-        <h1 id="内存泄漏"><a href="#内存泄漏" class="headerlink" title="内存泄漏"></a>内存泄漏</h1><h2 id="java-gc"><a href="#java-gc" class="headerlink" title="java gc"></a>java gc</h2><p>首先要有一个大前提，也就是java gc。在大部分虚拟机（包括Android的ART）中，Java都采用了“可达性分析”算法来进行内存回收，原理是：会有几个引用作为root节点，对于任意对象来说，如果从root层层遍历，如果找不到对于他的引用链，那么这个对象就被标记为无用，就会在gc时被销毁。</p>
-<h2 id="何为泄漏"><a href="#何为泄漏" class="headerlink" title="何为泄漏"></a>何为泄漏</h2><p>内存泄漏，即部分对象虽然已经不再使用，但是因为有root持有引用，所以并没有被销毁，所占用的内存一直没有被释放。一次两次发生影响不大。如果频繁发生，那么可用内存会渐渐不足，最终在某一次请求内存时发现内存不足而发生oom。这里要明确一个概念，只有强引用会发生内存泄漏，而weak等引用因为其特殊机制，所以影响不大。</p>
-<h2 id="什么会泄露"><a href="#什么会泄露" class="headerlink" title="什么会泄露"></a>什么会泄露</h2><p>泄露影响比较大的就是一些大对象，常见的比如某些资源，bitmap，以及activity。</p>
-<h2 id="如何发生泄露"><a href="#如何发生泄露" class="headerlink" title="如何发生泄露"></a>如何发生泄露</h2><p>首先让我们从另一个角度来看，如何主动发生内存泄漏呢？当然是想办法给他一个一直存在的强引用了。</p>
-<h3 id="static"><a href="#static" class="headerlink" title="static"></a>static</h3><p>static这个关键字使一个变量变为只和这个类相关的类变量，和实例无关。他的生命周期是很长的，贯穿于app的启动到关闭。因此只要用一个static引用一个大对象，就可以泄漏了！举个例子：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> Activity activity;</span><br></pre></td></tr></table></figure>
-<p>这是最简单粗暴的持有一个activity的引用，这样这个activity退出之后对象并没有被销毁。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> View view;</span><br></pre></td></tr></table></figure>
-<p>一个View初始化时会用到context，我们在自定义View，重写构造方法时就知道这个了。因此如果一个View也像这样被持有，那个context也不会被释放。</p>
-<h3 id="innerClass"><a href="#innerClass" class="headerlink" title="innerClass"></a>innerClass</h3><p>内部类有个特性，是他会持有一个外部类的引用。如果内部类的实例一直存活，那么外部类activity的实例也就一直在。比如持有一个static的内部类引用：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> LeakInnerClass context;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LeakInnerClass</span> </span>&#123;</span><br><span class="line">    Context context;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>或者以前我们用asynctask时喜欢搞一个匿名内部类执行异步任务，那当我们activity退出后这个异步任务还在执行的话，就会泄露了。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">leakAsyncTask</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">new</span> AsyncTask&lt;Void,Void,Void&gt;()&#123;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">protected</span> Void <span class="title">doInBackground</span><span class="params">(Void... params)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">while</span>(<span class="keyword">true</span>)&#123;</span><br><span class="line">              <span class="comment">//哇啦啦啦啦啦啦我就是耗时操作</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>还有自己开个匿名线程：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">leakThread</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">new</span> Thread()&#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">while</span> (<span class="keyword">true</span>)&#123;</span><br><span class="line">                <span class="comment">//哇啦啦啦啦啦啦我是耗时操作</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;.start();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>还有在使用handler时，如果用了匿名handler，那么这个handler会带着activity的引用藏到消息队列中。消息没有被处理，就会造成内存泄漏。类似的，还有timertask等。</p>
-<h3 id="register"><a href="#register" class="headerlink" title="register"></a>register</h3><p>我们平时会用到很多第三方库，比如ButterKnife EventBus RxJava等等，有的时候要获取系统服务，getSystemService。在使用的时候，都有一个先registerd或者bind的操作，而且在创建的时候会把activity的引用传过去。如果在activity结束时没有unregister或者unbind，就会造成内存泄漏。</p>
-<h2 id="如何检测泄漏"><a href="#如何检测泄漏" class="headerlink" title="如何检测泄漏"></a>如何检测泄漏</h2><p>最简单的方法自然就是使用leakcanary了。只要给自己的项目加上这个工具，在发生泄漏的时候很快就会有提示。具体使用方法看<a href="https://www.liaohuqiu.net/cn/posts/leak-canary-read-me/" target="_blank" rel="noopener">这里</a>。</p>
-<p>除此之外，android studio的刀耕火种的方式也不错，在这里我拿一个例子来示范一下我是怎么用的。</p>
-<h3 id="一次leak检测过程"><a href="#一次leak检测过程" class="headerlink" title="一次leak检测过程"></a>一次leak检测过程</h3><h4 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h4><p>首先，我写了两个activity，一个MainActivity，一个MemoryLeakActivity，逻辑是：MainActivity中有个按钮，点击会调到MemoryLeakActivity，在这个activity中会故意发生内存泄漏，代码如下：</p>
-<p><img src="http://blog-lwj.oss-cn-shenzhen.aliyuncs.com/memory-leak/code.jpg" alt="">  </p>
-<p>在开始之前，再熟悉一下这个</p>
-<p><img src="http://blog-lwj.oss-cn-shenzhen.aliyuncs.com/memory-leak/moniter.jpg" alt=""> </p>
-<p>（原谅我拙劣的画笔）</p>
-<p>这个Monitors可以观察当前选中app的运行状态，现在只需要关注我标了123的地方。</p>
-<p>首先这个Memory就是当前app的内存使用状况：</p>
-<p>1.产生一个当前java堆的.hprof文件，这个文件反映了当前时刻java堆中内存详情，记住这个玩意有大用！</p>
-<p>2.手动进行一次gc</p>
-<p>3.这一块很重要，首先他有两个部分，蓝色和灰色。蓝色部分是当前内存使用大小，灰色部分是这个app被限制的最大内存大小。当蓝色部分越来越大，最后和灰色部分一样时，说明我们内存使用很多了即将内存不足，此时会进行一次gc同时将回灰色部分即限制的大小提高。</p>
-<h4 id="肉眼观察"><a href="#肉眼观察" class="headerlink" title="肉眼观察"></a>肉眼观察</h4><p>好了，介绍完这个工具，我们开始动手实践。首先打开app，点击按钮跳到会发生泄漏的activity上，再按返回键，然后再次按下按钮……这样反复操作：</p>
-<p><img src="http://blog-lwj.oss-cn-shenzhen.aliyuncs.com/memory-leak/activity1.jpg" alt=""> </p>
-<p><img src="http://blog-lwj.oss-cn-shenzhen.aliyuncs.com/memory-leak/activity2.jpg" alt=""> </p>
-<p>与此同时，观察monitors的memory窗口，会发现蓝色部分在每一次开启新activity时会增长一部分，这很正常。但是在返回时，明明activity被“退出”了，但是蓝色部分还是没有变化。反复几次之后，蓝色部分一直在增长。也就是说当前内存越用越多，可以推断已经发生内存泄漏啦~</p>
-<h4 id="自动分析"><a href="#自动分析" class="headerlink" title="自动分析"></a>自动分析</h4><p>接下来由android studio来分析一下。在反复几次上面的操作之后，返回MainActivity，然后点击dump java heap按钮，然后等一会儿，android studio在为我们dump此时的horof文件。在成功后，会自动打开：</p>
-<p><img src="http://blog-lwj.oss-cn-shenzhen.aliyuncs.com/memory-leak/analyzer.jpg" alt=""> </p>
-<p>如图在这个界面中，我们看最右面有一个栏叫 Analyzer Tasks，打开它，会发现有两个选项。我们是来看activity的内存泄漏的，那就把那个查重复字符串的√去掉。然后点右边那个绿色小三角，会发现下面Analysis Results栏里面展示出了当前泄露的Activity引用：</p>
-<p><img src="http://blog-lwj.oss-cn-shenzhen.aliyuncs.com/memory-leak/results.jpg" alt=""> </p>
-<p>点击第一个item，最下方Reference Tree栏中便展示出了具体的引用：</p>
-<p><img src="http://blog-lwj.oss-cn-shenzhen.aliyuncs.com/memory-leak/inner.jpg" alt=""> </p>
-<p>一般来说，第一个就是我们发生泄漏的地方。在图中，this$0的意思是隐式的引用。也就是说，我们的activity是因为一个内部类而发生了内存泄漏。</p>
-<p>再点击刚才results中第二个item，看一下下方的reference tree:</p>
-<p><img src="http://blog-lwj.oss-cn-shenzhen.aliyuncs.com/memory-leak/ref.jpg" alt=""> </p>
-<p>可以看到显式的有一个leakCntextRef引用，这说明我们有一个名为leakCntextRef的引用持有了activity。回过头看看我们的代码，果然，验证的没错。</p>
-<h4 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h4><p>android studio的分析还算比较简单而且内容较少，我们可以把这个hprof导出，然后用mat来分析，具体看<a href="https://mingjunli.gitbooks.io/mat/content/" target="_blank" rel="noopener">这里</a>。</p>
-<h2 id="怎么解决泄漏"><a href="#怎么解决泄漏" class="headerlink" title="怎么解决泄漏"></a>怎么解决泄漏</h2><p>既然发生了泄漏，那就要解决它，避免问题出现。那么怎么解决呢？很简单，泄漏是因为持有了activity引用导致无法被销毁，那么只有两个选择：及时取消引用，或者让这个引用多待一会，但是该gc的时候就销毁。</p>
-<p>根据这个思路：</p>
-<ul>
-<li>我们在代码中能不用static变量持有contxt就不用，非要用就用weak引用。</li>
-<li>对于内部类，尽量用静态内部类，这样就不会持有外部类引用。如果需要外部类引用做一些事，就手动赋给一个weak引用。</li>
-<li>对于匿名内部类，不要图简单方便，实在不行就乖乖的写成外部类。</li>
-<li>异步操作，尽量用可以方便管理的，比如rxJava，而不是用老古董AsyncTask了。非要用也最好加一个终止条件，在退出Activity时就该结束了。</li>
-<li>在用rx时，可以在subscribe()的时候获取到Subscripeion，在不用的时候手动unSubscribe()，或者直接bind()到Activity的生命周期上，比如使用RxActivity管理。</li>
-<li>在使用handler时，记得在activity的onDestroy()中加上remove()</li>
-<li>在获取到某些资源时，使用完记得释放</li>
-<li>在用到一些大对象比如Bitmap啊什么的，要记得回收</li>
-<li>最后，在使用各种第三方库或者系统服务的时候还要记得有注册或绑定就要有解除注册、解绑定。</li>
-</ul>
+        <p>最近项目中有研究背景虚化功能，需求是通过写一个GPUImage的滤镜，结合TensorFLow Lite来实现对图片中指定物体的背景虚化功能。这部分内容基本都是通过看官方文档和自己摸索学习，这里总结并整理一份笔记，内容主要包括Android接入TensorFlow Lite，通过运行AI模型来识别图片中物体，并对其做背景虚化。一共分为三部分，本文是第一部分，TensorFlow Lite的接入及模型的使用。</p>
+<h2 id="什么是Tensorflow-Lite"><a href="#什么是Tensorflow-Lite" class="headerlink" title="什么是Tensorflow Lite"></a>什么是Tensorflow Lite</h2><p>Tensorflow Lite是一个Google官方的机器学习库，主要功能就帮助我们在移动端运行Tensorflow Lite模型。TensorFlow Lite主要由两个组件构成，详见官网介绍：</p>
+<blockquote>
+<p>TensorFlow Lite consists of two main components:</p>
+</blockquote>
+<blockquote>
+<p>The TensorFlow Lite interpreter, which runs specially optimized models on many different hardware types, including mobile phones, embedded Linux devices, and microcontrollers.<br>The TensorFlow Lite converter, which converts TensorFlow models into an efficient form for use by the interpreter, and can introduce optimizations to improve binary size and performance.</p>
+</blockquote>
+<p>这两个组件，一个是转换器，一个是解释器。</p>
+<p>转换器顾名思义，就是要把常规的Tensorflow模型转换为Android端适用的模型文件。而解释器则用来在Android端具体去导入并运行模型。我们开发时要做的就是在项目中接入Tensorflow Lite库，然后用库中提供的解释器的一些API来导入AI模型文件，运行模型，解析得到的数据。</p>
+<h2 id="Tensorflite的接入"><a href="#Tensorflite的接入" class="headerlink" title="Tensorflite的接入"></a>Tensorflite的接入</h2><p>Google为我们提供了一个demo项目，里面包括了图像识别、图像分割等不同模型的使用示例，可以直接参考：<a href="https://github.com/tensorflow/examples/tree/master/lite/examples" target="_blank" rel="noopener">Tensorflow Lite Android使用demo</a></p>
+<p>首先，要准备好Tensorflow lite模型文件，在Android端是以一种后缀为 <code>.tflite</code> 的文件。可以直接用demo中的示例，或者自己用转换器生成的tflite格式的模型文件。</p>
+<p>接下来在项目module下的的 <code>build.gradle</code> 文件中添加如下依赖:</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//tensorflow lite核心库</span></span><br><span class="line">implementation <span class="string">"org.tensorflow:tensorflow-lite:2.1.0"</span></span><br><span class="line"><span class="comment">//tensorflow lite辅助库（可以不用添加）</span></span><br><span class="line">implementation <span class="string">"org.tensorflow:tensorflow-lite-support:0.0.0-nightly"</span></span><br></pre></td></tr></table></figure>
+<p>这样已经可用了，不过Google推荐我们再对依赖的ndk做一些精简，继续在 <code>build.gradle</code> 文件中加入以下配置：</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">android &#123;</span><br><span class="line">    defaultConfig &#123;</span><br><span class="line">        ndk &#123;</span><br><span class="line">            abiFilters <span class="string">'armeabi-v7a'</span>, <span class="string">'arm64-v8a'</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最后，我们将tflite文件（这里命名为model.tflite），将这个文件移动到项目model下的 <code>src/main/assets</code> 目录下，如图：</p>
+<p><img src="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/tensorflow-lite/WX20200415-200818%402x.png" alt=""></p>
+<p>ok，接下来就是在代码中娶导入并使用模型文件了。</p>
+<h2 id="具体使用"><a href="#具体使用" class="headerlink" title="具体使用"></a>具体使用</h2><p>导入模型后，具体的使用方法大致有以下几步：</p>
+<ol>
+<li>将输入数据转换为正确格式的InputBuffer</li>
+<li>创建好准备接收运行结果的OutputBuffer</li>
+<li>创建模型对应的解释器并运行模型</li>
+<li>处理运行模型得到的输出数据</li>
+</ol>
+<p>Tensorflow Lite使用的输入输出数据以Buffer承载，这里可以简单了解下：<a href="https://www.cnblogs.com/snailclimb/p/Buffer.html" target="_blank" rel="noopener">Java NIO 之 Buffer(缓冲区)</a> 。接下来以图像分割模型举例。</p>
+<h3 id="输入数据的处理"><a href="#输入数据的处理" class="headerlink" title="输入数据的处理"></a>输入数据的处理</h3><p>在图像分割模型中，我们的输入数据显然是一张图片。图片的大小是不固定的，而一般来说模型需要输入的图片都是给的大小的，因此第一步是要把不同尺寸大小的图片经过缩放或者补充像素等方式转换为给的固定大小的图片，这里其实就是一个Bitmap的处理，这里就不细说了。</p>
+<p>处理好Bitmap后，接下来要把Bitmap先转换为一个三维数组。这个三维数组是有图像中每一个像素点的RGB值构成。比如图像的大小是500<em>500，那么这个三维数组大小就是500 </em> 500 * 3。代码如下：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 将Bitmap转换为一个RGB数组</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> 一个三维数组，第三维是像素点的RGB值</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> Bitmap.<span class="title">rgbArray</span><span class="params">()</span></span>: Array&lt;Array&lt;FloatArray&gt;&gt; &#123;</span><br><span class="line">    <span class="keyword">val</span> pixelsValues = IntArray(<span class="keyword">this</span>.width * <span class="keyword">this</span>.height)</span><br><span class="line">    <span class="keyword">this</span>.getPixels(pixelsValues, <span class="number">0</span>, <span class="keyword">this</span>.width, <span class="number">0</span>, <span class="number">0</span>, <span class="keyword">this</span>.width, <span class="keyword">this</span>.height)</span><br><span class="line">    <span class="keyword">val</span> result = Array(<span class="keyword">this</span>.height) &#123; Array(<span class="keyword">this</span>.width) &#123; FloatArray(<span class="number">3</span>) &#125; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> pixel = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> (y <span class="keyword">in</span> <span class="number">0</span> until <span class="keyword">this</span>.height) &#123;</span><br><span class="line">        <span class="keyword">for</span> (x <span class="keyword">in</span> <span class="number">0</span> until <span class="keyword">this</span>.width) &#123;</span><br><span class="line">            <span class="keyword">val</span> value = pixelsValues[pixel++]   </span><br><span class="line">            result[y][x][<span class="number">0</span>] = ((value shr <span class="number">16</span> and <span class="number">0xFF</span>).toFloat())<span class="comment">//r</span></span><br><span class="line">            result[y][x][<span class="number">1</span>] = ((value shr <span class="number">8</span> and <span class="number">0xFF</span>).toFloat())<span class="comment">//g</span></span><br><span class="line">            result[y][x][<span class="number">2</span>] = ((value and <span class="number">0xFF</span>).toFloat())<span class="comment">//b</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>拿到这个三维数组后，要将其转换为一个ByteBuffer。因为前面三维数组的大小是 500 <em> 500 </em> 3，所以对应的FloatBuffer大小是 500 <em> 500 </em> 3,因为一个Java中 1 Float = 4 Byte，所以对应ByteBuffer，大小就是 500 <em> 500 </em> 3 * 4。另外一般来说模型的输入数据都需要一个归一化的预处理，其实也就是对数值做一个简单的加减乘除，代码如下：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 将rgb数组转换为模型运行所需要的byteBuffer</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> array rgb数组</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> normalizeOp 归一化操作</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">rgbToByteBuffer</span><span class="params">(array: <span class="type">Array</span>&lt;<span class="type">Array</span>&lt;<span class="type">FloatArray</span>&gt;&gt;, width: <span class="type">Int</span>, height: <span class="type">Int</span>, normalizeOp: ((<span class="type">Float</span>)</span></span> -&gt; <span class="built_in">Float</span>) = &#123; it &#125;): ByteBuffer &#123;</span><br><span class="line">        <span class="keyword">val</span> inputImage = ByteBuffer.allocateDirect(<span class="number">1</span> * width * height * <span class="number">3</span> * <span class="number">4</span>)</span><br><span class="line">        inputImage.order(ByteOrder.nativeOrder()).rewind()</span><br><span class="line">        <span class="keyword">for</span> (y <span class="keyword">in</span> <span class="number">0</span> until height) &#123;</span><br><span class="line">            <span class="keyword">for</span> (x <span class="keyword">in</span> <span class="number">0</span> until width) &#123;</span><br><span class="line">                <span class="keyword">for</span> (z <span class="keyword">in</span> listOf(<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>)) &#123;</span><br><span class="line">                    <span class="keyword">val</span> value = array[y][x][z]</span><br><span class="line">                    inputImage.putFloat(normalizeOp(value))</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        inputImage.rewind()</span><br><span class="line">        <span class="keyword">return</span> inputImage</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> input = rgbToByteBuffer(rgbArray, <span class="number">500</span>, <span class="number">500</span>) &#123; (it * <span class="number">2</span> / <span class="number">255F</span>) - <span class="number">1</span> &#125;</span><br></pre></td></tr></table></figure>
+<p>转换为ByteBuffer后就OK了，这就是我们需要的输入数据。</p>
+<h3 id="准备输出数据"><a href="#准备输出数据" class="headerlink" title="准备输出数据"></a>准备输出数据</h3><p>因为输入数据和输出数据同样是ByteBuffer，只是大小不一样。输出数据的Buffer大小根据模型来定。比如在这个图像分割模型中，输出数据应该是一个Long类型的二维数组，大小是 500 <em> 500。那么对应的LongBuffer大小就是 500 </em> 500。又因为 1 Long = 8 Byte，所以最终的输出Buffer应该是一个大小为 500 <em> 500 </em> 8 的ByteBuffer，代码如下：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">val</span> output = ByteBuffer.allocateDirect(TF_DPI_SEG * TF_DPI_SEG * <span class="number">8</span>).order(ByteOrder.nativeOrder()).asLongBuffer()</span><br></pre></td></tr></table></figure>
+<h3 id="创建解释器并运行"><a href="#创建解释器并运行" class="headerlink" title="创建解释器并运行"></a>创建解释器并运行</h3><p>Tensorflow Lite解释器即 <code>Interpreter</code> ，创建方式很简单，代码如下：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">val</span> byteBuffer = FileUtil.loadMappedFile(context, <span class="string">"model.tflite"</span>)</span><br><span class="line"><span class="keyword">val</span> options = Interpreter.Options()</span><br><span class="line"><span class="keyword">val</span> interpreter = Interpreter(byteBuffer,options)</span><br></pre></td></tr></table></figure>
+<p>直接new一个对象就好了，构造器中需要两个参数，第一个将模型文件转为ByteBuffer，第二个则是当前需要的一些配置Options。模型文件向ByteBuffer的转换可以直接用support库中提供的工具类来处理。</p>
+<p>创建好解释器对象后，直接调用他的 run() 方法并传入前面准备好的输入、输出数据即可：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//...</span></span><br><span class="line">interpreter.run(input, output)</span><br><span class="line"><span class="comment">//...</span></span><br></pre></td></tr></table></figure>
+<h3 id="输出数据的处理"><a href="#输出数据的处理" class="headerlink" title="输出数据的处理"></a>输出数据的处理</h3><p>最后就是输出数据的处理了。前面说过，我们的目标是把找出图片中的目标物体对其做背景虚化，所以需要用原图，通过模型运算来生成一张标记出或者描出目标物体的图，这张图中目标物体应该是一种颜色，非目标物体是另一种颜色，这样方便后面的处理。因此在得到输出数据ByteBuffer后，需要先转换为一个常规的一维或者二维数组，再根据数组生成一张Bitmap。代码如下：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//...</span></span><br><span class="line"><span class="keyword">var</span> array = IntArray(output.limit()) &#123;</span><br><span class="line">    output[it].toInt()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的代码把输出数据转换为了一个Int数组，数组中的每一个值都表示对应像素点的物体类型，比如1是人，2是狗，3是猫等等。接下来就是用数组生成Bitmap了，代码如下：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 用一个RGB数组生成bitmap</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> pixelsOp 数组中每一个值转换为具体像素值的过程  */</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="type">&lt;T&gt;</span> <span class="title">createMask</span><span class="params">(array: <span class="type">Array</span>&lt;<span class="type">T</span>&gt;, width: <span class="type">Int</span>, height: <span class="type">Int</span>, pixelsOp: (<span class="type">T</span>)</span></span> -&gt; <span class="built_in">Int</span>): Bitmap &#123;</span><br><span class="line">    <span class="keyword">val</span> conf = Bitmap.Config.ARGB_8888</span><br><span class="line">    <span class="keyword">val</span> maskBitmap = Bitmap.createBitmap(width, height, conf)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (y <span class="keyword">in</span> <span class="number">0</span> until height) &#123;</span><br><span class="line">        <span class="keyword">for</span> (x <span class="keyword">in</span> <span class="number">0</span> until width) &#123;</span><br><span class="line">            <span class="keyword">val</span> value = array[x + width * y]</span><br><span class="line">            <span class="keyword">val</span> color = pixelsOp(value)</span><br><span class="line">            maskBitmap.setPixel(x, y, color)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> maskBitmap</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> mask = createMask(array.toTypedArray(), TF_DPI_SEG, TF_DPI_SEG) &#123; value -&gt;</span><br><span class="line">            Color.argb(</span><br><span class="line">                <span class="number">255</span>,</span><br><span class="line">                <span class="comment">//根据实际情况计算</span></span><br><span class="line">                , <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">            )</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+<p>根据实际情况，比如目标物体是猫，那么属于猫的部分就是黑色，非猫的部分是红色，那么这样最终输出的Bitmap就是：</p>
+<p>原图：</p>
+<p><img src="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/tensorflow-lite/7921587224169_.pic.jpg" alt=""></p>
+<p>结果图：</p>
+<p><img src="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/tensorflow-lite/7931587224170_.pic.jpg" alt=""></p>
 
       
     </div>
@@ -499,7 +486,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://levent-j.com/2017/07/27/android_memory_leak/" title="Android内存泄漏那些事儿">http://levent-j.com/2017/07/27/android_memory_leak/</a>
+    <a href="http://levent-j.com/2020/04/06/aibokehblur/" title="TensorFlow Lite + GPUImage 实现AI背景虚化（一）">http://levent-j.com/2020/04/06/aibokehblur/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -516,9 +503,9 @@
           
             <a href="/tags/Android/" rel="tag"><i class="fa fa-tag"></i> Android</a>
           
-            <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
+            <a href="/tags/TensorFlow-Lite/" rel="tag"><i class="fa fa-tag"></i> TensorFlow Lite</a>
           
-            <a href="/tags/内存泄漏/" rel="tag"><i class="fa fa-tag"></i> 内存泄漏</a>
+            <a href="/tags/GPUImage/" rel="tag"><i class="fa fa-tag"></i> GPUImage</a>
           
         </div>
       
@@ -531,8 +518,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/25/review-cs/" rel="next" title="计算机基础知识复习">
-                <i class="fa fa-chevron-left"></i> 计算机基础知识复习
+              <a href="/2020/01/01/hello-2020/" rel="next" title="Hello 2020">
+                <i class="fa fa-chevron-left"></i> Hello 2020
               </a>
             
           </div>
@@ -540,10 +527,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/10/25/source-startactivity/" rel="prev" title="Android源码分析——Activity启动与生命周期">
-                Android源码分析——Activity启动与生命周期 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -649,7 +632,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -712,7 +695,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#内存泄漏"><span class="nav-number">1.</span> <span class="nav-text">内存泄漏</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#java-gc"><span class="nav-number">1.1.</span> <span class="nav-text">java gc</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#何为泄漏"><span class="nav-number">1.2.</span> <span class="nav-text">何为泄漏</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么会泄露"><span class="nav-number">1.3.</span> <span class="nav-text">什么会泄露</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何发生泄露"><span class="nav-number">1.4.</span> <span class="nav-text">如何发生泄露</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#static"><span class="nav-number">1.4.1.</span> <span class="nav-text">static</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#innerClass"><span class="nav-number">1.4.2.</span> <span class="nav-text">innerClass</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#register"><span class="nav-number">1.4.3.</span> <span class="nav-text">register</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何检测泄漏"><span class="nav-number">1.5.</span> <span class="nav-text">如何检测泄漏</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一次leak检测过程"><span class="nav-number">1.5.1.</span> <span class="nav-text">一次leak检测过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#准备工作"><span class="nav-number">1.5.1.1.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#肉眼观察"><span class="nav-number">1.5.1.2.</span> <span class="nav-text">肉眼观察</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自动分析"><span class="nav-number">1.5.1.3.</span> <span class="nav-text">自动分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#拓展"><span class="nav-number">1.5.1.4.</span> <span class="nav-text">拓展</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#怎么解决泄漏"><span class="nav-number">1.6.</span> <span class="nav-text">怎么解决泄漏</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是Tensorflow-Lite"><span class="nav-number">1.</span> <span class="nav-text">什么是Tensorflow Lite</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tensorflite的接入"><span class="nav-number">2.</span> <span class="nav-text">Tensorflite的接入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#具体使用"><span class="nav-number">3.</span> <span class="nav-text">具体使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#输入数据的处理"><span class="nav-number">3.1.</span> <span class="nav-text">输入数据的处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#准备输出数据"><span class="nav-number">3.2.</span> <span class="nav-text">准备输出数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建解释器并运行"><span class="nav-number">3.3.</span> <span class="nav-text">创建解释器并运行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#输出数据的处理"><span class="nav-number">3.4.</span> <span class="nav-text">输出数据的处理</span></a></li></ol></li></ol></div>
             
 
           </div>
