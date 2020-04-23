@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://levent-j.com/"/>
-  <updated>2020-04-18T15:42:12.183Z</updated>
+  <updated>2020-04-23T14:24:24.044Z</updated>
   <id>http://levent-j.com/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>TensorFlow Lite + GPUImage 实现AI背景虚化（二）</title>
+    <link href="http://levent-j.com/2020/04/20/aibokehblur-2/"/>
+    <id>http://levent-j.com/2020/04/20/aibokehblur-2/</id>
+    <published>2020-04-20T12:00:11.000Z</published>
+    <updated>2020-04-23T14:24:24.044Z</updated>
+    
+    <summary type="html">
+    
+      如何用TensorFlow Lite结合GPUImage在Android中实现AI背景虚化
+    
+    </summary>
+    
+      <category term="Android" scheme="http://levent-j.com/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
+    
+      <category term="TensorFlow Lite" scheme="http://levent-j.com/tags/TensorFlow-Lite/"/>
+    
+      <category term="GPUImage" scheme="http://levent-j.com/tags/GPUImage/"/>
+    
+  </entry>
   
   <entry>
     <title>TensorFlow Lite + GPUImage 实现AI背景虚化（一）</title>
@@ -415,26 +439,6 @@
     
     
       <category term="计算机" scheme="http://levent-j.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>inflate()方法的那些坑</title>
-    <link href="http://levent-j.com/2017/07/22/android-inflater/"/>
-    <id>http://levent-j.com/2017/07/22/android-inflater/</id>
-    <published>2017-07-22T03:08:26.000Z</published>
-    <updated>2019-02-05T09:33:41.658Z</updated>
-    
-    <summary type="html">
-    
-      LayoutInflater.inflate()这个方法，大家一定很熟悉——在给fragment添加布局文件，或者在RecyclerView的Adapter中为item添加布局时，都会用到。inflate()这个方法需要最多三个参数：resource，root，以及attachToRoot。参考源码，就知道了这里的resource是你具体要添加的那个布局文件，root是布局的根参数，那么attachToRoot是什么意思呢？什么时候为true，什么时候为false？
-    
-    </summary>
-    
-      <category term="Android" scheme="http://levent-j.com/categories/Android/"/>
-    
-    
-      <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
     
   </entry>
   
