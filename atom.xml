@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://levent-j.com/"/>
-  <updated>2020-04-23T14:24:24.044Z</updated>
+  <updated>2020-06-27T09:26:26.653Z</updated>
   <id>http://levent-j.com/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>kotlin-协程学习</title>
+    <link href="http://levent-j.com/2020/06/27/kotlin-coroutines/"/>
+    <id>http://levent-j.com/2020/06/27/kotlin-coroutines/</id>
+    <published>2020-06-27T08:53:43.000Z</published>
+    <updated>2020-06-27T09:26:26.653Z</updated>
+    
+    <summary type="html">
+    
+      xxxx
+    
+    </summary>
+    
+      <category term="Android" scheme="http://levent-j.com/categories/Android/"/>
+    
+    
+      <category term="Kotlin" scheme="http://levent-j.com/tags/Kotlin/"/>
+    
+  </entry>
   
   <entry>
     <title>TensorFlow Lite + GPUImage 实现AI背景虚化（二）</title>
@@ -419,26 +439,6 @@
     
     
       <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>计算机基础知识复习</title>
-    <link href="http://levent-j.com/2017/07/25/review-cs/"/>
-    <id>http://levent-j.com/2017/07/25/review-cs/</id>
-    <published>2017-07-25T03:08:26.000Z</published>
-    <updated>2019-02-05T09:32:14.536Z</updated>
-    
-    <summary type="html">
-    
-      复习一下计算机基础知识吧~
-    
-    </summary>
-    
-      <category term="计算机科学" scheme="http://levent-j.com/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/"/>
-    
-    
-      <category term="计算机" scheme="http://levent-j.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA/"/>
     
   </entry>
   
