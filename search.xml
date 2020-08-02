@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[android-renderscript]]></title>
+    <url>%2F2020%2F08%2F02%2Fandroid-renderscript%2F</url>
+    <content type="text"></content>
+      <categories>
+        <category>分类</category>
+      </categories>
+      <tags>
+        <tag>标签</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[kotlin-协程学习]]></title>
-    <url>%2F2020%2F06%2F27%2Fkotlin-coroutines%2F</url>
+    <url>%2F2020%2F06%2F25%2Fkotlin-coroutines%2F</url>
     <content type="text"><![CDATA[Kotlin-协程学习协程是什么？有什么优势？为什么？ 从宏观概念上讲，是跟线程一个级别的东西，是比线程更轻量级的；但是在Kotlin中，只是一个套用了协程概念的Java线程框架，即一个实现并发任务处理的框架或方案 协程的优势是写法简单，不用套用多个回调，不同于RxJava的链式调用，协程是线性的 性能上，从本质来说其实并不比线程更好，因为毕竟在Kotlin中的实现还是基于线程实现的，不可能比线程更好；但是实际在工程中是比线程更好的，因为所有的潜在耗时操作都可以用suspend标记，从而避免在主界面卡顿 suspend有什么意义？ 语法层面，是一个类似于注解的东西，起到了标记和提醒的作用，提醒方法调用者，这个方法需要在协程中后台执行 编译器层面，辅助编译器把代码转换为JVM字节码 协程中自由切换线程时，在切到其他线程执行完后，能准确的切回原线程，靠的就是suspend标记 最基本的用法GlobalScope.launch方法，创建一个协程，并指定默认的线程环境；之后在需要切换线程时，用withContext切换 协程的泄漏协程的泄漏，本质上就是内存的泄漏，即内存泄漏中的“活跃线程持有对当前Activity的引用，导致GC时没有收回Activity对象”。解决方案就是手动调协程的cancel或协程job对象的cancel 协程的挂起协程的挂起实际上是把当前需要执行的代码放在后台线程执行，把后面需要执行的代码放在后台线程执行完用Handler.post()方式抛回主线程继续执行 协程的比较 跟RxJava比，都差不多，只是Rx最终还是需要2-3个回调，而协程不用回调，只是要自己处理try catch 相对于手动操作线程切换来说，协程是更好用的，但是相对于Excetor来说，也差不多，协程优势在于没有回调 跟Handler相比，没什么可比性，Handler只是专注于把线程切回到主线程这件事，而协程是一个线程框架，实际上协程的底层实现方式也是依赖Handler来切线程的]]></content>
       <categories>
         <category>Android</category>

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://levent-j.com/"/>
-  <updated>2020-06-27T09:26:26.653Z</updated>
+  <updated>2020-08-02T07:24:57.170Z</updated>
   <id>http://levent-j.com/</id>
   
   <author>
@@ -17,11 +17,31 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>android-renderscript</title>
+    <link href="http://levent-j.com/2020/08/02/android-renderscript/"/>
+    <id>http://levent-j.com/2020/08/02/android-renderscript/</id>
+    <published>2020-08-02T07:24:57.000Z</published>
+    <updated>2020-08-02T07:24:57.170Z</updated>
+    
+    <summary type="html">
+    
+      描述
+    
+    </summary>
+    
+      <category term="分类" scheme="http://levent-j.com/categories/%E5%88%86%E7%B1%BB/"/>
+    
+    
+      <category term="标签" scheme="http://levent-j.com/tags/%E6%A0%87%E7%AD%BE/"/>
+    
+  </entry>
+  
+  <entry>
     <title>kotlin-协程学习</title>
-    <link href="http://levent-j.com/2020/06/27/kotlin-coroutines/"/>
-    <id>http://levent-j.com/2020/06/27/kotlin-coroutines/</id>
-    <published>2020-06-27T08:53:43.000Z</published>
-    <updated>2020-06-27T09:26:26.653Z</updated>
+    <link href="http://levent-j.com/2020/06/25/kotlin-coroutines/"/>
+    <id>http://levent-j.com/2020/06/25/kotlin-coroutines/</id>
+    <published>2020-06-25T08:53:43.000Z</published>
+    <updated>2020-06-27T09:27:14.349Z</updated>
     
     <summary type="html">
     
@@ -419,26 +439,6 @@
       <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
     
       <category term="Binder" scheme="http://levent-j.com/tags/Binder/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Android源码分析——Activity启动与生命周期</title>
-    <link href="http://levent-j.com/2017/10/25/source-startactivity/"/>
-    <id>http://levent-j.com/2017/10/25/source-startactivity/</id>
-    <published>2017-10-25T03:08:26.000Z</published>
-    <updated>2019-02-05T09:32:43.877Z</updated>
-    
-    <summary type="html">
-    
-      通过分析源码，了解AstartActivity()方法背后的逻辑，以及生命周期是如何执行的
-    
-    </summary>
-    
-      <category term="Android源码分析" scheme="http://levent-j.com/categories/Android%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
-    
-    
-      <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
     
   </entry>
   
