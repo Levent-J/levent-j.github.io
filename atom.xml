@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://levent-j.com/"/>
-  <updated>2020-08-02T08:56:12.328Z</updated>
+  <updated>2020-08-15T07:36:27.165Z</updated>
   <id>http://levent-j.com/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>从零单排学Android</title>
+    <link href="http://levent-j.com/2020/08/14/android-study-0/"/>
+    <id>http://levent-j.com/2020/08/14/android-study-0/</id>
+    <published>2020-08-14T07:28:05.000Z</published>
+    <updated>2020-08-15T07:36:27.165Z</updated>
+    
+    <summary type="html">
+    
+      系统性的总结Android开发技能树
+    
+    </summary>
+    
+      <category term="Android" scheme="http://levent-j.com/categories/Android/"/>
+    
+    
+      <category term="知识树" scheme="http://levent-j.com/tags/%E7%9F%A5%E8%AF%86%E6%A0%91/"/>
+    
+  </entry>
   
   <entry>
     <title>renderscript简单使用——绘制Bitmap</title>
@@ -417,28 +437,6 @@
       <category term="Java" scheme="http://levent-j.com/tags/Java/"/>
     
       <category term="Jvm" scheme="http://levent-j.com/tags/Jvm/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Android源码分析-从AIDL了解Binder机制</title>
-    <link href="http://levent-j.com/2017/10/25/source-binder/"/>
-    <id>http://levent-j.com/2017/10/25/source-binder/</id>
-    <published>2017-10-25T03:08:26.000Z</published>
-    <updated>2019-02-05T09:32:30.030Z</updated>
-    
-    <summary type="html">
-    
-      以AIDL为入口，探究Binder机制的原理
-    
-    </summary>
-    
-      <category term="Android源码分析" scheme="http://levent-j.com/categories/Android%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
-    
-    
-      <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
-    
-      <category term="Binder" scheme="http://levent-j.com/tags/Binder/"/>
     
   </entry>
   
