@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[《Kotlin核心编程》笔记]]></title>
+    <url>%2F2020%2F08%2F14%2Fkotlin-core-note%2F</url>
+    <content type="text"><![CDATA[《Kotlin核心编程》学习笔记Part 0 背景 编程语言可以依靠功能累加来构建所谓的语法，同样也可以通过简单完备的理论来发展语言特性。 Scala的设计理念是 more than Java（不止是Java），而Kotlin的设计理念是 better Java（更好的Java） Kotlin旨在成为一门提高Java生产力的更好的编程语言，实用性更强一点 Part 1 基础 Unit是一个类型，而void只是一个关键字 单行表达式与等号的语法定义的函数叫表达式函数体，普通的函数声明叫做代码块函数体 if 是一个表达式，它的返回值是各个逻辑分支的相同类型或公共父类 由于Kotlin支持子类型和继承，因此不能做到全局类型推导，所以一般还是要显示声明类型 var 即 varible，是变量， val 即 value ，是 var + final ，是引用不可变的 val 引用的数组内容可变，是因为Kotlin设计时更多考虑数组这种大型数据结构的拷贝成本，因此是存储在堆内存中的 所谓“副作用”就是修改了某处的值，比如修改了某个外部变量的值，UI操作，IO操作等等。 应当优先使用 val 来避免一些副作用，而当在局部使用且使用安全时，可以用 var ，这是一种防御性的编码思维模式，不可变即意味着更加容易推理 以其他函数作为参数或返回值的函数叫做高阶函数 通过 :: 来实现对于某个类的方法进行引用 Kotlin在JVM层设计了一个 Function 类型，包括 Function0 Function1 ... Function22 的主要目的就是来兼容Java的Lambda表达式，后面的数字表示接收的参数数量，之所以是22是因为业界标准是这样，当然如果需要超过22个参数时，可以用 FunctionN 不管是用 val 还是 fun ，如果是单等号加花括号的语法，那么构建的就是一个Lambda表达式，Lambda的参数在花括号内部声明，使用时需要调用 .invoke 或 () 柯里化（Currying）是指把接受多个参数的函数转换为一些列仅接受单一参数的函数的过程，在返回最终结果值之前，前面的函数依次接受单个参数，然后返回下一个新函数。柯里化是为了简化Lambda演算理论中的函数接受多参数而出现的 表达式可以是一个值、操作符、函数或他们的组合，总的来说就是一个可以返回值的语句 当 if 作为表达式时， else 是必须被考虑的，因此表达式可以消除副作用的出现 一切表达式的设计让开发者在设计业务时，促进了避免创造副作用的逻辑设计，从而让程序变得更加安全 在Java中 Void 类类似于 Integer , Integer 是为了对基本类型 int 的实例进行装箱操作，而 Void 的设计则是为了对应 void 。由于 void 表示没有返回值，因此 Void 类不能具有实例，它继承自 Object 表达式更倾向于自成一块，具备很好的隔离性 try/catch/finally 表达式的返回类型由 try/catch 决定 Kotlin中的判等性主要有两种类型： == 和 === 。其中，用 == 来判断结构相等，也即字符串的内容相等。用 === 来判断引用相等，与之相反的是 !== 。如果比较的是在运行时的原始类型，比如 int ，那么 === 也等同于 == …]]></content>
+      <categories>
+        <category>Kotlin</category>
+      </categories>
+      <tags>
+        <tag>Kotlin</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[从零单排学Android]]></title>
     <url>%2F2020%2F08%2F14%2Fandroid-study-0%2F</url>
     <content type="text"><![CDATA[学习Android开发也有些年头了，感觉各个方面都会一点，但是又有点杂。现在准备成体系的整理一个Android开发技能树，做一份总结，针对每一项都复习一下。姑且叫做“从零单排”我懒，这个技能树只是画个大概，在后续不断复习总结的过程中会慢慢填充的。希望能通过这次从零单排，能对整个Android开发体系有一个系统的理解。冲鸭！]]></content>

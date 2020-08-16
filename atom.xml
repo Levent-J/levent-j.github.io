@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://levent-j.com/"/>
-  <updated>2020-08-15T07:36:27.165Z</updated>
+  <updated>2020-08-16T13:33:28.950Z</updated>
   <id>http://levent-j.com/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>《Kotlin核心编程》笔记</title>
+    <link href="http://levent-j.com/2020/08/14/kotlin-core-note/"/>
+    <id>http://levent-j.com/2020/08/14/kotlin-core-note/</id>
+    <published>2020-08-14T08:54:02.000Z</published>
+    <updated>2020-08-16T13:33:28.950Z</updated>
+    
+    <summary type="html">
+    
+      整理一下学习《Kotlin核心编程》的笔记
+    
+    </summary>
+    
+      <category term="Kotlin" scheme="http://levent-j.com/categories/Kotlin/"/>
+    
+    
+      <category term="Kotlin" scheme="http://levent-j.com/tags/Kotlin/"/>
+    
+  </entry>
   
   <entry>
     <title>从零单排学Android</title>
@@ -415,28 +435,6 @@
       <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
     
       <category term="Activity" scheme="http://levent-j.com/tags/Activity/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>《深入理解Java虚拟机》读书笔记</title>
-    <link href="http://levent-j.com/2017/10/25/jvm_note/"/>
-    <id>http://levent-j.com/2017/10/25/jvm_note/</id>
-    <published>2017-10-25T03:08:26.000Z</published>
-    <updated>2019-02-05T09:34:20.980Z</updated>
-    
-    <summary type="html">
-    
-      前段时间看完了《深入理解Java虚拟机》，收获很多，在阅读过程记录了笔记
-    
-    </summary>
-    
-      <category term="Java" scheme="http://levent-j.com/categories/Java/"/>
-    
-    
-      <category term="Java" scheme="http://levent-j.com/tags/Java/"/>
-    
-      <category term="Jvm" scheme="http://levent-j.com/tags/Jvm/"/>
     
   </entry>
   
