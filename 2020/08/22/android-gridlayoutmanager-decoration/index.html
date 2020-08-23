@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Android," />
 
 
 
@@ -81,17 +81,21 @@
 
 
 
-<meta name="description" content="记录一只Android小菜鸡学习的点点滴滴">
+<meta name="description" content="整理Android打包相关的一些知识点，内容包括了一些基础概念，apk打包、安装的流程。">
 <meta name="keywords" content="Android">
-<meta property="og:type" content="website">
-<meta property="og:title" content="靖然是你">
-<meta property="og:url" content="http://levent-j.com/archives/2019/index.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GridLayout+Decoration 间距问题">
+<meta property="og:url" content="http://levent-j.com/2020/08/22/android-gridlayoutmanager-decoration/index.html">
 <meta property="og:site_name" content="靖然是你">
-<meta property="og:description" content="记录一只Android小菜鸡学习的点点滴滴">
+<meta property="og:description" content="整理Android打包相关的一些知识点，内容包括了一些基础概念，apk打包、安装的流程。">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/android-gridlayout-decoration/1.png">
+<meta property="og:image" content="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/android-gridlayout-decoration/2.png">
+<meta property="og:updated_time" content="2020-08-23T09:04:59.679Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="靖然是你">
-<meta name="twitter:description" content="记录一只Android小菜鸡学习的点点滴滴">
+<meta name="twitter:title" content="GridLayout+Decoration 间距问题">
+<meta name="twitter:description" content="整理Android打包相关的一些知识点，内容包括了一些基础概念，apk打包、安装的流程。">
+<meta name="twitter:image" content="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/android-gridlayout-decoration/1.png">
 
 
 
@@ -121,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="http://levent-j.com/archives/2019/"/>
+  <link rel="canonical" href="http://levent-j.com/2020/08/22/android-gridlayoutmanager-decoration/"/>
 
 
 
 
 
-  <title>归档 | 靖然是你</title>
+  <title>GridLayout+Decoration 间距问题 | 靖然是你</title>
   
 
 
@@ -146,7 +150,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -284,296 +288,227 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://levent-j.com/2020/08/22/android-gridlayoutmanager-decoration/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Levent-J">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://blog-lwj.oss-cn-shenzhen.aliyuncs.com/avater.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="靖然是你">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">GridLayout+Decoration 间距问题</h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-22T16:45:26+08:00">
+                2020-08-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-        嗯..! 目前共计 29 篇日志。 继续努力。
-      </span>
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
 
-      
-
-        
-        
-        
-
-        
+                
+                
+              
+            </span>
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2019">2019</h1>
-          </div>
-        
-        
 
-        
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/08/22/android-gridlayoutmanager-decoration/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/08/22/android-gridlayoutmanager-decoration/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
+          
+             <span id="/2020/08/22/android-gridlayoutmanager-decoration/" class="leancloud_visitors" data-flag-title="GridLayout+Decoration 间距问题">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/10/03/about-encode/" itemprop="url">
-              
-                <span itemprop="name">关于编码</span>
-              
-            </a>
-        
-      </h2>
+          
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-10-03T19:23:35+08:00"
-              content="2019-10-03" >
-          10-03
-        </time>
-      </div>
+          
 
-    </header>
-  </article>
+          
+              <div class="post-description">
+                  整理Android打包相关的一些知识点，内容包括了一些基础概念，apk打包、安装的流程。
+              </div>
+          
 
+        </div>
+      </header>
+    
 
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/05/15/android-tv-input-key/" itemprop="url">
-              
-                <span itemprop="name">AndroidTV开发 输入相关总结</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-05-15T11:33:26+08:00"
-              content="2019-05-15" >
-          05-15
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/03/21/hardware-note/" itemprop="url">
-              
-                <span itemprop="name">硬件加速</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-03-21T10:24:11+08:00"
-              content="2019-03-21" >
-          03-21
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/02/24/lean-git/" itemprop="url">
-              
-                <span itemprop="name">我对Git的一些理解</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-02-24T16:35:58+08:00"
-              content="2019-02-24" >
-          02-24
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+      
+        <h1 id="GridLayout-Decoration"><a href="#GridLayout-Decoration" class="headerlink" title="GridLayout+Decoration"></a>GridLayout+Decoration</h1><p>众所周知，要给RecyclerView中的Item加间距，有两种比较通用的方式：  </p>
+<ul>
+<li>直接在item的布局中加入间距</li>
+<li><p>给RecyclerView添加ItemDecoration来处理间距</p>
+<p>第一种方式很直白，就是每个item之间其实没有间距，是通过在每个item内部处理显示内容和边界处手动加空白，这样看起来就像是有了间距一样。而第二种方式，表面看起来也是很简单的：间距多少直接填多少就好了嘛，有什么难的。但是实际使用时呢，会有奇怪的问题。</p>
+<h2 id="举个栗子"><a href="#举个栗子" class="headerlink" title="举个栗子"></a>举个栗子</h2><p>一个简单的需求，要给一个N行3列的RecyclerView加间距，每个Item之间间距10，然后靠边的距离屏幕边距是0,即紧贴屏幕,这样写：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">addItemDecoration(<span class="keyword">object</span> : RecyclerView.ItemDecoration() &#123;</span><br><span class="line">               <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">getItemOffsets</span><span class="params">(outRect: <span class="type">Rect</span>, view: <span class="type">View</span>, parent: <span class="type">RecyclerView</span>, state: <span class="type">RecyclerView</span>.<span class="type">State</span>)</span></span> &#123;</span><br><span class="line">                     <span class="keyword">val</span> pos = parent.getChildAdapterPosition(view)</span><br><span class="line">                   <span class="keyword">val</span> column = (pos % span)</span><br><span class="line">                   </span><br><span class="line">                   outRect.left = <span class="number">5</span></span><br><span class="line">                   outRect.right = <span class="number">5</span></span><br><span class="line">                   outRect.top = <span class="number">5</span></span><br><span class="line">                   outRect.bottom = <span class="number">5</span></span><br><span class="line">                   </span><br><span class="line">                   <span class="keyword">if</span> (column == <span class="number">0</span>)&#123;</span><br><span class="line">                       outRect.left = <span class="number">0</span></span><br><span class="line">                   &#125;</span><br><span class="line">                   <span class="keyword">if</span> (column == <span class="number">2</span>)&#123;</span><br><span class="line">                       outRect.right = <span class="number">0</span></span><br><span class="line">                   &#125;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p> 看起来好像没问题？第一列的左边距都是0，第三列的右边距都是0，除此之外边所有Item的左右间距刚好是 5+5=10，是这样吗？看看效果</p>
+<p> <img src="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/android-gridlayout-decoration/1.png" alt=""></p>
+<p> 很明显，中间的item变小了，这是ItemDecoration绘制原理上导致的。因为Item首先是均等分布，且Item内部显示的内容部分并不是完全居中，然后绘制计算的这个过程，又是从左向右一一计算的。所以越往后计算会把距离拉大，虽然看起来间距是正常的，但是因为可显示内容部分的宽度被挤压了，所以显得中间部分可显示区域变小了。</p>
+<p> 怎么解决呢？也很简单，在这个例子中，对于每一行来说，只有两部分间距，即第一列的Item和第二列的Item间有一个间距，第二列Item跟第三列Item之间也有一个间距。而左右两侧距离屏幕距离是0，所以得出这一行中除了可显示内容View之外，剩下的需要留白的宽度是10+10=20。然后，因为一行是三列，所以对于每一个Item来说，他所分得的空白宽度，就是20/3。那么对第一列Item来说，他的左侧距离是0（靠左侧屏幕），那么右侧距离就是 20/3-0=20/3。第二列，他的左侧距离是多少呢？想一下，他的左侧距离再加上第一列Item的右侧距离，刚好就是10，既然已经知道了第一列Item的右侧间距，那么第二列Item的左侧距离就是10-20/3=10/3，那他这个Item当前还剩下的空白距离，就是20/3-10/3，也就是10/3。那第三列Item的左侧边距，同理可得为10-10/3=20/3，右侧距离为20/3-20/3，刚好是0，代码如下：</p>
+ <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">addItemDecoration(<span class="keyword">object</span> : RecyclerView.ItemDecoration() &#123;</span><br><span class="line">               <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">getItemOffsets</span><span class="params">(outRect: <span class="type">Rect</span>, view: <span class="type">View</span>, parent: <span class="type">RecyclerView</span>, state: <span class="type">RecyclerView</span>.<span class="type">State</span>)</span></span> &#123;</span><br><span class="line">                   <span class="keyword">val</span> pos = parent.getChildAdapterPosition(view)</span><br><span class="line">                   <span class="keyword">val</span> column = (pos % span)</span><br><span class="line">                   </span><br><span class="line">                   <span class="keyword">if</span> (column == <span class="number">0</span>) &#123; <span class="comment">//第一列</span></span><br><span class="line">                       outRect.left = <span class="number">0</span></span><br><span class="line">                       outRect.right = <span class="number">20</span>/<span class="number">3</span></span><br><span class="line">                   &#125; <span class="keyword">else</span> <span class="keyword">if</span> (column == <span class="number">1</span>) &#123; <span class="comment">//第二列</span></span><br><span class="line">                       outRect.left = <span class="number">10</span>/<span class="number">3</span></span><br><span class="line">                       outRect.right = <span class="number">10</span>/<span class="number">3</span></span><br><span class="line">                   &#125; <span class="keyword">else</span> &#123; <span class="comment">//第三列</span></span><br><span class="line">                       outRect.left = <span class="number">20</span>/<span class="number">3</span></span><br><span class="line">                       outRect.right = <span class="number">0</span></span><br><span class="line">                   &#125;</span><br><span class="line"></span><br><span class="line">                   outRect.top = <span class="number">5</span></span><br><span class="line">                   outRect.bottom = <span class="number">5</span></span><br><span class="line">               &#125;</span><br><span class="line">           &#125;)</span><br></pre></td></tr></table></figure>
+<p> 这样效果就完美了：</p>
+<p> <img src="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/android-gridlayout-decoration/2.png" alt=""></p>
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/02/11/time-standard/" itemprop="url">
-              
-                <span itemprop="name">关于时间 需要了解的一些东西</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-02-11T18:47:08+08:00"
-              content="2019-02-11" >
-          02-11
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/01/17/android-permission/" itemprop="url">
-              
-                <span itemprop="name">解读权限标签 &ltpermission&gt  和 &ltuses-permission&gt</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-01-17T14:43:27+08:00"
-              content="2019-01-17" >
-          01-17
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/01/06/hello-2019/" itemprop="url">
-              
-                <span itemprop="name">你好 2019</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-01-06T17:21:15+08:00"
-              content="2019-01-06" >
-          01-06
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Levent-J
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://levent-j.com/2020/08/22/android-gridlayoutmanager-decoration/" title="GridLayout+Decoration 间距问题">http://levent-j.com/2020/08/22/android-gridlayoutmanager-decoration/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"><i class="fa fa-tag"></i> Android</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/08/14/kotlin-core-note/" rel="next" title="《Kotlin核心编程》笔记">
+                <i class="fa fa-chevron-left"></i> 《Kotlin核心编程》笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -581,6 +516,13 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
 
         </div>
         
@@ -601,8 +543,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -696,6 +647,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#GridLayout-Decoration"><span class="nav-number">1.</span> <span class="nav-text">GridLayout+Decoration</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#举个栗子"><span class="nav-number">1.1.</span> <span class="nav-text">举个栗子</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -836,6 +803,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
