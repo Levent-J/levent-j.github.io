@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://levent-j.com/"/>
-  <updated>2020-08-23T09:04:59.679Z</updated>
+  <updated>2020-09-19T07:43:51.837Z</updated>
   <id>http://levent-j.com/</id>
   
   <author>
@@ -17,15 +17,35 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Android唤起应用商店并跳转到应用详情页</title>
+    <link href="http://levent-j.com/2020/09/18/android-start-app-market/"/>
+    <id>http://levent-j.com/2020/09/18/android-start-app-market/</id>
+    <published>2020-09-18T07:02:32.000Z</published>
+    <updated>2020-09-19T07:43:51.837Z</updated>
+    
+    <summary type="html">
+    
+      背景是需要指引用户前往应用商店中我们应用的应用详情页填写评价。
+    
+    </summary>
+    
+      <category term="Android" scheme="http://levent-j.com/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
+    
+  </entry>
+  
+  <entry>
     <title>GridLayout+Decoration 间距问题</title>
     <link href="http://levent-j.com/2020/08/22/android-gridlayoutmanager-decoration/"/>
     <id>http://levent-j.com/2020/08/22/android-gridlayoutmanager-decoration/</id>
     <published>2020-08-22T08:45:26.000Z</published>
-    <updated>2020-08-23T09:04:59.679Z</updated>
+    <updated>2020-09-19T07:05:31.485Z</updated>
     
     <summary type="html">
     
-      整理Android打包相关的一些知识点，内容包括了一些基础概念，apk打包、安装的流程。
+      解决网格式布局的RecyclerView中item间距的问题
     
     </summary>
     
@@ -413,26 +433,6 @@
       <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
     
       <category term="MultiDex" scheme="http://levent-j.com/tags/MultiDex/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>2018学习计划</title>
-    <link href="http://levent-j.com/2018/10/25/hello/"/>
-    <id>http://levent-j.com/2018/10/25/hello/</id>
-    <published>2018-10-25T03:08:26.000Z</published>
-    <updated>2019-02-05T09:31:15.719Z</updated>
-    
-    <summary type="html">
-    
-      小菜鸡的学习之路
-    
-    </summary>
-    
-      <category term="随笔" scheme="http://levent-j.com/categories/%E9%9A%8F%E7%AC%94/"/>
-    
-    
-      <category term="Schedule" scheme="http://levent-j.com/tags/Schedule/"/>
     
   </entry>
   
