@@ -89,7 +89,7 @@
 <meta property="og:site_name" content="靖然是你">
 <meta property="og:description" content="整理一下学习《Kotlin核心编程》的笔记">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-08-16T13:33:28.950Z">
+<meta property="og:updated_time" content="2020-11-04T12:45:28.035Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《Kotlin核心编程》笔记">
 <meta name="twitter:description" content="整理一下学习《Kotlin核心编程》的笔记">
@@ -439,7 +439,43 @@
 <li>表达式更倾向于自成一块，具备很好的隔离性  </li>
 <li><code>try/catch/finally</code> 表达式的返回类型由 <code>try/catch</code> 决定  </li>
 <li>Kotlin中的判等性主要有两种类型： <code>==</code> 和 <code>===</code> 。其中，用 <code>==</code> 来判断结构相等，也即字符串的内容相等。用 <code>===</code> 来判断引用相等，与之相反的是 <code>!==</code> 。如果比较的是在运行时的原始类型，比如 <code>int</code> ，那么 <code>===</code> 也等同于 <code>==</code></li>
-<li>…</li>
+</ul>
+<h2 id="Part-2-进阶"><a href="#Part-2-进阶" class="headerlink" title="Part 2 进阶"></a>Part 2 进阶</h2><h3 id="1-类和对象"><a href="#1-类和对象" class="headerlink" title="1 类和对象"></a>1 类和对象</h3><ul>
+<li>在Kotlin中可以通过构造方法参数指定默认值来实现方法重载。</li>
+<li>构造方法的参数名前可以没有 <code>var</code> 和 <code>val</code> ，如果带上了<code>var</code> 和 <code>val</code> ，就等同于声明了一个同名的属性。</li>
+<li>正常情况下，Kotlin规定类中的所有非抽象属性成员都必须在对象创建时被初始化值。</li>
+<li><p>by lazy语法的特点如下：</p>
+<ul>
+<li>该变量必须是引用不可变的，而不腻通过var来声明</li>
+<li>在被首次调用时，才会进行赋值操作。一旦被赋值，后续他将不能被更改。</li>
+<li>lazy的背后是接受一个lambda并返回一个Lazy<t>实例的函数，第一次访问改属性时，会执行lazy对应的Lambda表达式并记录结果，后续访问改属性时只是返回记录的结果。</t></li>
+<li>系统会给lazy属性加上同步锁，也就是LazyThreadSafetyMode.SYNCHRONLIZED，他在同一时刻只允许一个线程对lazy属性进行初始化，所以他是线程安全的。</li>
+</ul>
+</li>
+<li><p>Kotlin并不主张用Java中的构造方法重载，来解决多个构造参数组合调用的问题。取而代之的方案是，利用构造参数默认值及用 <code>val</code> <code>var</code> 来声明构造参数的语法，，以更简洁的构造一个类对象。    </p>
+</li>
+<li>每个类最多存在一个主构造方法和多个从构造方法，如果主构造方法存在注解或可见性修饰符，也必须像从构造方法一样加上 <code>constructor</code> 。</li>
+<li>每个从构造方法由两部分组成，一部分是对其他构造方法的委托，另一部分是由花括号包裹的代码块。执行顺序上会先执行委托的方法，然后执行自身代码块的逻辑。</li>
+<li>子类应该尽量避免重写父类的非抽象方法，因为一旦父类变更方法，子类的调用很可能会出错，而且重写父类的非抽象方法也违背了面向对象设计原则中的“里氏替换原则”。</li>
+<li><p>关于可见性修饰符：</p>
+<ul>
+<li>Kotlin中的默认修饰符与Java不同，Kotlin中是public，Java中是default</li>
+<li>Kotlin中有一个独特的internal</li>
+<li>Kotlin可以在一个文件内单独声明方法及常量，同样支持可见性修饰符</li>
+<li>Java中除了内部类可以用 <code>private</code> 修饰符，其他类都不允许使用，而Kotlin都可以</li>
+<li>Kotlin和Java中的 <code>protect</code> 修饰符的访问范围不同，Java中是包、类及子类可访问，而Kotlin只允许类及子类。</li>
+</ul>
+</li>
+<li><p>模块内可见是指该类只对一起编译的其他Kotlin文件可见，开发工程与第三方类库不属于同一个模块，这时吐过还想使用该类的话，只有复制源码一种方式了，这便是Kotlin种 <code>internal</code> 修饰符的一个作用提现</p>
+</li>
+<li>用 <code>val</code> 声明的属性将只有 <code>getter</code> 方法，因为他不可修改；而 <code>var</code> 修饰的属性同时有 <code>getter</code> 和 <code>setter</code> 方法。</li>
+<li>用 <code>private</code> 修饰的属性编译器将会省略 <code>getter</code> 和 <code>setter</code> 方法，因为在类外部已经无法访问他了，这两个方法也就没有了存在的意义。</li>
+<li>内部类包含着其对外部类的引用，在内部类中我们可以使用外部类中的属性，而嵌套类不包含对其外部类实例的引用，所以他无法调用其外部类的属性。</li>
+<li><code>copy</code> 方法的主要作用就是帮我们从已有的数据类对象中拷贝一个新的的数据类型对象，在 <code>copy</code> 的执行过程中，若未指定具体属性的值，那么新生产的对象的属性的值将使用被 <code>copy</code> 对象的属性的值，这便是浅拷贝。</li>
+<li>解构是通过编译器约定时实现的，当然Kotlin对于数组的解构也有一定的限制，在数组中他默认最多允许赋值5个变量，因为若是变量过多，效果反而会适得其反。</li>
+<li><code>static</code> 修饰的内容是属于类的，而不是某个具体对象的，但定义的时候却跟普通的变量和方法混在一起，显得格格不入，所以Kotlin有了 <code>object</code> 来替代。</li>
+<li>伴生是相较于一个类而言的，因此伴生跟Java中的 <code>static</code> 修饰效果性质一样，全局只有一个单例。他需要生命在类的内部，在类被装载时被初始化。</li>
+<li>当你的匿名内部类使用的类接口只需要实现一个方法时，使用Lambda表达式更合适；当匿名内部类内有多个方法实现的时候，使用object表达式更合适。</li>
 </ul>
 
       
@@ -670,7 +706,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#《Kotlin核心编程》学习笔记"><span class="nav-number">1.</span> <span class="nav-text">《Kotlin核心编程》学习笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Part-0-背景"><span class="nav-number">1.1.</span> <span class="nav-text">Part 0 背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Part-1-基础"><span class="nav-number">1.2.</span> <span class="nav-text">Part 1 基础</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#《Kotlin核心编程》学习笔记"><span class="nav-number">1.</span> <span class="nav-text">《Kotlin核心编程》学习笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Part-0-背景"><span class="nav-number">1.1.</span> <span class="nav-text">Part 0 背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Part-1-基础"><span class="nav-number">1.2.</span> <span class="nav-text">Part 1 基础</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Part-2-进阶"><span class="nav-number">1.3.</span> <span class="nav-text">Part 2 进阶</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-类和对象"><span class="nav-number">1.3.1.</span> <span class="nav-text">1 类和对象</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
