@@ -89,7 +89,7 @@
 <meta property="og:site_name" content="靖然是你">
 <meta property="og:description" content="整理一下学习《Kotlin核心编程》的笔记">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-11-04T12:45:28.035Z">
+<meta property="og:updated_time" content="2020-11-07T08:36:31.470Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《Kotlin核心编程》笔记">
 <meta name="twitter:description" content="整理一下学习《Kotlin核心编程》的笔记">
@@ -477,7 +477,72 @@
 <li>伴生是相较于一个类而言的，因此伴生跟Java中的 <code>static</code> 修饰效果性质一样，全局只有一个单例。他需要生命在类的内部，在类被装载时被初始化。</li>
 <li>当你的匿名内部类使用的类接口只需要实现一个方法时，使用Lambda表达式更合适；当匿名内部类内有多个方法实现的时候，使用object表达式更合适。</li>
 </ul>
-
+<h3 id="2-代数数据类型"><a href="#2-代数数据类型" class="headerlink" title="2.代数数据类型"></a>2.代数数据类型</h3><ul>
+<li>当我们利用类进行组合的时候，实际上就是一种product操作，积类型可以看作同时持有某些类型的类型。</li>
+<li>和类型是类型安全的，他是一种闭环，是一种OR的关系</li>
+<li>模式匹配就是表达式匹配</li>
+</ul>
+<h3 id="3-类型系统"><a href="#3-类型系统" class="headerlink" title="3.类型系统"></a>3.类型系统</h3><ul>
+<li>由于 <code>null</code> 只能被存储在Java的引用类型的变量中，所以在Kotlin中基本数据类型的可空版本都会使用该类型的包装形式。</li>
+<li><p>目前解决NPE问题的方式有三种：</p>
+<ul>
+<li>用 <code>try catch</code> 捕获异常</li>
+<li>用 <code>Optional&lt;T&gt;</code> 类似的类型包装</li>
+<li>用 <code>@NotNull/@Nullable</code> 注解来标注</li>
+</ul>
+</li>
+<li><p>Kotlin在方法参数上标注了 <code>@Nullable</code> ，在实现上依旧是用 <code>if else</code> 来对可空情况进行判断，这么做的原因是：</p>
+<ul>
+<li>兼容Java老版本</li>
+<li>实现Java和Kotlin的互转换</li>
+<li>在性能上达到最佳</li>
+</ul>
+</li>
+<li><p>Kotlin的可空类型实质上只是在Java的基础上进行了语法层面的包装。</p>
+</li>
+<li><p>Kotlin可空类型优于Java Optional的地方体现在：</p>
+<ul>
+<li>Kotlin可空类型兼容性更好</li>
+<li>Kotlin可空类型性能更好，开销更低</li>
+<li>Kotlin可空类型语法简洁</li>
+</ul>
+</li>
+<li><p>建议用 Either代替可空类型，Either只有两个子类型，Left和Right，如果Either[A,B]包含的是A的实例，那他就是Left实例，否则就是Right实例。</p>
+</li>
+<li>当且仅当Kotlin的编译器确定在类型检查后变量不会再改变，才会产生Smart Casts</li>
+<li>Java并不能在真正意义上被称作一门纯面向对象语言，因为他的原始类型的值和函数等并不能视作对象</li>
+<li>在Kotllin的类型系统中，并不区分原始类型（基本数据、类型）和包装类型，我们使用的始终是同一个类型</li>
+<li>与 <code>Object</code> 作为Java类层级结果的顶层类似， <code>Any</code> 类型是Kotlin中所有非空类型的超类， <code>Any?</code> 是 <code>Any</code> 的父类型。</li>
+<li>平台类型本质上就是Kotlin不知道可空性信息的类型，所有Java引用类型在Kotlin中都表现为平台类型。当在Kotlin中处理平台类型的值的时候，既可以被当做可空类型来处理，也可以被当做非空类型来处理。    </li>
+<li>继承 和 子类型化 其实是两个完全不同的概念。子类型化的核心是一种类型的代替关系，是一种类型语义的关系，继承则强调的是一种“实现上的复用”。</li>
+<li>Kotlin中的可空类型可以看做所谓的 <code>Union Type</code>，近似于数学中的并集</li>
+<li><code>Nothing</code> 是没有实例的类型，<code>Nothing</code>类型的表达式不会产生任何值。任何返回值为 <code>Nothing</code> 的表达式之后的语句都是无法执行的，Kotlin中的 <code>return</code> <code>throw</code> 等返回值都是 <code>Nothing</code></li>
+<li>Kotlin中的 <code>Int</code> 等同于Java中的 <code>int</code> ，而 <code>Int?</code> 等同于 <code>Integer</code> ，这种技巧让Kotlin更接近纯面向对象语言。</li>
+<li>泛型出现的很重要的原因是为了能在代码编译的时候发现错误，而不是让错误的代码发布到生产环境中，也就是让类型更安全。</li>
+<li><p>泛型有一下几点优势：</p>
+<ul>
+<li>类型检查，能在编译时检查出错误</li>
+<li>更加语义化</li>
+<li>自动类型转换</li>
+<li>能写出更加通用的代码</li>
+</ul>
+</li>
+<li><p><code>where</code> 关键字能实现对泛型参数类型添加多个约束条件。</p>
+</li>
+<li>数组是协变的，而List是不变的，也就是说。Object[]是所有其他对象数组的父类</li>
+<li>Java中的泛型是类型擦除的，也就是伪泛型，简单来说就是无法在运行时获取到具体的类型</li>
+<li>泛型是指，对于类A和B，若A是B的父类，则A[]是B[]的父类</li>
+<li>因为Kotlin中的数组是支持泛型的，所以Kotlin中数组就是不变的</li>
+<li>Java为了填补自己埋下的坑，即向后兼容，所以只能用类型擦除的方式来实现泛型。</li>
+<li>类型检查是编译器在编译期就会进行的，所以类擦除不会影响到。</li>
+<li>泛型的类型参数不是真正将类型擦除，还是会保留类型信息放到对应class的常量池中的。</li>
+<li>匿名内部类在初始化的时候就会绑定父类或父接口与的相应信息，这样就能通过获取父类或父接口的泛型信息来实现我们的需求，Gson就是这样设计的。</li>
+<li>Kotlin的内联函数在编译时编译器会把相应函数的字节码插入调用的地方。    </li>
+<li>普通的泛型是不变的。但是如果在定义的泛型类和泛型方法的泛型参数前面加上 <code>out</code> 关键词，说明这个泛型类及泛型方法是协变的，这在Java里面是用通配符上界 <code>&lt;? extends T&gt;</code> 来实现的</li>
+<li>如果List支持协变，那么他将无法添加元素，只能从里面读取内容</li>
+<li>类似于 <code>out</code> ，但又与 <code>out</code> 完全对立， <code>int</code> 关键词可以将泛型变为逆变的，逆变的List则只支持添加而不支持读取，这在Java里面用通配符下界 <code>&lt;? super T&gt;</code> 来实现</li>
+</ul>
+<h3 id="4-Lambda和集合"><a href="#4-Lambda和集合" class="headerlink" title="4.Lambda和集合"></a>4.Lambda和集合</h3>
       
     </div>
     
@@ -706,7 +771,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#《Kotlin核心编程》学习笔记"><span class="nav-number">1.</span> <span class="nav-text">《Kotlin核心编程》学习笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Part-0-背景"><span class="nav-number">1.1.</span> <span class="nav-text">Part 0 背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Part-1-基础"><span class="nav-number">1.2.</span> <span class="nav-text">Part 1 基础</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Part-2-进阶"><span class="nav-number">1.3.</span> <span class="nav-text">Part 2 进阶</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-类和对象"><span class="nav-number">1.3.1.</span> <span class="nav-text">1 类和对象</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#《Kotlin核心编程》学习笔记"><span class="nav-number">1.</span> <span class="nav-text">《Kotlin核心编程》学习笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Part-0-背景"><span class="nav-number">1.1.</span> <span class="nav-text">Part 0 背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Part-1-基础"><span class="nav-number">1.2.</span> <span class="nav-text">Part 1 基础</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Part-2-进阶"><span class="nav-number">1.3.</span> <span class="nav-text">Part 2 进阶</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-类和对象"><span class="nav-number">1.3.1.</span> <span class="nav-text">1 类和对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-代数数据类型"><span class="nav-number">1.3.2.</span> <span class="nav-text">2.代数数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-类型系统"><span class="nav-number">1.3.3.</span> <span class="nav-text">3.类型系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Lambda和集合"><span class="nav-number">1.3.4.</span> <span class="nav-text">4.Lambda和集合</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
