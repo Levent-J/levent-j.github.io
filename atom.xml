@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://levent-j.com/"/>
-  <updated>2020-09-19T07:43:51.837Z</updated>
+  <updated>2021-01-03T07:33:40.158Z</updated>
   <id>http://levent-j.com/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Go 2021 Go</title>
+    <link href="http://levent-j.com/2021/01/01/hello-2021/"/>
+    <id>http://levent-j.com/2021/01/01/hello-2021/</id>
+    <published>2021-01-01T09:21:15.000Z</published>
+    <updated>2021-01-03T07:33:40.158Z</updated>
+    
+    <summary type="html">
+    
+      Go Go Go!
+    
+    </summary>
+    
+      <category term="随笔" scheme="http://levent-j.com/categories/%E9%9A%8F%E7%AC%94/"/>
+    
+    
+      <category term="计划" scheme="http://levent-j.com/tags/%E8%AE%A1%E5%88%92/"/>
+    
+  </entry>
   
   <entry>
     <title>Android唤起应用商店并跳转到应用详情页</title>
@@ -61,7 +81,7 @@
     <link href="http://levent-j.com/2020/08/14/kotlin-core-note/"/>
     <id>http://levent-j.com/2020/08/14/kotlin-core-note/</id>
     <published>2020-08-14T08:54:02.000Z</published>
-    <updated>2020-11-08T06:42:09.229Z</updated>
+    <updated>2020-11-09T01:35:32.823Z</updated>
     
     <summary type="html">
     
@@ -402,28 +422,6 @@
     <summary type="html">
     
       本篇主要分析Android Multidex的原理，通过Multidex来认识Android的类加载机。
-    
-    </summary>
-    
-      <category term="Android" scheme="http://levent-j.com/categories/Android/"/>
-    
-    
-      <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
-    
-      <category term="MultiDex" scheme="http://levent-j.com/tags/MultiDex/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Android打包相关知识整理（一）</title>
-    <link href="http://levent-j.com/2018/10/29/android-pack-app-1/"/>
-    <id>http://levent-j.com/2018/10/29/android-pack-app-1/</id>
-    <published>2018-10-29T08:45:26.000Z</published>
-    <updated>2019-02-05T09:33:46.416Z</updated>
-    
-    <summary type="html">
-    
-      整理Android打包相关的一些知识点，内容包括了一些基础概念，apk打包、安装的流程。
     
     </summary>
     

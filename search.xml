@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Go 2021 Go]]></title>
+    <url>%2F2021%2F01%2F01%2Fhello-2021%2F</url>
+    <content type="text"><![CDATA[2020，大家都说不好，不过我觉得也还好，讲道理至少比2019舒服多了。收获了很多想要的，也对很多东西产生了新的理解。在这里，定一下2021年的小目标。 新年第一部看了电影《心灵奇旅》，刚好对目标有了一些理解。为什么要制定目标？因为想通过达成目标，在一些事情上有一个进展为什么需要有个进展？因为某些事情，需要通过这种进展，对自己说：看 我做到了，而且做的更好了那么为什么会有这种想法呢？因为有些喜欢或者需要去做的事情，需要这样一个证明所以，目标不是盲目的，随性的，也不该是抱有强烈功利心的，而是有根据的，做自己想做的 想学技术，想提升自己技术水平，把未知的恐惧变成自己的知识，所以目标：Kotlin协程，Java并发，多看源码，多做总结，至少20篇blog 想多读有趣的书，喜欢的书，扩展知识面，比如经济学、历史等，所以目标：读完包括两本经济学原理（又），读完《国富论》在内的10本书 想赚钱，想养成良好消费习惯，经济独立，所以目标：库存+30万 想健健康康，不再有乱七八糟的小毛病，所以目标：早睡打卡200天，并减肥到180斤以下 想享受生活，满足简单的兴趣爱好，所以目标：画两副作品，以及玩一下《怪猎rise》《天外世界》《生化奇兵》，有机会一定把《荒野大镖客2》玩完 最后，还是要活在当下，过好每一天，做好最好的自己，爱我爱的人❤️]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>计划</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Android唤起应用商店并跳转到应用详情页]]></title>
     <url>%2F2020%2F09%2F18%2Fandroid-start-app-market%2F</url>
     <content type="text"><![CDATA[Android唤起应用商店并跳转到应用详情页开发中有一个需求，是需要弹出弹窗，提示并引导用户前往应用商店中我们指定应用的应用详情页，填写评价。这个需求其实很简单，只需要唤起对应的应用商店，并加上我们应用的包名作为参数，即可打开。 首先上代码，从最简单的开始，直接打开当前手机的应用商店并跳转到我们应用的详情页： 1234567fun startMarket()&#123; val intent = Intent(Intent.ACTION_VIEW) intent.data = Uri.parse("market://details?id=$&#123;context.application.packageName&#125;") intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) context.applicationContext.startActivity(intent)&#125; 原理其实就是通过intent隐式启动应用商店的应用详情Activity，具体是哪个应用的应用详情呢，就指定对应的包名即可。 这样简单处理会有一个问题，加入手机内同时安装了多个应用商店，系统会自己弹出一个弹窗提示用户去选择需要打开哪个应用商店。这样虽然能满足大部分需求，但是假如我们的应用并没有在某些应用商店商家，那在唤起应用商店后会跳转失败，一般会是一个空白页面。而且系统的弹窗会让用户选择是否记住选择等，如果误操作打开了错误的应用商店那就白给了。所以一般我们还需要自己指定去打开特定的应用商店，只需加一行代码即可搞定： 12345678fun startMarket()&#123; val intent = Intent(Intent.ACTION_VIEW) intent.`package` = "com.xxx.xxx"//这里指定要打开哪个应用商店 intent.data = Uri.parse("market://details?id=$&#123;context.application.packageName&#125;") intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) context.applicationContext.startActivity(intent)&#125; 通过 package 参数指定要打开的应用商店包名，即可解决。这里有一份市面上的大部分应用商店包名，可以参考： Android应用市场和应用包名大全 这里要注意一下，oppo系统的应用商店包名有两个，要做个兼容处理，即 &quot;com.oppo.market&quot; 和 &quot;com.heytap.market&quot; 不过假如手机上未安装指定的应用商店，这里就会有问题，所以一般还要先查询一下当前应用商店是否安装，如果未安装，就不指定包名，另外最好是能根据当前包体的渠道来打开对应的应用商店，所以最终版代码如下： 1234567891011121314151617181920212223val marketMap = mapOf( "yyb" to listOf("com.tencent.android.qqdownloader"), //应用宝 "huawei" to listOf("com.huawei.appmarket"), //华为 "oppo" to listOf("com.oppo.market", "com.heytap.market"), //oppo "vivo" to listOf("com.bbk.appstore"), //vivo "mi" to listOf("com.xiaomi.market") //小米)val channel = WalleChannelReader.getChannel(context.application)?:""//获取当前包体的渠道名 这里涉及到另外一个多渠道打包库 可以忽略val channelMarkets = marketMap[channel]//当前渠道对应的应用商店包名 一般只有一个 oppo有两个 要做兼容val installedMarkets = context.packageManager.getInstalledPackages(0).map &#123; it.packageName &#125;//获取手机当前已安装的应用val market = channelMarkets?.find &#123; it in installedMarkets &#125;//找到对应的应用商店包名try &#123; //有成功找到，就打开对应的应用商店 val intent = Intent(Intent.ACTION_VIEW) intent.data = Uri.parse("market://details?id=$&#123;context.application.packageName&#125;") intent.`package` = market intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) context.applicationContext.startActivity(intent)&#125; catch (e: Exception) &#123; //打开应用商店失败 则做其他兼容性处理&#125;]]></content>
