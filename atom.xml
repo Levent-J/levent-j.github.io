@@ -97,26 +97,6 @@
   </entry>
   
   <entry>
-    <title>从零单排学Android</title>
-    <link href="http://levent-j.com/2020/08/14/android-study-0/"/>
-    <id>http://levent-j.com/2020/08/14/android-study-0/</id>
-    <published>2020-08-14T07:28:05.000Z</published>
-    <updated>2020-08-15T07:36:27.165Z</updated>
-    
-    <summary type="html">
-    
-      系统性的总结Android开发技能树
-    
-    </summary>
-    
-      <category term="Android" scheme="http://levent-j.com/categories/Android/"/>
-    
-    
-      <category term="知识树" scheme="http://levent-j.com/tags/%E7%9F%A5%E8%AF%86%E6%A0%91/"/>
-    
-  </entry>
-  
-  <entry>
     <title>renderscript简单使用——绘制Bitmap</title>
     <link href="http://levent-j.com/2020/08/01/android-renderscript/"/>
     <id>http://levent-j.com/2020/08/01/android-renderscript/</id>
@@ -422,6 +402,28 @@
     <summary type="html">
     
       本篇主要分析Android Multidex的原理，通过Multidex来认识Android的类加载机。
+    
+    </summary>
+    
+      <category term="Android" scheme="http://levent-j.com/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
+    
+      <category term="MultiDex" scheme="http://levent-j.com/tags/MultiDex/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android打包相关知识整理（一）</title>
+    <link href="http://levent-j.com/2018/10/29/android-pack-app-1/"/>
+    <id>http://levent-j.com/2018/10/29/android-pack-app-1/</id>
+    <published>2018-10-29T08:45:26.000Z</published>
+    <updated>2019-02-05T09:33:46.416Z</updated>
+    
+    <summary type="html">
+    
+      整理Android打包相关的一些知识点，内容包括了一些基础概念，apk打包、安装的流程。
     
     </summary>
     
