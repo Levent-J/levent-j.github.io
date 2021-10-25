@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://levent-j.com/"/>
-  <updated>2021-01-03T07:33:40.158Z</updated>
+  <updated>2021-10-25T07:50:09.178Z</updated>
   <id>http://levent-j.com/</id>
   
   <author>
@@ -15,6 +15,46 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>GIF编解码——GIF格式的基本原理</title>
+    <link href="http://levent-j.com/2021/10/10/android-gif/"/>
+    <id>http://levent-j.com/2021/10/10/android-gif/</id>
+    <published>2021-10-10T09:22:43.000Z</published>
+    <updated>2021-10-25T07:50:09.178Z</updated>
+    
+    <summary type="html">
+    
+      项目中有个需求，需要将多张GIF图进行合并。因此需要学习一下GIF图片的编解码原理。
+    
+    </summary>
+    
+      <category term="Android" scheme="http://levent-j.com/categories/Android/"/>
+    
+    
+      <category term="GIF" scheme="http://levent-j.com/tags/GIF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>learn-git</title>
+    <link href="http://levent-j.com/2021/08/14/learn-git/"/>
+    <id>http://levent-j.com/2021/08/14/learn-git/</id>
+    <published>2021-08-14T09:22:43.000Z</published>
+    <updated>2021-08-14T09:46:10.123Z</updated>
+    
+    <summary type="html">
+    
+      描述
+    
+    </summary>
+    
+      <category term="分类" scheme="http://levent-j.com/categories/%E5%88%86%E7%B1%BB/"/>
+    
+    
+      <category term="标签" scheme="http://levent-j.com/tags/%E6%A0%87%E7%AD%BE/"/>
+    
+  </entry>
   
   <entry>
     <title>Go 2021 Go</title>
@@ -389,50 +429,6 @@
       <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
     
       <category term="Unity3d" scheme="http://levent-j.com/tags/Unity3d/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Android打包相关知识整理（二）</title>
-    <link href="http://levent-j.com/2018/11/02/android-pack-app-2/"/>
-    <id>http://levent-j.com/2018/11/02/android-pack-app-2/</id>
-    <published>2018-11-02T08:45:26.000Z</published>
-    <updated>2019-02-05T09:33:49.879Z</updated>
-    
-    <summary type="html">
-    
-      本篇主要分析Android Multidex的原理，通过Multidex来认识Android的类加载机。
-    
-    </summary>
-    
-      <category term="Android" scheme="http://levent-j.com/categories/Android/"/>
-    
-    
-      <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
-    
-      <category term="MultiDex" scheme="http://levent-j.com/tags/MultiDex/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Android打包相关知识整理（一）</title>
-    <link href="http://levent-j.com/2018/10/29/android-pack-app-1/"/>
-    <id>http://levent-j.com/2018/10/29/android-pack-app-1/</id>
-    <published>2018-10-29T08:45:26.000Z</published>
-    <updated>2019-02-05T09:33:46.416Z</updated>
-    
-    <summary type="html">
-    
-      整理Android打包相关的一些知识点，内容包括了一些基础概念，apk打包、安装的流程。
-    
-    </summary>
-    
-      <category term="Android" scheme="http://levent-j.com/categories/Android/"/>
-    
-    
-      <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
-    
-      <category term="MultiDex" scheme="http://levent-j.com/tags/MultiDex/"/>
     
   </entry>
   
