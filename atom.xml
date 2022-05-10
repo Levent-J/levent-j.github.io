@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://levent-j.com/"/>
-  <updated>2022-01-03T09:10:54.095Z</updated>
+  <updated>2022-05-10T03:08:20.332Z</updated>
   <id>http://levent-j.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>HashCode的一些理解</title>
+    <link href="http://levent-j.com/2022/05/09/hashcode/"/>
+    <id>http://levent-j.com/2022/05/09/hashcode/</id>
+    <published>2022-05-09T03:02:47.000Z</published>
+    <updated>2022-05-10T03:08:20.332Z</updated>
+    
+    <summary type="html">
+    
+      HashCode是一个很基础的概念，但是一直有点含含糊糊的，这次彻底来搞清楚。
+    
+    </summary>
+    
+      <category term="Java" scheme="http://levent-j.com/categories/Java/"/>
+    
+    
+      <category term="Java" scheme="http://levent-j.com/tags/Java/"/>
+    
+      <category term="Kotlin" scheme="http://levent-j.com/tags/Kotlin/"/>
+    
+  </entry>
   
   <entry>
     <title>2022 次世代</title>
@@ -403,30 +425,6 @@
       <category term="UTC" scheme="http://levent-j.com/tags/UTC/"/>
     
       <category term="GMT" scheme="http://levent-j.com/tags/GMT/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>解读权限标签 &amp;ltpermission&amp;gt  和 &amp;ltuses-permission&amp;gt</title>
-    <link href="http://levent-j.com/2019/01/17/android-permission/"/>
-    <id>http://levent-j.com/2019/01/17/android-permission/</id>
-    <published>2019-01-17T06:43:27.000Z</published>
-    <updated>2019-02-05T09:33:52.861Z</updated>
-    
-    <summary type="html">
-    
-      最近在项目中遇到了权限标签冲突相关的问题，发现对这一部分了解不多，因此结合官方文档了解一下这方面的东西。
-    
-    </summary>
-    
-      <category term="Android" scheme="http://levent-j.com/categories/Android/"/>
-    
-    
-      <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
-    
-      <category term="权限" scheme="http://levent-j.com/tags/%E6%9D%83%E9%99%90/"/>
-    
-      <category term="permission" scheme="http://levent-j.com/tags/permission/"/>
     
   </entry>
   
