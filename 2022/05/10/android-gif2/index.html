@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Kotlin," />
+  <meta name="keywords" content="GIF," />
 
 
 
@@ -81,18 +81,24 @@
 
 
 
-<meta name="description" content="整理一下学习《Kotlin核心编程》的笔记">
-<meta name="keywords" content="Kotlin">
+<meta name="description" content="本文总结下基于Glide进行GIF二次编辑的方式。">
+<meta name="keywords" content="GIF">
 <meta property="og:type" content="article">
-<meta property="og:title" content="《Kotlin核心编程》笔记">
-<meta property="og:url" content="http://levent-j.com/2020/08/14/kotlin-core-note/index.html">
+<meta property="og:title" content="GIF编解码——编解码与合并">
+<meta property="og:url" content="http://levent-j.com/2022/05/10/android-gif2/index.html">
 <meta property="og:site_name" content="靖然是你">
-<meta property="og:description" content="整理一下学习《Kotlin核心编程》的笔记">
+<meta property="og:description" content="本文总结下基于Glide进行GIF二次编辑的方式。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-11-09T01:35:32.823Z">
+<meta property="og:image" content="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/gif/gif_eg_1.gif">
+<meta property="og:image" content="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/gif/gif-eg-2.gif">
+<meta property="og:image" content="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/gif/gif_eg_3.gif">
+<meta property="og:image" content="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/gif/gif_encoder.png">
+<meta property="og:image" content="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/gif/gif_merge_eg.png">
+<meta property="og:updated_time" content="2022-05-13T03:48:56.257Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="《Kotlin核心编程》笔记">
-<meta name="twitter:description" content="整理一下学习《Kotlin核心编程》的笔记">
+<meta name="twitter:title" content="GIF编解码——编解码与合并">
+<meta name="twitter:description" content="本文总结下基于Glide进行GIF二次编辑的方式。">
+<meta name="twitter:image" content="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/gif/gif_eg_1.gif">
 
 
 
@@ -122,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://levent-j.com/2020/08/14/kotlin-core-note/"/>
+  <link rel="canonical" href="http://levent-j.com/2022/05/10/android-gif2/"/>
 
 
 
 
 
-  <title>《Kotlin核心编程》笔记 | 靖然是你</title>
+  <title>GIF编解码——编解码与合并 | 靖然是你</title>
   
 
 
@@ -299,7 +305,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://levent-j.com/2020/08/14/kotlin-core-note/">
+    <link itemprop="mainEntityOfPage" href="http://levent-j.com/2022/05/10/android-gif2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Levent-J">
@@ -316,7 +322,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">《Kotlin核心编程》笔记</h1>
+          <h1 class="post-title" itemprop="name headline">GIF编解码——编解码与合并</h1>
         
 
         <div class="post-meta">
@@ -328,8 +334,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-14T16:54:02+08:00">
-                2020-08-14
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-05-10T11:26:49+08:00">
+                2022-05-10
               </time>
             
 
@@ -351,8 +357,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Kotlin/" itemprop="url" rel="index">
-                    <span itemprop="name">Kotlin</span>
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
                   </a>
                 </span>
 
@@ -369,8 +375,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2020/08/14/kotlin-core-note/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2020/08/14/kotlin-core-note/" itemprop="commentCount"></span>
+                <a href="/2022/05/10/android-gif2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2022/05/10/android-gif2/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -378,7 +384,7 @@
 
           
           
-             <span id="/2020/08/14/kotlin-core-note/" class="leancloud_visitors" data-flag-title="《Kotlin核心编程》笔记">
+             <span id="/2022/05/10/android-gif2/" class="leancloud_visitors" data-flag-title="GIF编解码——编解码与合并">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -396,7 +402,7 @@
 
           
               <div class="post-description">
-                  整理一下学习《Kotlin核心编程》的笔记
+                  本文总结下基于Glide进行GIF二次编辑的方式。
               </div>
           
 
@@ -413,177 +419,47 @@
       
 
       
-        <h1 id="《Kotlin核心编程》学习笔记"><a href="#《Kotlin核心编程》学习笔记" class="headerlink" title="《Kotlin核心编程》学习笔记"></a>《Kotlin核心编程》学习笔记</h1><h2 id="Part-0-背景"><a href="#Part-0-背景" class="headerlink" title="Part 0 背景"></a>Part 0 背景</h2><ul>
-<li>编程语言可以依靠功能累加来构建所谓的语法，同样也可以通过简单完备的理论来发展语言特性。</li>
-<li>Scala的设计理念是 more than Java（不止是Java），而Kotlin的设计理念是 better Java（更好的Java）</li>
-<li>Kotlin旨在成为一门提高Java生产力的更好的编程语言，实用性更强一点</li>
-</ul>
-<h2 id="Part-1-基础"><a href="#Part-1-基础" class="headerlink" title="Part 1 基础"></a>Part 1 基础</h2><ul>
-<li>Unit是一个类型，而void只是一个关键字  </li>
-<li>单行表达式与等号的语法定义的函数叫表达式函数体，普通的函数声明叫做代码块函数体  </li>
-<li><code>if</code> 是一个表达式，它的返回值是各个逻辑分支的相同类型或公共父类  </li>
-<li>由于Kotlin支持子类型和继承，因此不能做到全局类型推导，所以一般还是要显示声明类型  </li>
-<li><code>var</code> 即 <code>varible</code>，是变量， <code>val</code> 即 <code>value</code> ，是 <code>var</code> + <code>final</code> ，是引用不可变的  </li>
-<li><code>val</code> 引用的数组内容可变，是因为Kotlin设计时更多考虑数组这种大型数据结构的拷贝成本，因此是存储在堆内存中的</li>
-<li>所谓“副作用”就是修改了某处的值，比如修改了某个外部变量的值，UI操作，IO操作等等。          </li>
-<li>应当优先使用 <code>val</code> 来避免一些副作用，而当在局部使用且使用安全时，可以用 <code>var</code> ，这是一种防御性的编码思维模式，不可变即意味着更加容易推理  </li>
-<li>以其他函数作为参数或返回值的函数叫做高阶函数  </li>
-<li>通过 <code>::</code> 来实现对于某个类的方法进行引用  </li>
-<li>Kotlin在JVM层设计了一个 <code>Function</code> 类型，包括 <code>Function0 Function1 ... Function22</code> 的主要目的就是来兼容Java的Lambda表达式，后面的数字表示接收的参数数量，之所以是22是因为业界标准是这样，当然如果需要超过22个参数时，可以用 <code>FunctionN</code>  </li>
-<li>不管是用 <code>val</code> 还是 <code>fun</code> ，如果是单等号加花括号的语法，那么构建的就是一个Lambda表达式，Lambda的参数在花括号内部声明，使用时需要调用 <code>.invoke</code> 或 <code>()</code>  </li>
-<li>柯里化（Currying）是指把接受多个参数的函数转换为一些列仅接受单一参数的函数的过程，在返回最终结果值之前，前面的函数依次接受单个参数，然后返回下一个新函数。柯里化是为了简化Lambda演算理论中的函数接受多参数而出现的  </li>
-<li>表达式可以是一个值、操作符、函数或他们的组合，总的来说就是一个可以返回值的语句  </li>
-<li>当 <code>if</code> 作为表达式时， <code>else</code> 是必须被考虑的，因此表达式可以消除副作用的出现  </li>
-<li>一切表达式的设计让开发者在设计业务时，促进了避免创造副作用的逻辑设计，从而让程序变得更加安全  </li>
-<li>在Java中 <code>Void</code> 类类似于 <code>Integer</code> , <code>Integer</code> 是为了对基本类型 <code>int</code> 的实例进行装箱操作，而 <code>Void</code> 的设计则是为了对应 <code>void</code> 。由于 <code>void</code> 表示没有返回值，因此 <code>Void</code> 类不能具有实例，它继承自 <code>Object</code>  </li>
-<li>表达式更倾向于自成一块，具备很好的隔离性  </li>
-<li><code>try/catch/finally</code> 表达式的返回类型由 <code>try/catch</code> 决定  </li>
-<li>Kotlin中的判等性主要有两种类型： <code>==</code> 和 <code>===</code> 。其中，用 <code>==</code> 来判断结构相等，也即字符串的内容相等。用 <code>===</code> 来判断引用相等，与之相反的是 <code>!==</code> 。如果比较的是在运行时的原始类型，比如 <code>int</code> ，那么 <code>===</code> 也等同于 <code>==</code></li>
-</ul>
-<h2 id="Part-2-进阶"><a href="#Part-2-进阶" class="headerlink" title="Part 2 进阶"></a>Part 2 进阶</h2><h3 id="1-类和对象"><a href="#1-类和对象" class="headerlink" title="1 类和对象"></a>1 类和对象</h3><ul>
-<li>在Kotlin中可以通过构造方法参数指定默认值来实现方法重载。</li>
-<li>构造方法的参数名前可以没有 <code>var</code> 和 <code>val</code> ，如果带上了<code>var</code> 和 <code>val</code> ，就等同于声明了一个同名的属性。</li>
-<li>正常情况下，Kotlin规定类中的所有非抽象属性成员都必须在对象创建时被初始化值。</li>
-<li><p>by lazy语法的特点如下：</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>项目中有一个GIF图二次编辑的需求，这一功能我主要借助Glide库来实现，这里通过系列文章分享下实现过程和GIF相关的学习经验。</p>
+<p><a href="https://levent-j.com/2021/10/10/android-gif/">GIF格式</a></p>
+<p><a href="https://levent-j.com/2022/05/10/android-gif2/">编解码与合并</a></p>
+<p><a href="https://levent-j.com/2022/05/12/android-gif3/">编解码器实现原理</a></p>
+<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p>首先看下效果</p>
+<p>原图1：</p>
+<p><img src="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/gif/gif_eg_1.gif" alt=""></p>
+<p>原图2：</p>
+<p><img src="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/gif/gif-eg-2.gif" alt=""></p>
+<p>调整图2的大小和位置后与图1叠加，最终效果：</p>
+<p><img src="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/gif/gif_eg_3.gif" alt=""></p>
+<p>这里合并主要借助Glide实现。</p>
+<p>GIF的二次，核心思路就是将输入的GIF图进行解码，对解码后的图像数据进行修改后，再进行合并，将合并后的结果再通过编码生成新的GIF图。项目中图片加载使用了 <a href="https://github.com/bumptech/glide" target="_blank" rel="noopener">Glide</a>，Android本身是不支持渲染GIF图的，Glide可以帮助我们加载GIF图到ImageView——其原理就是先解码GIF图，然后逐帧渲染到ImageView上——同时也提供了开箱即用的编解码器，所以这里编解码都借助Glide来实现。</p>
+<h2 id="解码"><a href="#解码" class="headerlink" title="解码"></a>解码</h2><p>这里我自己用一个 <code>GifImage</code> 类存储解析后的所有数据，一个 <code>GifFrame</code> 类存储单个帧中的数据：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">data</span> <span class="class"><span class="keyword">class</span> <span class="title">GifFrame</span></span>(<span class="keyword">val</span> image: Bitmap, <span class="keyword">val</span> delay: <span class="built_in">Int</span>, <span class="keyword">val</span> time: <span class="built_in">Long</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">data</span> <span class="class"><span class="keyword">class</span> <span class="title">GifImage</span></span>(<span class="keyword">val</span> frames: List&lt;GifFrame&gt;, <span class="keyword">val</span> time: <span class="built_in">Long</span>)</span><br></pre></td></tr></table></figure>
+<p>这里我在 <code>GifFrame</code> 中多加了一个字段来表示这一帧在整个播放序列中处于哪一时刻，这个在后面合并时会用到。</p>
+<p>然后是用Glide解码的简单写法：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> filePath 输入GIF图源文件路径</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> inSampleSize 优化bitmap解析时用到的采样率</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">decode</span><span class="params">(context: <span class="type">Context</span>, filePath: <span class="type">String</span>, inSampleSize: <span class="type">Int</span> = <span class="number">2</span>)</span></span>: GifImage? &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">val</span> inputStream = FileInputStream(filePath)</span><br><span class="line">        <span class="keyword">val</span> byteBuffer = ByteBuffer.wrap(inputStream.readBytes())</span><br><span class="line">        <span class="keyword">val</span> glide = Glide.<span class="keyword">get</span>(context)</span><br><span class="line">        <span class="comment">//Glide提供了默认的Provider，Parser</span></span><br><span class="line">        <span class="keyword">val</span> provider = GifBitmapProvider(glide.bitmapPool, glide.arrayPool)</span><br><span class="line">        <span class="keyword">val</span> header = GifHeaderParser().setData(byteBuffer).parseHeader()<span class="comment">//读取文件Header部分数据</span></span><br><span class="line">        <span class="keyword">val</span> decoder = StandardGifDecoder(provider, header, byteBuffer, inSampleSize)<span class="comment">//创建解码器</span></span><br><span class="line">        <span class="keyword">val</span> frameCount = decoder.frameCount</span><br><span class="line">        decoder.advance()<span class="comment">//获取下一帧</span></span><br><span class="line">        <span class="keyword">var</span> time = <span class="number">0L</span></span><br><span class="line">        <span class="keyword">var</span> total = <span class="number">0L</span></span><br><span class="line">        <span class="keyword">val</span> frames = ArrayList&lt;GifFrame&gt;()</span><br><span class="line">        <span class="comment">//已知帧的数量，循环读取每一帧的图片数据和间隔时间</span></span><br><span class="line">        <span class="keyword">for</span> (i <span class="keyword">in</span> <span class="number">0</span> until frameCount) &#123;</span><br><span class="line">            <span class="keyword">val</span> bitmap = decoder.nextFrame<span class="comment">//解码器id getNextFrame()方法 获取下一帧的图像数据</span></span><br><span class="line">            <span class="keyword">val</span> delay = decoder.nextDelay</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (bitmap != <span class="literal">null</span>) &#123;</span><br><span class="line">                frames.add(GifFrame(bitmap, delay, time))</span><br><span class="line">                total = time</span><br><span class="line">                <span class="comment">//记录该帧在播放序列中的时刻</span></span><br><span class="line">                time += delay</span><br><span class="line">            &#125;</span><br><span class="line">            decoder.advance()</span><br><span class="line">        &#125;</span><br><span class="line">        inputStream.close()</span><br><span class="line">        <span class="keyword">return</span> GifImage(frames, total)</span><br><span class="line">    &#125; <span class="keyword">catch</span> (e: Exception) &#123;</span><br><span class="line">        e.printStackTrace()</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>读取输入文件，创建一个解码器，先获取Header数据，然后遍历获取每一帧的数据，同时记录每一帧在播放序列中的时刻，这样一个简单的解码就完成了。</p>
+<h2 id="编码"><a href="#编码" class="headerlink" title="编码"></a>编码</h2><p>编码就是解码的过程倒过来，Glide同样提供了解码器，在Glide仓库可以找到：<a href="https://github.com/bumptech/glide/tree/master/third_party/gif_encoder/src/main/java/com/bumptech/glide/gifencoder" target="_blank" rel="noopener">gifencoder</a>。把这三个类都拷贝到项目目录下即可使用：</p>
+<p><img src="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/gif/gif_encoder.png" alt=""></p>
+<p>然后一个编码的示例：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> gifImage 构建的Gif图对象</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> file 存储到文件</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">encode</span><span class="params">(gifImage: <span class="type">GifImage</span>, file: <span class="type">File</span>)</span></span> &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">val</span> bos = ByteArrayOutputStream()</span><br><span class="line">        <span class="comment">//创建一个编码器的实例，调start()方法开始写入</span></span><br><span class="line">        <span class="keyword">val</span> encoder = AnimatedGifEncoder()</span><br><span class="line">        encoder.start(bos)</span><br><span class="line">        encoder.setRepeat(<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">for</span> (frame <span class="keyword">in</span> gifImage.frames) &#123;</span><br><span class="line">            <span class="comment">//逐帧写入</span></span><br><span class="line">            encoder.setDelay(frame.delay)</span><br><span class="line">            encoder.addFrame(frame.image)</span><br><span class="line">        &#125;</span><br><span class="line">        encoder.finish()</span><br><span class="line">        <span class="comment">//文件保存</span></span><br><span class="line">        <span class="keyword">val</span> outStream = FileOutputStream(file)</span><br><span class="line">        outStream.write(bos.toByteArray())</span><br><span class="line">        outStream.close()</span><br><span class="line">    &#125; <span class="keyword">catch</span> (e: Exception) &#123;</span><br><span class="line">        e.printStackTrace()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>创建一个编码器，逐帧写入，编码器提供了很多public方法来设置一些属性，比如 <code>setRepeat()</code> 方法，用来设置GIF图是否可以循环播放/循环次数，如果不设置，默认生成的GIF图是不会自动循环播放的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Sets the number of times the set of GIF frames should be played. Default is</span></span><br><span class="line"><span class="comment"> * 1; 0 means play indefinitely. Must be invoked before the first image is</span></span><br><span class="line"><span class="comment"> * added.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> iter</span></span><br><span class="line"><span class="comment"> *          int number of iterations.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setRepeat</span><span class="params">(<span class="keyword">int</span> iter)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (iter &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">        repeat = iter;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以及 <code>setDelay()</code> 设置当前帧显示之后到下一帧显示之前的等待时间：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Sets the delay time between each frame, or changes it for subsequent frames</span></span><br><span class="line"><span class="comment"> * (applies to last frame added).</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> ms</span></span><br><span class="line"><span class="comment"> *          int delay time in milliseconds</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setDelay</span><span class="params">(<span class="keyword">int</span> ms)</span> </span>&#123;</span><br><span class="line">    delay = Math.round(ms / <span class="number">10.0f</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="合并"><a href="#合并" class="headerlink" title="合并"></a>合并</h2><p>除了编码和解码之外，中间部分就是合并了。考虑最复杂的情况：输入的图片不止一张，其次输入的图片有的是GIF，有的是普通的静态图，且每张GIF图他的帧序列的时间间隔都是不一定不相等的，哪怕是同一张GIF其每两帧之间的间隔时间也不一定相同。因此合并的思路大体如下图：</p>
+<p><img src="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/gif/gif_merge_eg.png" alt=""></p>
+<p>输入的GIF图A B C，取所有帧的时刻做并集并去重得到总时间轴，合成后的每一帧都是由ABC的对应那一时刻的帧合并而成的静态图：</p>
 <ul>
-<li>该变量必须是引用不可变的，而不腻通过var来声明</li>
-<li>在被首次调用时，才会进行赋值操作。一旦被赋值，后续他将不能被更改。</li>
-<li>lazy的背后是接受一个lambda并返回一个Lazy<t>实例的函数，第一次访问改属性时，会执行lazy对应的Lambda表达式并记录结果，后续访问改属性时只是返回记录的结果。</t></li>
-<li>系统会给lazy属性加上同步锁，也就是LazyThreadSafetyMode.SYNCHRONLIZED，他在同一时刻只允许一个线程对lazy属性进行初始化，所以他是线程安全的。</li>
+<li>R1(帧) = A1 C1 合并</li>
+<li>R2 = A1 B1 C1 合并</li>
+<li>R3 = A2 B1 C1 合并</li>
+<li>R4 = A1 B2 C1 合并</li>
+<li>R5 = A2 B2 C2 合并</li>
+<li>…</li>
 </ul>
-</li>
-<li><p>Kotlin并不主张用Java中的构造方法重载，来解决多个构造参数组合调用的问题。取而代之的方案是，利用构造参数默认值及用 <code>val</code> <code>var</code> 来声明构造参数的语法，，以更简洁的构造一个类对象。    </p>
-</li>
-<li>每个类最多存在一个主构造方法和多个从构造方法，如果主构造方法存在注解或可见性修饰符，也必须像从构造方法一样加上 <code>constructor</code> 。</li>
-<li>每个从构造方法由两部分组成，一部分是对其他构造方法的委托，另一部分是由花括号包裹的代码块。执行顺序上会先执行委托的方法，然后执行自身代码块的逻辑。</li>
-<li>子类应该尽量避免重写父类的非抽象方法，因为一旦父类变更方法，子类的调用很可能会出错，而且重写父类的非抽象方法也违背了面向对象设计原则中的“里氏替换原则”。</li>
-<li><p>关于可见性修饰符：</p>
-<ul>
-<li>Kotlin中的默认修饰符与Java不同，Kotlin中是public，Java中是default</li>
-<li>Kotlin中有一个独特的internal</li>
-<li>Kotlin可以在一个文件内单独声明方法及常量，同样支持可见性修饰符</li>
-<li>Java中除了内部类可以用 <code>private</code> 修饰符，其他类都不允许使用，而Kotlin都可以</li>
-<li>Kotlin和Java中的 <code>protect</code> 修饰符的访问范围不同，Java中是包、类及子类可访问，而Kotlin只允许类及子类。</li>
-</ul>
-</li>
-<li><p>模块内可见是指该类只对一起编译的其他Kotlin文件可见，开发工程与第三方类库不属于同一个模块，这时吐过还想使用该类的话，只有复制源码一种方式了，这便是Kotlin种 <code>internal</code> 修饰符的一个作用提现</p>
-</li>
-<li>用 <code>val</code> 声明的属性将只有 <code>getter</code> 方法，因为他不可修改；而 <code>var</code> 修饰的属性同时有 <code>getter</code> 和 <code>setter</code> 方法。</li>
-<li>用 <code>private</code> 修饰的属性编译器将会省略 <code>getter</code> 和 <code>setter</code> 方法，因为在类外部已经无法访问他了，这两个方法也就没有了存在的意义。</li>
-<li>内部类包含着其对外部类的引用，在内部类中我们可以使用外部类中的属性，而嵌套类不包含对其外部类实例的引用，所以他无法调用其外部类的属性。</li>
-<li><code>copy</code> 方法的主要作用就是帮我们从已有的数据类对象中拷贝一个新的的数据类型对象，在 <code>copy</code> 的执行过程中，若未指定具体属性的值，那么新生产的对象的属性的值将使用被 <code>copy</code> 对象的属性的值，这便是浅拷贝。</li>
-<li>解构是通过编译器约定时实现的，当然Kotlin对于数组的解构也有一定的限制，在数组中他默认最多允许赋值5个变量，因为若是变量过多，效果反而会适得其反。</li>
-<li><code>static</code> 修饰的内容是属于类的，而不是某个具体对象的，但定义的时候却跟普通的变量和方法混在一起，显得格格不入，所以Kotlin有了 <code>object</code> 来替代。</li>
-<li>伴生是相较于一个类而言的，因此伴生跟Java中的 <code>static</code> 修饰效果性质一样，全局只有一个单例。他需要生命在类的内部，在类被装载时被初始化。</li>
-<li>当你的匿名内部类使用的类接口只需要实现一个方法时，使用Lambda表达式更合适；当匿名内部类内有多个方法实现的时候，使用object表达式更合适。</li>
-</ul>
-<h3 id="2-代数数据类型"><a href="#2-代数数据类型" class="headerlink" title="2.代数数据类型"></a>2.代数数据类型</h3><ul>
-<li>当我们利用类进行组合的时候，实际上就是一种product操作，积类型可以看作同时持有某些类型的类型。</li>
-<li>和类型是类型安全的，他是一种闭环，是一种OR的关系</li>
-<li>模式匹配就是表达式匹配</li>
-</ul>
-<h3 id="3-类型系统"><a href="#3-类型系统" class="headerlink" title="3.类型系统"></a>3.类型系统</h3><ul>
-<li>由于 <code>null</code> 只能被存储在Java的引用类型的变量中，所以在Kotlin中基本数据类型的可空版本都会使用该类型的包装形式。</li>
-<li><p>目前解决NPE问题的方式有三种：</p>
-<ul>
-<li>用 <code>try catch</code> 捕获异常</li>
-<li>用 <code>Optional&lt;T&gt;</code> 类似的类型包装</li>
-<li>用 <code>@NotNull/@Nullable</code> 注解来标注</li>
-</ul>
-</li>
-<li><p>Kotlin在方法参数上标注了 <code>@Nullable</code> ，在实现上依旧是用 <code>if else</code> 来对可空情况进行判断，这么做的原因是：</p>
-<ul>
-<li>兼容Java老版本</li>
-<li>实现Java和Kotlin的互转换</li>
-<li>在性能上达到最佳</li>
-</ul>
-</li>
-<li><p>Kotlin的可空类型实质上只是在Java的基础上进行了语法层面的包装。</p>
-</li>
-<li><p>Kotlin可空类型优于Java Optional的地方体现在：</p>
-<ul>
-<li>Kotlin可空类型兼容性更好</li>
-<li>Kotlin可空类型性能更好，开销更低</li>
-<li>Kotlin可空类型语法简洁</li>
-</ul>
-</li>
-<li><p>建议用 Either代替可空类型，Either只有两个子类型，Left和Right，如果Either[A,B]包含的是A的实例，那他就是Left实例，否则就是Right实例。</p>
-</li>
-<li>当且仅当Kotlin的编译器确定在类型检查后变量不会再改变，才会产生Smart Casts</li>
-<li>Java并不能在真正意义上被称作一门纯面向对象语言，因为他的原始类型的值和函数等并不能视作对象</li>
-<li>在Kotllin的类型系统中，并不区分原始类型（基本数据、类型）和包装类型，我们使用的始终是同一个类型</li>
-<li>与 <code>Object</code> 作为Java类层级结果的顶层类似， <code>Any</code> 类型是Kotlin中所有非空类型的超类， <code>Any?</code> 是 <code>Any</code> 的父类型。</li>
-<li>平台类型本质上就是Kotlin不知道可空性信息的类型，所有Java引用类型在Kotlin中都表现为平台类型。当在Kotlin中处理平台类型的值的时候，既可以被当做可空类型来处理，也可以被当做非空类型来处理。    </li>
-<li>继承 和 子类型化 其实是两个完全不同的概念。子类型化的核心是一种类型的代替关系，是一种类型语义的关系，继承则强调的是一种“实现上的复用”。</li>
-<li>Kotlin中的可空类型可以看做所谓的 <code>Union Type</code>，近似于数学中的并集</li>
-<li><code>Nothing</code> 是没有实例的类型，<code>Nothing</code>类型的表达式不会产生任何值。任何返回值为 <code>Nothing</code> 的表达式之后的语句都是无法执行的，Kotlin中的 <code>return</code> <code>throw</code> 等返回值都是 <code>Nothing</code></li>
-<li>Kotlin中的 <code>Int</code> 等同于Java中的 <code>int</code> ，而 <code>Int?</code> 等同于 <code>Integer</code> ，这种技巧让Kotlin更接近纯面向对象语言。</li>
-<li>泛型出现的很重要的原因是为了能在代码编译的时候发现错误，而不是让错误的代码发布到生产环境中，也就是让类型更安全。</li>
-<li><p>泛型有一下几点优势：</p>
-<ul>
-<li>类型检查，能在编译时检查出错误</li>
-<li>更加语义化</li>
-<li>自动类型转换</li>
-<li>能写出更加通用的代码</li>
-</ul>
-</li>
-<li><p><code>where</code> 关键字能实现对泛型参数类型添加多个约束条件。</p>
-</li>
-<li>数组是协变的，而List是不变的，也就是说。Object[]是所有其他对象数组的父类</li>
-<li>Java中的泛型是类型擦除的，也就是伪泛型，简单来说就是无法在运行时获取到具体的类型</li>
-<li>泛型是指，对于类A和B，若A是B的父类，则A[]是B[]的父类</li>
-<li>因为Kotlin中的数组是支持泛型的，所以Kotlin中数组就是不变的</li>
-<li>Java为了填补自己埋下的坑，即向后兼容，所以只能用类型擦除的方式来实现泛型。</li>
-<li>类型检查是编译器在编译期就会进行的，所以类擦除不会影响到。</li>
-<li>泛型的类型参数不是真正将类型擦除，还是会保留类型信息放到对应class的常量池中的。</li>
-<li>匿名内部类在初始化的时候就会绑定父类或父接口与的相应信息，这样就能通过获取父类或父接口的泛型信息来实现我们的需求，Gson就是这样设计的。</li>
-<li>Kotlin的内联函数在编译时编译器会把相应函数的字节码插入调用的地方。    </li>
-<li>普通的泛型是不变的。但是如果在定义的泛型类和泛型方法的泛型参数前面加上 <code>out</code> 关键词，说明这个泛型类及泛型方法是协变的，这在Java里面是用通配符上界 <code>&lt;? extends T&gt;</code> 来实现的</li>
-<li>如果List支持协变，那么他将无法添加元素，只能从里面读取内容</li>
-<li>类似于 <code>out</code> ，但又与 <code>out</code> 完全对立， <code>int</code> 关键词可以将泛型变为逆变的，逆变的List则只支持添加而不支持读取，这在Java里面用通配符下界 <code>&lt;? super T&gt;</code> 来实现</li>
-</ul>
-<h3 id="4-Lambda和集合"><a href="#4-Lambda和集合" class="headerlink" title="4.Lambda和集合"></a>4.Lambda和集合</h3><ul>
-<li><code>with</code> 和 <code>apply</code> 可以在写Lambda的时候省略多次书写对象名，内部用 <code>this</code> 指代。</li>
-<li><code>fold</code> 方法需要接收两个参数，第一个参数 <code>initial</code> 是初始值，第二个参数 <code>operation</code> 是一个函数，这个函数的参数有两个，第一个是上次调用该函数的结果（如果是第一次调用，则默认为初始值），第二个参数则是当前遍历到的集合元素，故 <code>fold</code> 可以用作迭代。</li>
-<li><code>reduce</code> 方法只接受一个参数，该参数为一个函数，具体的实现方式也跟 <code>fold</code> 一样，只是没有初始值，因为默认初始值是集合的第一个元素。</li>
-<li>当我们仅仅需要对一个集合进行扁平化操作的时候，使用 <code>flatten</code> 就可以了，如果需要对其中的元素做一些加工，则需要考虑使用 <code>flatmap</code></li>
-<li><code>HashSet</code> 是用Hash散列来存放数据的，不能保证元素的有序性；而 <code>TreeSet</code> 的底层结构是二叉树，他能保证元素的有序性。在不指定Set的具体实现时，我们一般说Set是无序的。</li>
-<li>Kotlin的集合目前没有不可变集合，只能称为只读集合。只读列表在某些情况下是安全的，但并不总是安全的。</li>
-<li>Kotlin中的序列操作分为两类，一类是中间操作，一类是末端操作。</li>
-<li>普通集合在进行链式操作的时候会先再List上调用中间操作产生一个结果列表，然后再在这个结果列表上应用下一个中间操作并产生下一个结果列表。而序列不一样，序列会将所有操作应用到一个元素上，也就是第一个元素执行完所有操作之后，第二个元素才会去执行。</li>
-<li>Kotlin的内联函数设计出来主要是为了优化Lambda表达式带来的开销。</li>
-<li>内联函数不是万能的，在一些场合下应当避免使用内联函数：<ul>
-<li>JVM对普通函数已经进行了内联优化，所以我们不用对普通函数加 <code>inline</code></li>
-<li>尽量避免对具有大量函数体的函数进行内联，这样会导致过多的字节码数量</li>
-<li>一旦一个函数被定义为内联函数，便不能获取闭包类的私有成员，除非把他声明为 <code>internal</code></li>
-</ul>
-</li>
-<li>内联函数的函数体及参数会直接代替具体的调用，所以其中的 <code>return</code> 相当于会直接打断原来的调用。</li>
-<li>Kotlin与Java一样会有类型擦除，所以不能直接获取一个参数的类型，然而内联函数会直接在字节码中生成相应的函数体的实现，所以这种情况下反而可以获得参数的具体类型，通常用 <code>reified</code> 来修饰这一效果。</li>
-</ul>
-<h3 id="5-多态与扩展"><a href="#5-多态与扩展" class="headerlink" title="5.多态与扩展"></a>5.多态与扩展</h3><ul>
-<li>我们用一个子类继承一个父类的时候，就是子类型多态；另一种常见的多态是参数多态。另外，运算符重载又称为特设多态。</li>
-<li>用子类型代替超类型，就是子类型多态。</li>
-<li>最常见的参数多态就是泛型。</li>
-<li>扩展属性和方法的实现运行在Class的实例上，而不会修改Class实例</li>
-<li>特设多态可理解为，一个多态函数是有多个不同的实现，依赖于其实参调用相应版本的函数。</li>
-<li><code>operator</code> 的作用是将一个函数标记为重载一个操作符或者实现一个约定</li>
-<li>当扩展函数在一个类内部时，只能再该类和该类的子类汇总进行调用。</li>
-<li>扩展函数和现有类的成员方法同时存在时，将会使用默认类的成员方法。</li>
-<li><code>let</code> 和 <code>apply</code> 的区别在于， <code>apply</code> 返回的是原来的对象，而 <code>let</code> 返回的是闭包里的值</li>
-<li><code>takeIf</code> 与 <code>filter</code> 类似，只是 <code>takeIf</code> 只操作单条数据</li>
-<li>成员函数与扩展函数最重要的区别是，成员函数是动态调用的，而扩展函数是静态的</li>
-</ul>
-<h3 id="6-元编程"><a href="#6-元编程" class="headerlink" title="6.元编程"></a>6.元编程</h3><ul>
-<li>描述数据的数据是元数据，描述程序的数据就是程序的元数据，操作元数据的编程就是元编程。元编程可以用一句话概括：程序即是数据，数据即是程序。</li>
-<li>元编程就像高阶函数一样，是一种更高阶的抽象，高阶函数将函数作为输入和输出，而元编程将程序本身输入或输出</li>
-<li>目前主流的元编程实现方式有：<ul>
-<li>运行时通过API暴露程序信息</li>
-<li>动态执行代码</li>
-<li>通过外部程序实现<br>具体的实现如反射、宏、模板元编程、路径依赖类型 </li>
-</ul>
-</li>
-</ul>
+<p>这样可以保证输出的结果播放速度/帧率保持不变，代码实现如下：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">merge</span><span class="params">(width: <span class="type">Int</span>, height: <span class="type">Int</span>, images: <span class="type">List</span>&lt;<span class="type">GifImage</span>&gt;, duration: <span class="type">Long</span>)</span></span>: GifImage &#123;</span><br><span class="line">    <span class="keyword">val</span> result = ArrayList&lt;GifFrame&gt;()</span><br><span class="line">    <span class="comment">//保存每张Gif图的当前帧索引，初始化为0</span></span><br><span class="line">    <span class="keyword">val</span> frameIndex = IntArray(images.size) &#123; <span class="number">0</span> &#125;</span><br><span class="line">    <span class="comment">//所有GIF图所有帧合并后按时间顺序排列而成的主时间轴</span></span><br><span class="line">    <span class="keyword">val</span> timeline = images.flatMap &#123; it.frames &#125;.map &#123; it.time &#125;.distinct().sorted()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (t <span class="keyword">in</span> timeline.indices) &#123;</span><br><span class="line">        <span class="keyword">val</span> current = timeline[t]<span class="comment">//当前时刻</span></span><br><span class="line">        <span class="keyword">val</span> next = timeline.getOrNull(t + <span class="number">1</span>) ?: current</span><br><span class="line">        <span class="keyword">val</span> base = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)</span><br><span class="line">        base.density = images[<span class="number">0</span>].frames[<span class="number">0</span>].image.density</span><br><span class="line">        <span class="keyword">val</span> canvas = Canvas(base)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (i <span class="keyword">in</span> images.indices) &#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">val</span> index = frameIndex[i]</span><br><span class="line">            <span class="keyword">val</span> image = images[i]</span><br><span class="line">            <span class="keyword">val</span> frame = image.frames[index]</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (frame.time &lt;= current) &#123;</span><br><span class="line">                <span class="comment">//当前帧刚好在当前时刻之前，则采用当前帧的图像并使索引+1</span></span><br><span class="line">                canvas.drawBitmap(frame.image, <span class="number">0f</span>, <span class="number">0f</span>, <span class="literal">null</span>)</span><br><span class="line">                frameIndex[i] = <span class="keyword">if</span> (index == image.frames.size - <span class="number">1</span>) <span class="number">0</span> <span class="keyword">else</span> index + <span class="number">1</span></span><br><span class="line"></span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (frame.time &gt; current) &#123;</span><br><span class="line">                <span class="comment">//当前帧的时间在当前时刻之后，则需要取当前帧之前的那一帧</span></span><br><span class="line">                <span class="keyword">val</span> findIndex = max(index - <span class="number">1</span>, <span class="number">0</span>)</span><br><span class="line">                canvas.drawBitmap(image.frames[findIndex].image, <span class="number">0f</span>, <span class="number">0f</span>, <span class="literal">null</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        result.add(GifFrame(base, (next - current).toInt(), current))</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> GifImage(result, duration)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>图片合并这里就直接用了Canvas来合并多张Bitmap，参数 <code>duration</code> 为总的播放时长，整体逻辑其实很简单。另外在实际项目中，每张GIF图都是经过手势变换改变了大小、旋转角度并裁剪后的，这部分跟静态图片是类似的处理逻辑，对每一帧都做同样的处理，就不放代码了，这里只展示了最终结果合并的过程。</p>
 
       
     </div>
@@ -604,7 +480,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://levent-j.com/2020/08/14/kotlin-core-note/" title="《Kotlin核心编程》笔记">http://levent-j.com/2020/08/14/kotlin-core-note/</a>
+    <a href="http://levent-j.com/2022/05/10/android-gif2/" title="GIF编解码——编解码与合并">http://levent-j.com/2022/05/10/android-gif2/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -619,7 +495,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Kotlin/" rel="tag"><i class="fa fa-tag"></i> Kotlin</a>
+            <a href="/tags/GIF/" rel="tag"><i class="fa fa-tag"></i> GIF</a>
           
         </div>
       
@@ -632,8 +508,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/08/01/android-renderscript/" rel="next" title="renderscript简单使用——绘制Bitmap">
-                <i class="fa fa-chevron-left"></i> renderscript简单使用——绘制Bitmap
+              <a href="/2022/05/09/hashcode/" rel="next" title="HashCode的一些理解">
+                <i class="fa fa-chevron-left"></i> HashCode的一些理解
               </a>
             
           </div>
@@ -642,8 +518,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2020/08/22/android-gridlayoutmanager-decoration/" rel="prev" title="GridLayout+Decoration 间距问题">
-                GridLayout+Decoration 间距问题 <i class="fa fa-chevron-right"></i>
+              <a href="/2022/05/12/android-gif3/" rel="prev" title="GIF编解码——编解码实现原理">
+                GIF编解码——编解码实现原理 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -813,7 +689,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#《Kotlin核心编程》学习笔记"><span class="nav-number">1.</span> <span class="nav-text">《Kotlin核心编程》学习笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Part-0-背景"><span class="nav-number">1.1.</span> <span class="nav-text">Part 0 背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Part-1-基础"><span class="nav-number">1.2.</span> <span class="nav-text">Part 1 基础</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Part-2-进阶"><span class="nav-number">1.3.</span> <span class="nav-text">Part 2 进阶</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-类和对象"><span class="nav-number">1.3.1.</span> <span class="nav-text">1 类和对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-代数数据类型"><span class="nav-number">1.3.2.</span> <span class="nav-text">2.代数数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-类型系统"><span class="nav-number">1.3.3.</span> <span class="nav-text">3.类型系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Lambda和集合"><span class="nav-number">1.3.4.</span> <span class="nav-text">4.Lambda和集合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-多态与扩展"><span class="nav-number">1.3.5.</span> <span class="nav-text">5.多态与扩展</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-元编程"><span class="nav-number">1.3.6.</span> <span class="nav-text">6.元编程</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#效果"><span class="nav-number">2.</span> <span class="nav-text">效果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解码"><span class="nav-number">3.</span> <span class="nav-text">解码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编码"><span class="nav-number">4.</span> <span class="nav-text">编码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#合并"><span class="nav-number">5.</span> <span class="nav-text">合并</span></a></li></ol></div>
             
 
           </div>

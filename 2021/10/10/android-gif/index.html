@@ -84,15 +84,15 @@
 <meta name="description" content="项目中有个需求，需要将多张GIF图进行合并。因此需要学习一下GIF图片的编解码原理。">
 <meta name="keywords" content="GIF">
 <meta property="og:type" content="article">
-<meta property="og:title" content="GIF编解码——GIF格式的基本原理">
+<meta property="og:title" content="GIF编解码——GIF格式">
 <meta property="og:url" content="http://levent-j.com/2021/10/10/android-gif/index.html">
 <meta property="og:site_name" content="靖然是你">
 <meta property="og:description" content="项目中有个需求，需要将多张GIF图进行合并。因此需要学习一下GIF图片的编解码原理。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/gif/gif-image.png">
-<meta property="og:updated_time" content="2021-10-25T07:50:09.178Z">
+<meta property="og:updated_time" content="2022-05-13T03:48:58.300Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="GIF编解码——GIF格式的基本原理">
+<meta name="twitter:title" content="GIF编解码——GIF格式">
 <meta name="twitter:description" content="项目中有个需求，需要将多张GIF图进行合并。因此需要学习一下GIF图片的编解码原理。">
 <meta name="twitter:image" content="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/gif/gif-image.png">
 
@@ -130,7 +130,7 @@
 
 
 
-  <title>GIF编解码——GIF格式的基本原理 | 靖然是你</title>
+  <title>GIF编解码——GIF格式 | 靖然是你</title>
   
 
 
@@ -318,7 +318,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">GIF编解码——GIF格式的基本原理</h1>
+          <h1 class="post-title" itemprop="name headline">GIF编解码——GIF格式</h1>
         
 
         <div class="post-meta">
@@ -380,7 +380,7 @@
 
           
           
-             <span id="/2021/10/10/android-gif/" class="leancloud_visitors" data-flag-title="GIF编解码——GIF格式的基本原理">
+             <span id="/2021/10/10/android-gif/" class="leancloud_visitors" data-flag-title="GIF编解码——GIF格式">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -415,18 +415,26 @@
       
 
       
-        <h1 id="GIF编解码——GIF格式的基本原理"><a href="#GIF编解码——GIF格式的基本原理" class="headerlink" title="GIF编解码——GIF格式的基本原理"></a>GIF编解码——GIF格式的基本原理</h1><h2 id="什么是GIF"><a href="#什么是GIF" class="headerlink" title="什么是GIF"></a>什么是GIF</h2><p>首先，什么是GIF?  </p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>项目中有一个GIF图二次编辑的需求，这一功能我主要借助Glide库来实现，这里通过系列文章分享下实现过程和GIF相关的学习经验。</p>
+<p><a href="https://levent-j.com/2021/10/10/android-gif/">GIF格式</a></p>
+<p><a href="https://levent-j.com/2022/05/10/android-gif2/">编解码与合并</a></p>
+<p><a href="https://levent-j.com/2022/05/12/android-gif3/">编解码器实现原理</a></p>
+<h2 id="什么是GIF"><a href="#什么是GIF" class="headerlink" title="什么是GIF"></a>什么是GIF</h2><p>首先，什么是GIF?  </p>
 <p>GIF全称为 graphics interchange format，中文译为图形交换格式，是一种计算机上的图像存储格式。</p>
-<p>先简单补一下背景。图像以文件形式存储在计算机中时，文件实际上存储的是原图像中每一个像素点的信息。如果不做任何处理，那每个文件就会完全包含整个原图的所有像素点的信息。而一张图片的像素点数量是很多的，如果完全不做任何处理，那图像文件就会很大，在存储、传输时，效率就会比较低。所以图像文件通常需要进行压缩来节约空间。压缩方式有很多，不同的压缩方式产出的结果，也就对应了不同的图像存储格式。比如常见的jpg，png等。</p>
-<p>当然，压缩的这个具体的过程，采用不同的算法，压缩出来的结果是不一样的，压缩时会丢掉部分不需要的数据，这就是有损压缩；相对应的，如果不做丢弃，全部压缩，就是无损压缩；还有一些特殊情况，一定需要真实的原图，那这种就是不压缩。有损压缩格式如jpg jpeg，在压缩时会直接丢弃人的肉眼无法识别的细节。无损压缩如png，不会丢弃任何数据，而是用更高的压缩比对所有数据进行压缩。当然还有不用压缩的如bmp，基本就是原始的图片数据了。</p>
-<p>GIF就是一种无损压缩的格式，采用LZW算法压缩。GIF图的颜色支持属于索引色，这里简单说一下，索引色的意思是一个颜色值用一个数字来索引，在计算机中通常是用一个字节来表示颜色的，一个字节有8位，所以能表示的颜色种类就是2的8次方，也就是256。所以GIF只支持256种颜色，也就没法完全展现原图的色彩细节。跟索引色相对应的，就是直接色，一个颜色用四个数字来分别表示RGBA等，所以支持的颜色种类较多，也就能更好的表现原图的色彩细节。GIF现在已经是一种公用格式标准，他有两个版本，87a和89a。87a是1987年出的，不支持透明色，相当于一个普通静态图片；89a是1989年出的，支持了透明色，同时也支持一个文件同时存储多张图片——顾名思义，就是支持了动图。正是以上这些特定，GIF相对于其他格式来说，更适合于网络传输一些色彩细节较少的小图片，比如最常见的动态表情包。</p>
-<h2 id="LZW"><a href="#LZW" class="headerlink" title="LZW"></a>LZW</h2><p>既然已经知道GIF的压缩算法是类LZW，那就大概了解下LZW的原理。其实很简单，LZW算法核心就是根据输入数据构造一个索引表，把输入数据中的所有内容全部替换为索引表中对应的值，这样就将数据整体的大小压缩了。而这个构造的表，是在一步一步压缩的过程中逐步完善的，在编码时也是逐步还原出来的。</p>
-<p>举个例子，有一个输入的字符串，abcdabc，先初始化我们的编译表，#0=a，#1=b，#2=c，#3=d。</p>
-<p>先进行编码。编码前要定义一个指针pre为前缀，cur为当前。从第一个字符开始，pre=null，cur=a，pre+cur的结果是a，a在原表中，那就直接开始读取下一个字符b，同时令pre=pre + cur=a，cur=b。此时pre+cur结果是ab，ab不在表中，那就在表中新增一项，#4=ab，然后把pre输出，即现在我们输出的第一个结果是#0。接着读取下一个字符c，令pre=cur=b，cur=c。此时pre+cur结果是bc，bc不在表中，那就在表中再新增一项#5=bc，把pre也就是b对应的#1输出。接着读取下一个字符d，令pre=cur=c，cur=d，pre+cur的结果cd不在表中，那就在表中再新增一项#6=cd，把pre也就是c对应的#2输出。以此类推，在新增#7=da后，下一个读入的是b，pre=a，而pre+cur的结果是ab，ab在表中，那就跳过读入下一个，同时pre=pre+cur=ab，cur=c，pre+cur的结果abc不在表中，那新增一个#8=abc，输出pre也就是ab对应的#4。再读取下一个为null了，pre=c，那直接输出pre也就是c对应的#2</p>
+<blockquote>
+<p>简单补一下背景。图像以文件形式存储在计算机中时，文件实际上存储的是原图像中每一个像素点的信息。如果不做任何处理，那每个文件就会完全包含整个原图的所有像素点的信息。而一张图片的像素点数量是很多的，如果完全不做任何处理，那图像文件就会很大，在存储、传输时，效率就会比较低。所以图像文件通常需要进行压缩来节约空间。压缩方式有很多，不同的压缩方式产出的结果，也就对应了不同的图像存储格式。比如常见的jpg，png等。</p>
+</blockquote>
+<p>当然，压缩的这个具体的过程，采用不同的算法，压缩出来的结果是不一样的，压缩时会丢掉部分不需要的数据，这就是有损压缩；相对应的，如果不做丢弃，全部压缩，就是无损压缩；还有一些特殊情况，不可以压缩。有损压缩格式如jpg jpeg，在压缩时会直接丢弃人的肉眼无法识别的细节。无损压缩如png，不会丢弃任何数据，而是用更高的压缩比对所有数据进行压缩。当然还有不用压缩的如bmp，基本就是原始的图片数据了。</p>
+<p>GIF就是一种无损压缩的格式，采用LZW算法压缩。GIF图的颜色支持属于索引色，这里简单说一下，索引色的意思是一个颜色值用一个数字来索引，在计算机中通常是用一个字节来表示颜色的，一个字节有8位，所以能表示的颜色种类就是2的8次方，也就是256。所以GIF只支持256种颜色，也就没法完全展现原图的色彩细节。跟索引色相对应的，就是直接色，一个颜色用四个数字来分别表示RGBA等，所以支持的颜色种类较多，也就能更好的表现原图的色彩细节。</p>
+<p>GIF现在已经是一种公用格式标准，他有两个版本，87a和89a。87a是1987年出的，不支持透明色，相当于一个普通静态图片；89a是1989年出的，支持了透明色，同时也支持一个文件同时存储多张图片——顾名思义，等于说就是支持了动图。正是以上这些特点，GIF相对于其他格式来说，更适合于网络传输一些色彩细节较少的小图片，比如最常见的动态表情包。</p>
+<h2 id="LZW"><a href="#LZW" class="headerlink" title="LZW"></a>LZW</h2><p>既然已经知道GIF的压缩算法是类LZW，那就大概了解下LZW的原理。其实很简单，LZW算法跟大部分压缩算法类似，核心就是根据输入数据构造一个索引表，把输入数据中的所有内容全部替换为索引表中对应的值，这样就将数据整体的大小压缩了。而这个构造的表，是在一步一步压缩的过程中逐步完善的，在编码时也是逐步还原出来的。</p>
+<p>举个例子，有一个输入的字符串，abcdabc，先初始化我们的编译表：</p>
+<p>#0=a，#1=b，#2=c，#3=d。</p>
+<p>接下来进行编码。编码前要定义一个指针pre为前缀，cur为当前。从第一个字符开始，pre=null，cur=a，pre+cur的结果是a，a在原表中，那就直接开始读取下一个字符b，同时令pre=pre + cur=a，cur=b。此时pre+cur结果是ab，ab不在表中，那就在表中新增一项，#4=ab，然后把pre输出，即现在我们输出的第一个结果是#0。接着读取下一个字符c，令pre=cur=b，cur=c。此时pre+cur结果是bc，bc不在表中，那就在表中再新增一项#5=bc，把pre也就是b对应的#1输出。接着读取下一个字符d，令pre=cur=c，cur=d，pre+cur的结果cd不在表中，那就在表中再新增一项#6=cd，把pre也就是c对应的#2输出。以此类推，在新增#7=da后，下一个读入的是b，pre=a，而pre+cur的结果是ab，ab在表中，那就跳过读入下一个，同时pre=pre+cur=ab，cur=c，pre+cur的结果abc不在表中，那新增一个#8=abc，输出pre也就是ab对应的#4。再读取下一个为null了，pre=c，那直接输出pre也就是c对应的#2</p>
 <p>现在，我们的输出结果是#0 #1 #2 #3 #4 #2，索引表已经变成了 #4=ab，#5=bc，#6=cd，#7=da，#8=abc，接下来再进行解码。</p>
-<p>解码前，先忘掉索引表，因为索引表是不会跟数据放在一起的，要随时生成。但是我们已知编码长度，也就可以先构造出一个根表即#0=a，#1=b，#2=c，#3=d。输入的第一个字符#0，在原表中有，那就输出他对应的结果即a，下一个#1，也有，输出b，以此类推一直读到#4时，#4在原表中没有，那这个时候就要逆推，因为我们的序号#4是紧跟在根表的#3之后的，也就是说编码时这是我们第一个新增的索引，此时已经解码出了abcd了，自然可以倒推出第一个新增的索引#4对应的是ab。再下一个#2也是已知的c，那么此时输出的结果就是abcdabc。</p>
+<p>解码前，先忘掉索引表，因为索引表是不会跟数据放在一起的，要动态生成，只有编码长度是已知的，也就可以先构造出一个根表即#0=a，#1=b，#2=c，#3=d。这里也要借助两个指针pre和cur，且第一个字符必然是能直接解码的，所以先把#0解码为a，之后pre为#0，cur为#1，#1在字典中，就解码#1为b，然后逆推的思维，在字典中添加pre+cur的第一个字符=ab为#4，再将pre和cur后移；接下来pre=#1，cur=#2，#2是在字典中的，那就解码#2为c，然后在字典中添加pre+cur的第一个字符=bc为#5，以此类推，在解码的同时不断更新字典，最终就可以得到输出的结果abcdabc和编码时创建的字典。</p>
 <p>我这里只是简单的描述了一下编解码过程，可以看到原数据长度为7,编码后的长度为6，确实是压缩了，解码后与原数据相同。而GIF的编解码时的图像数据，实际上就是每个像素点对应颜色的索引值。</p>
-<h2 id="GIF文件结构"><a href="#GIF文件结构" class="headerlink" title="GIF文件结构"></a>GIF文件结构</h2><p>GIF文件结构如图：</p>
+<h2 id="GIF文件结构"><a href="#GIF文件结构" class="headerlink" title="GIF文件结构"></a>GIF文件结构</h2><p>GIF文件结构可以参考下wiki介绍：<a href="https://en.wikipedia.org/wiki/GIF" target="_blank" rel="noopener">GIF</a>，这里简单总结一下是：</p>
 <p><img src="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/gif/gif-image.png" alt=""></p>
 
       
@@ -448,7 +456,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://levent-j.com/2021/10/10/android-gif/" title="GIF编解码——GIF格式的基本原理">http://levent-j.com/2021/10/10/android-gif/</a>
+    <a href="http://levent-j.com/2021/10/10/android-gif/" title="GIF编解码——GIF格式">http://levent-j.com/2021/10/10/android-gif/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -572,7 +580,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-count">38</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -657,7 +665,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#GIF编解码——GIF格式的基本原理"><span class="nav-number">1.</span> <span class="nav-text">GIF编解码——GIF格式的基本原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是GIF"><span class="nav-number">1.1.</span> <span class="nav-text">什么是GIF</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LZW"><span class="nav-number">1.2.</span> <span class="nav-text">LZW</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GIF文件结构"><span class="nav-number">1.3.</span> <span class="nav-text">GIF文件结构</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是GIF"><span class="nav-number">2.</span> <span class="nav-text">什么是GIF</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LZW"><span class="nav-number">3.</span> <span class="nav-text">LZW</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GIF文件结构"><span class="nav-number">4.</span> <span class="nav-text">GIF文件结构</span></a></li></ol></div>
             
 
           </div>

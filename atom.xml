@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://levent-j.com/"/>
-  <updated>2022-05-10T03:08:20.332Z</updated>
+  <updated>2022-05-13T03:48:53.526Z</updated>
   <id>http://levent-j.com/</id>
   
   <author>
@@ -17,11 +17,51 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>GIF编解码——编解码实现原理</title>
+    <link href="http://levent-j.com/2022/05/12/android-gif3/"/>
+    <id>http://levent-j.com/2022/05/12/android-gif3/</id>
+    <published>2022-05-12T09:37:13.000Z</published>
+    <updated>2022-05-13T03:48:53.526Z</updated>
+    
+    <summary type="html">
+    
+      本文简单分析下Glide的GIF编解码器的实现原理。
+    
+    </summary>
+    
+      <category term="Android" scheme="http://levent-j.com/categories/Android/"/>
+    
+    
+      <category term="GIF" scheme="http://levent-j.com/tags/GIF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>GIF编解码——编解码与合并</title>
+    <link href="http://levent-j.com/2022/05/10/android-gif2/"/>
+    <id>http://levent-j.com/2022/05/10/android-gif2/</id>
+    <published>2022-05-10T03:26:49.000Z</published>
+    <updated>2022-05-13T03:48:56.257Z</updated>
+    
+    <summary type="html">
+    
+      本文总结下基于Glide进行GIF二次编辑的方式。
+    
+    </summary>
+    
+      <category term="Android" scheme="http://levent-j.com/categories/Android/"/>
+    
+    
+      <category term="GIF" scheme="http://levent-j.com/tags/GIF/"/>
+    
+  </entry>
+  
+  <entry>
     <title>HashCode的一些理解</title>
     <link href="http://levent-j.com/2022/05/09/hashcode/"/>
     <id>http://levent-j.com/2022/05/09/hashcode/</id>
     <published>2022-05-09T03:02:47.000Z</published>
-    <updated>2022-05-10T03:08:20.332Z</updated>
+    <updated>2022-05-10T03:29:26.998Z</updated>
     
     <summary type="html">
     
@@ -99,11 +139,11 @@
   </entry>
   
   <entry>
-    <title>GIF编解码——GIF格式的基本原理</title>
+    <title>GIF编解码——GIF格式</title>
     <link href="http://levent-j.com/2021/10/10/android-gif/"/>
     <id>http://levent-j.com/2021/10/10/android-gif/</id>
     <published>2021-10-10T09:22:43.000Z</published>
-    <updated>2021-10-25T07:50:09.178Z</updated>
+    <updated>2022-05-13T03:48:58.300Z</updated>
     
     <summary type="html">
     
@@ -383,48 +423,6 @@
     
     
       <category term="硬件加速" scheme="http://levent-j.com/tags/%E7%A1%AC%E4%BB%B6%E5%8A%A0%E9%80%9F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>我对Git的一些理解</title>
-    <link href="http://levent-j.com/2019/02/24/lean-git/"/>
-    <id>http://levent-j.com/2019/02/24/lean-git/</id>
-    <published>2019-02-24T08:35:58.000Z</published>
-    <updated>2019-02-24T10:19:31.164Z</updated>
-    
-    <summary type="html">
-    
-      总结一些对Git的理解
-    
-    </summary>
-    
-      <category term="其他" scheme="http://levent-j.com/categories/%E5%85%B6%E4%BB%96/"/>
-    
-    
-      <category term="Git" scheme="http://levent-j.com/tags/Git/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>关于时间 需要了解的一些东西</title>
-    <link href="http://levent-j.com/2019/02/11/time-standard/"/>
-    <id>http://levent-j.com/2019/02/11/time-standard/</id>
-    <published>2019-02-11T10:47:08.000Z</published>
-    <updated>2019-02-24T05:48:01.587Z</updated>
-    
-    <summary type="html">
-    
-      平时总是会遇到各种时间标准，这里做下总结
-    
-    </summary>
-    
-      <category term="其他" scheme="http://levent-j.com/categories/%E5%85%B6%E4%BB%96/"/>
-    
-    
-      <category term="UTC" scheme="http://levent-j.com/tags/UTC/"/>
-    
-      <category term="GMT" scheme="http://levent-j.com/tags/GMT/"/>
     
   </entry>
   
