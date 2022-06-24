@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://levent-j.com/"/>
-  <updated>2022-05-13T03:51:41.636Z</updated>
+  <updated>2022-06-24T09:16:02.433Z</updated>
   <id>http://levent-j.com/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Android GIF图压缩实践</title>
+    <link href="http://levent-j.com/2022/06/12/android-gif-compress/"/>
+    <id>http://levent-j.com/2022/06/12/android-gif-compress/</id>
+    <published>2022-06-12T09:42:08.000Z</published>
+    <updated>2022-06-24T09:16:02.433Z</updated>
+    
+    <summary type="html">
+    
+      用Glide编解码实现Android中GIF图的压缩。
+    
+    </summary>
+    
+      <category term="Android" scheme="http://levent-j.com/categories/Android/"/>
+    
+    
+      <category term="GIF" scheme="http://levent-j.com/tags/GIF/"/>
+    
+  </entry>
   
   <entry>
     <title>GIF编解码——编解码实现原理</title>
@@ -403,26 +423,6 @@
     
     
       <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>硬件加速</title>
-    <link href="http://levent-j.com/2019/03/21/hardware-note/"/>
-    <id>http://levent-j.com/2019/03/21/hardware-note/</id>
-    <published>2019-03-21T02:24:11.000Z</published>
-    <updated>2019-03-22T02:03:20.121Z</updated>
-    
-    <summary type="html">
-    
-      最近项目中遇到了因为硬件加速引起的一些问题，故这里深入学习了解一下关于硬件加速的一些东西
-    
-    </summary>
-    
-      <category term="Android" scheme="http://levent-j.com/categories/Android/"/>
-    
-    
-      <category term="硬件加速" scheme="http://levent-j.com/tags/%E7%A1%AC%E4%BB%B6%E5%8A%A0%E9%80%9F/"/>
     
   </entry>
   
