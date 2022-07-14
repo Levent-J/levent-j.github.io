@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="GIF," />
+  <meta name="keywords" content="Kotlin,匿名内部类," />
 
 
 
@@ -81,24 +81,18 @@
 
 
 
-<meta name="description" content="本文总结下基于Glide进行GIF二次编辑的方式。">
-<meta name="keywords" content="GIF">
+<meta name="description" content="本文记录一次Kotlin匿名内部类的Lambd简写引发的问题。">
+<meta name="keywords" content="Kotlin,匿名内部类">
 <meta property="og:type" content="article">
-<meta property="og:title" content="GIF编解码——编解码与合并">
-<meta property="og:url" content="http://levent-j.com/2022/05/10/android-gif2/index.html">
+<meta property="og:title" content="记一次kotlin匿名内部类踩的坑">
+<meta property="og:url" content="http://levent-j.com/2022/07/14/kotlin-lambda-question/index.html">
 <meta property="og:site_name" content="靖然是你">
-<meta property="og:description" content="本文总结下基于Glide进行GIF二次编辑的方式。">
+<meta property="og:description" content="本文记录一次Kotlin匿名内部类的Lambd简写引发的问题。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/gif/gif_eg_1.gif">
-<meta property="og:image" content="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/gif/gif-eg-2.gif">
-<meta property="og:image" content="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/gif/gif_eg_3.gif">
-<meta property="og:image" content="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/gif/gif_encoder.png">
-<meta property="og:image" content="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/gif/gif_merge_eg.png">
-<meta property="og:updated_time" content="2022-05-13T03:48:56.257Z">
+<meta property="og:updated_time" content="2022-07-14T08:34:24.452Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="GIF编解码——编解码与合并">
-<meta name="twitter:description" content="本文总结下基于Glide进行GIF二次编辑的方式。">
-<meta name="twitter:image" content="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/gif/gif_eg_1.gif">
+<meta name="twitter:title" content="记一次kotlin匿名内部类踩的坑">
+<meta name="twitter:description" content="本文记录一次Kotlin匿名内部类的Lambd简写引发的问题。">
 
 
 
@@ -128,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://levent-j.com/2022/05/10/android-gif2/"/>
+  <link rel="canonical" href="http://levent-j.com/2022/07/14/kotlin-lambda-question/"/>
 
 
 
 
 
-  <title>GIF编解码——编解码与合并 | 靖然是你</title>
+  <title>记一次kotlin匿名内部类踩的坑 | 靖然是你</title>
   
 
 
@@ -305,7 +299,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://levent-j.com/2022/05/10/android-gif2/">
+    <link itemprop="mainEntityOfPage" href="http://levent-j.com/2022/07/14/kotlin-lambda-question/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Levent-J">
@@ -322,7 +316,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">GIF编解码——编解码与合并</h1>
+          <h1 class="post-title" itemprop="name headline">记一次kotlin匿名内部类踩的坑</h1>
         
 
         <div class="post-meta">
@@ -334,8 +328,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-05-10T11:26:49+08:00">
-                2022-05-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-07-14T10:29:39+08:00">
+                2022-07-14
               </time>
             
 
@@ -357,8 +351,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
+                  <a href="/categories/Kotlin/" itemprop="url" rel="index">
+                    <span itemprop="name">Kotlin</span>
                   </a>
                 </span>
 
@@ -375,8 +369,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2022/05/10/android-gif2/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2022/05/10/android-gif2/" itemprop="commentCount"></span>
+                <a href="/2022/07/14/kotlin-lambda-question/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2022/07/14/kotlin-lambda-question/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -384,7 +378,7 @@
 
           
           
-             <span id="/2022/05/10/android-gif2/" class="leancloud_visitors" data-flag-title="GIF编解码——编解码与合并">
+             <span id="/2022/07/14/kotlin-lambda-question/" class="leancloud_visitors" data-flag-title="记一次kotlin匿名内部类踩的坑">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -402,7 +396,7 @@
 
           
               <div class="post-description">
-                  本文总结下基于Glide进行GIF二次编辑的方式。
+                  本文记录一次Kotlin匿名内部类的Lambd简写引发的问题。
               </div>
           
 
@@ -419,47 +413,41 @@
       
 
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>项目中有一个GIF图二次编辑的需求，这一功能我主要借助Glide库来实现，这里通过系列文章分享下实现过程和GIF相关的学习经验。</p>
-<p><a href="https://levent-j.com/2021/10/10/android-gif/">GIF格式</a></p>
-<p><a href="https://levent-j.com/2022/05/10/android-gif2/">编解码与合并</a></p>
-<p><a href="https://levent-j.com/2022/05/12/android-gif3/">编解码器实现原理</a></p>
-<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p>首先看下效果</p>
-<p>原图1：</p>
-<p><img src="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/gif/gif_eg_1.gif" alt=""></p>
-<p>原图2：</p>
-<p><img src="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/gif/gif-eg-2.gif" alt=""></p>
-<p>调整图2的大小和位置后与图1叠加，最终效果：</p>
-<p><img src="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/gif/gif_eg_3.gif" alt=""></p>
-<p>这里合并主要借助Glide实现。</p>
-<p>GIF的二次，核心思路就是将输入的GIF图进行解码，对解码后的图像数据进行修改后，再进行合并，将合并后的结果再通过编码生成新的GIF图。项目中图片加载使用了 <a href="https://github.com/bumptech/glide" target="_blank" rel="noopener">Glide</a>，Android本身是不支持渲染GIF图的，Glide可以帮助我们加载GIF图到ImageView——其原理就是先解码GIF图，然后逐帧渲染到ImageView上——同时也提供了开箱即用的编解码器，所以这里编解码都借助Glide来实现。</p>
-<h2 id="解码"><a href="#解码" class="headerlink" title="解码"></a>解码</h2><p>这里我自己用一个 <code>GifImage</code> 类存储解析后的所有数据，一个 <code>GifFrame</code> 类存储单个帧中的数据：</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">data</span> <span class="class"><span class="keyword">class</span> <span class="title">GifFrame</span></span>(<span class="keyword">val</span> image: Bitmap, <span class="keyword">val</span> delay: <span class="built_in">Int</span>, <span class="keyword">val</span> time: <span class="built_in">Long</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">data</span> <span class="class"><span class="keyword">class</span> <span class="title">GifImage</span></span>(<span class="keyword">val</span> frames: List&lt;GifFrame&gt;, <span class="keyword">val</span> time: <span class="built_in">Long</span>)</span><br></pre></td></tr></table></figure>
-<p>这里我在 <code>GifFrame</code> 中多加了一个字段来表示这一帧在整个播放序列中处于哪一时刻，这个在后面合并时会用到。</p>
-<p>然后是用Glide解码的简单写法：</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> filePath 输入GIF图源文件路径</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> inSampleSize 优化bitmap解析时用到的采样率</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">decode</span><span class="params">(context: <span class="type">Context</span>, filePath: <span class="type">String</span>, inSampleSize: <span class="type">Int</span> = <span class="number">2</span>)</span></span>: GifImage? &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">val</span> inputStream = FileInputStream(filePath)</span><br><span class="line">        <span class="keyword">val</span> byteBuffer = ByteBuffer.wrap(inputStream.readBytes())</span><br><span class="line">        <span class="keyword">val</span> glide = Glide.<span class="keyword">get</span>(context)</span><br><span class="line">        <span class="comment">//Glide提供了默认的Provider，Parser</span></span><br><span class="line">        <span class="keyword">val</span> provider = GifBitmapProvider(glide.bitmapPool, glide.arrayPool)</span><br><span class="line">        <span class="keyword">val</span> header = GifHeaderParser().setData(byteBuffer).parseHeader()<span class="comment">//读取文件Header部分数据</span></span><br><span class="line">        <span class="keyword">val</span> decoder = StandardGifDecoder(provider, header, byteBuffer, inSampleSize)<span class="comment">//创建解码器</span></span><br><span class="line">        <span class="keyword">val</span> frameCount = decoder.frameCount</span><br><span class="line">        decoder.advance()<span class="comment">//获取下一帧</span></span><br><span class="line">        <span class="keyword">var</span> time = <span class="number">0L</span></span><br><span class="line">        <span class="keyword">var</span> total = <span class="number">0L</span></span><br><span class="line">        <span class="keyword">val</span> frames = ArrayList&lt;GifFrame&gt;()</span><br><span class="line">        <span class="comment">//已知帧的数量，循环读取每一帧的图片数据和间隔时间</span></span><br><span class="line">        <span class="keyword">for</span> (i <span class="keyword">in</span> <span class="number">0</span> until frameCount) &#123;</span><br><span class="line">            <span class="keyword">val</span> bitmap = decoder.nextFrame<span class="comment">//解码器id getNextFrame()方法 获取下一帧的图像数据</span></span><br><span class="line">            <span class="keyword">val</span> delay = decoder.nextDelay</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (bitmap != <span class="literal">null</span>) &#123;</span><br><span class="line">                frames.add(GifFrame(bitmap, delay, time))</span><br><span class="line">                total = time</span><br><span class="line">                <span class="comment">//记录该帧在播放序列中的时刻</span></span><br><span class="line">                time += delay</span><br><span class="line">            &#125;</span><br><span class="line">            decoder.advance()</span><br><span class="line">        &#125;</span><br><span class="line">        inputStream.close()</span><br><span class="line">        <span class="keyword">return</span> GifImage(frames, total)</span><br><span class="line">    &#125; <span class="keyword">catch</span> (e: Exception) &#123;</span><br><span class="line">        e.printStackTrace()</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>读取输入文件，创建一个解码器，先获取Header数据，然后遍历获取每一帧的数据，同时记录每一帧在播放序列中的时刻，这样一个简单的解码就完成了。</p>
-<h2 id="编码"><a href="#编码" class="headerlink" title="编码"></a>编码</h2><p>编码就是解码的过程倒过来，Glide同样提供了解码器，在Glide仓库可以找到：<a href="https://github.com/bumptech/glide/tree/master/third_party/gif_encoder/src/main/java/com/bumptech/glide/gifencoder" target="_blank" rel="noopener">gifencoder</a>。把这三个类都拷贝到项目目录下即可使用：</p>
-<p><img src="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/gif/gif_encoder.png" alt=""></p>
-<p>然后一个编码的示例：</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> gifImage 构建的Gif图对象</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> file 存储到文件</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">encode</span><span class="params">(gifImage: <span class="type">GifImage</span>, file: <span class="type">File</span>)</span></span> &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">val</span> bos = ByteArrayOutputStream()</span><br><span class="line">        <span class="comment">//创建一个编码器的实例，调start()方法开始写入</span></span><br><span class="line">        <span class="keyword">val</span> encoder = AnimatedGifEncoder()</span><br><span class="line">        encoder.start(bos)</span><br><span class="line">        encoder.setRepeat(<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">for</span> (frame <span class="keyword">in</span> gifImage.frames) &#123;</span><br><span class="line">            <span class="comment">//逐帧写入</span></span><br><span class="line">            encoder.setDelay(frame.delay)</span><br><span class="line">            encoder.addFrame(frame.image)</span><br><span class="line">        &#125;</span><br><span class="line">        encoder.finish()</span><br><span class="line">        <span class="comment">//文件保存</span></span><br><span class="line">        <span class="keyword">val</span> outStream = FileOutputStream(file)</span><br><span class="line">        outStream.write(bos.toByteArray())</span><br><span class="line">        outStream.close()</span><br><span class="line">    &#125; <span class="keyword">catch</span> (e: Exception) &#123;</span><br><span class="line">        e.printStackTrace()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>创建一个编码器，逐帧写入，编码器提供了很多public方法来设置一些属性，比如 <code>setRepeat()</code> 方法，用来设置GIF图是否可以循环播放/循环次数，如果不设置，默认生成的GIF图是不会自动循环播放的。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Sets the number of times the set of GIF frames should be played. Default is</span></span><br><span class="line"><span class="comment"> * 1; 0 means play indefinitely. Must be invoked before the first image is</span></span><br><span class="line"><span class="comment"> * added.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> iter</span></span><br><span class="line"><span class="comment"> *          int number of iterations.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setRepeat</span><span class="params">(<span class="keyword">int</span> iter)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (iter &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">        repeat = iter;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>以及 <code>setDelay()</code> 设置当前帧显示之后到下一帧显示之前的等待时间：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Sets the delay time between each frame, or changes it for subsequent frames</span></span><br><span class="line"><span class="comment"> * (applies to last frame added).</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> ms</span></span><br><span class="line"><span class="comment"> *          int delay time in milliseconds</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setDelay</span><span class="params">(<span class="keyword">int</span> ms)</span> </span>&#123;</span><br><span class="line">    delay = Math.round(ms / <span class="number">10.0f</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="合并"><a href="#合并" class="headerlink" title="合并"></a>合并</h2><p>除了编码和解码之外，中间部分就是合并了。考虑最复杂的情况：输入的图片不止一张，其次输入的图片有的是GIF，有的是普通的静态图，且每张GIF图他的帧序列的时间间隔都是不一定不相等的，哪怕是同一张GIF其每两帧之间的间隔时间也不一定相同。因此合并的思路大体如下图：</p>
-<p><img src="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/gif/gif_merge_eg.png" alt=""></p>
-<p>输入的GIF图A B C，取所有帧的时刻做并集并去重得到总时间轴，合成后的每一帧都是由ABC的对应那一时刻的帧合并而成的静态图：</p>
-<ul>
-<li>R1(帧) = A1 C1 合并</li>
-<li>R2 = A1 B1 C1 合并</li>
-<li>R3 = A2 B1 C1 合并</li>
-<li>R4 = A1 B2 C1 合并</li>
-<li>R5 = A2 B2 C2 合并</li>
-<li>…</li>
-</ul>
-<p>这样可以保证输出的结果播放速度/帧率保持不变，代码实现如下：</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">merge</span><span class="params">(width: <span class="type">Int</span>, height: <span class="type">Int</span>, images: <span class="type">List</span>&lt;<span class="type">GifImage</span>&gt;, duration: <span class="type">Long</span>)</span></span>: GifImage &#123;</span><br><span class="line">    <span class="keyword">val</span> result = ArrayList&lt;GifFrame&gt;()</span><br><span class="line">    <span class="comment">//保存每张Gif图的当前帧索引，初始化为0</span></span><br><span class="line">    <span class="keyword">val</span> frameIndex = IntArray(images.size) &#123; <span class="number">0</span> &#125;</span><br><span class="line">    <span class="comment">//所有GIF图所有帧合并后按时间顺序排列而成的主时间轴</span></span><br><span class="line">    <span class="keyword">val</span> timeline = images.flatMap &#123; it.frames &#125;.map &#123; it.time &#125;.distinct().sorted()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (t <span class="keyword">in</span> timeline.indices) &#123;</span><br><span class="line">        <span class="keyword">val</span> current = timeline[t]<span class="comment">//当前时刻</span></span><br><span class="line">        <span class="keyword">val</span> next = timeline.getOrNull(t + <span class="number">1</span>) ?: current</span><br><span class="line">        <span class="keyword">val</span> base = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)</span><br><span class="line">        base.density = images[<span class="number">0</span>].frames[<span class="number">0</span>].image.density</span><br><span class="line">        <span class="keyword">val</span> canvas = Canvas(base)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (i <span class="keyword">in</span> images.indices) &#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">val</span> index = frameIndex[i]</span><br><span class="line">            <span class="keyword">val</span> image = images[i]</span><br><span class="line">            <span class="keyword">val</span> frame = image.frames[index]</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (frame.time &lt;= current) &#123;</span><br><span class="line">                <span class="comment">//当前帧刚好在当前时刻之前，则采用当前帧的图像并使索引+1</span></span><br><span class="line">                canvas.drawBitmap(frame.image, <span class="number">0f</span>, <span class="number">0f</span>, <span class="literal">null</span>)</span><br><span class="line">                frameIndex[i] = <span class="keyword">if</span> (index == image.frames.size - <span class="number">1</span>) <span class="number">0</span> <span class="keyword">else</span> index + <span class="number">1</span></span><br><span class="line"></span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (frame.time &gt; current) &#123;</span><br><span class="line">                <span class="comment">//当前帧的时间在当前时刻之后，则需要取当前帧之前的那一帧</span></span><br><span class="line">                <span class="keyword">val</span> findIndex = max(index - <span class="number">1</span>, <span class="number">0</span>)</span><br><span class="line">                canvas.drawBitmap(image.frames[findIndex].image, <span class="number">0f</span>, <span class="number">0f</span>, <span class="literal">null</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        result.add(GifFrame(base, (next - current).toInt(), current))</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> GifImage(result, duration)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>图片合并这里就直接用了Canvas来合并多张Bitmap，参数 <code>duration</code> 为总的播放时长，整体逻辑其实很简单。另外在实际项目中，每张GIF图都是经过手势变换改变了大小、旋转角度并裁剪后的，这部分跟静态图片是类似的处理逻辑，对每一帧都做同样的处理，就不放代码了，这里只展示了最终结果合并的过程。</p>
+        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>在使用Kotlin开发Android时，有一个很常见的写法：把匿名内部类转化为Lambda形式。</p>
+<p>比如，要给View增加点击事件监听，View的源码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setOnClickListener</span><span class="params">(@Nullable OnClickListener l)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!isClickable()) &#123;</span><br><span class="line">        setClickable(<span class="keyword">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    getListenerInfo().mOnClickListener = l;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">OnClickListener</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">        * Called when a view has been clicked.</span></span><br><span class="line"><span class="comment">        *</span></span><br><span class="line"><span class="comment">        * <span class="doctag">@param</span> v The view that was clicked.</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>参数为一个只有单一方法的接口，那么使用时的写法，最直接的就是用匿名内部类：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">view.setOnClickListener(<span class="keyword">object</span> : View.OnClickListener&#123;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onClick</span><span class="params">(v: <span class="type">View</span>?)</span></span> &#123;</span><br><span class="line">        <span class="comment">//do something</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>此时IDE会提示你可以简化为Lambda，这是Kotlin的一个特性：</p>
+<blockquote>
+<p>只有一个抽象方法的接口称为函数式接口或 SAM（单一抽象方法）接口。<br>对于函数式接口，可以通过 lambda 表达式实现 SAM 转换，从而使代码更简洁、更有可读性。</p>
+</blockquote>
+<p>所以上述代码我们往往会简化为这样：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">more.setOnClickListener &#123;</span><br><span class="line">    <span class="comment">//do something</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>确实是相当简洁了，一般也不会有什么问题，但是最近我就因为这个简写踩过一个坑。</p>
+<h2 id="出现问题"><a href="#出现问题" class="headerlink" title="出现问题"></a>出现问题</h2><p>是这样一个场景：有一个单例的管理类，需要为一些对象注册一个监听，在特定的时机还要取消注册。</p>
+<p>监听类是Java写的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Observer</span>&lt;<span class="title">T</span>&gt; <span class="keyword">extends</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onEvent</span><span class="params">(T var1)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注册和取消注册的代码如下：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">bind</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> key = <span class="string">"object key"</span></span><br><span class="line">    <span class="keyword">val</span> observer = Observer&#123; param:String -&gt;</span><br><span class="line">        <span class="comment">//do something</span></span><br><span class="line">    &#125;</span><br><span class="line">    mObserverMap[key] = observer</span><br><span class="line">    register(observer)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">unbind</span><span class="params">(activity: <span class="type">BaseActivity</span>)</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> key = <span class="string">"object key"</span></span><br><span class="line">    <span class="keyword">val</span> observer = mObserverMap[key]</span><br><span class="line">    <span class="keyword">if</span> (observer != <span class="literal">null</span>) &#123;</span><br><span class="line">        mObserverMap.remove(key)</span><br><span class="line">        unregister(observer)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>用一个 <code>Map</code> 记录每个对象及其对应的 <code>Observer</code> 对象。在每次给对象加注册时保存一下记录，在需要解绑时从 <code>Map</code> 中获取到 <code>Observer</code> 进行解绑。这样看起来是没有问题的，且创建 <code>Observer</code> 对象时还使用了Lambda简化写法。但是运行时发现，在多个对象分别用 <code>bind()</code> 注册自己的监听后，只要有一次 <code>unbind()</code> 调用，其他对象注册的监听也没了。</p>
+<h2 id="问题原因"><a href="#问题原因" class="headerlink" title="问题原因"></a>问题原因</h2><p>很怪，看起来像是所有对象共用了同一个 <code>Observer</code> 对象，所以一次 <code>unbind()</code> 就全寄了。打日志看了下，还真是，通过以下代码创建：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">val</span> observer = Observer&#123; param:String -&gt;</span><br><span class="line">    <span class="comment">//do something</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>实际上每次创建的引用都指向了同一个对象。直接AndroidStudio查看字节码和对应的Java代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">LINENUMBER <span class="number">57</span> L2</span><br><span class="line">GETSTATIC com/netease/gamechat/im/MsgStatusManager$prepare$observer$<span class="number">1</span>.INSTANCE : Lcom/netease/gamechat/im/MsgStatusManager$prepare$observer$<span class="number">1</span>;</span><br><span class="line">CHECKCAST com/netease/nimlib/sdk/Observer</span><br><span class="line">ASTORE <span class="number">3</span></span><br><span class="line">L3</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Observer observer = (Observer)<span class="keyword">null</span>.INSTANCE;</span><br></pre></td></tr></table></figure>
+<p>果然，使用Lambda简写时创建的竟然是一个单例对象，而如果用原来匿名内部类形式写的话：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">LINENUMBER <span class="number">57</span> L2</span><br><span class="line">NEW com/netease/gamechat/im/MsgStatusManager$prepare$observer$<span class="number">1</span></span><br><span class="line">DUP</span><br><span class="line">INVOKESPECIAL com/netease/gamechat/im/MsgStatusManager$prepare$observer$<span class="number">1</span>.&lt;init&gt; ()V</span><br><span class="line">ASTORE <span class="number">3</span></span><br><span class="line">L3</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;undefinedtype&gt; observer = <span class="keyword">new</span> Observer() &#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onEvent</span><span class="params">(@Nullable String p0)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// $FF: synthetic method</span></span><br><span class="line">    <span class="comment">// $FF: bridge method</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onEvent</span><span class="params">(Object var1)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.onEvent((String)var1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>这样写就没有问题了，每次都会new一个新的对象，而不是一直用同一个单例。那么为什么会有这个差异呢？</p>
+<h2 id="根本原因"><a href="#根本原因" class="headerlink" title="根本原因"></a>根本原因</h2><p>在Java中，匿名内部类内部是无法直接更改外部的变量的，比如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">(View view)</span></span>&#123;</span><br><span class="line">    String test = <span class="string">"123"</span>;</span><br><span class="line">    view.setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</span><br><span class="line">            test = <span class="string">"456"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样写是编译不过的，Java最多允许读取外部非静态变量，而不允许修改。但是在kotlin中就没有这个限制了，可以读取也可以修改。在内部访问外部的非静态变量或对象，外部的这个对象或者变量就叫做被捕获了。如果没有变量被捕获，他会创建一个实例，在每次使用lambda传参时，相当于再次复用这个实例。而如果有捕获到变量或者对象，那么这里每次还是会常见一个新的实例，举个例子，同样是lambda代替匿名内部类，如果在外部定义一个变量并在lambda中访问他：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">bind</span><span class="params">(activity: <span class="type">BaseActivity</span>)</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> key = <span class="string">"object key"</span></span><br><span class="line">    <span class="keyword">var</span> params = <span class="string">"init"</span></span><br><span class="line">    <span class="keyword">val</span> observer = Observer&lt;String&gt; &#123;</span><br><span class="line">        <span class="comment">//do something</span></span><br><span class="line">        params = <span class="string">"changed"</span></span><br><span class="line">    &#125;</span><br><span class="line">    mObserverMap[key] = observer</span><br><span class="line">    register(observer)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>再用AndroidStudio查看反编译的Java代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">bind</span><span class="params">(@NotNull BaseActivity activity)</span> </span>&#123;</span><br><span class="line">    Intrinsics.checkNotNullParameter(activity, <span class="string">"activity"</span>);</span><br><span class="line">    String key = <span class="string">"object key"</span>;</span><br><span class="line">    <span class="keyword">final</span> ObjectRef params = <span class="keyword">new</span> ObjectRef();</span><br><span class="line">    params.element = <span class="string">"init"</span>;</span><br><span class="line">    Observer observer = (Observer)(<span class="keyword">new</span> Observer() &#123;</span><br><span class="line">        <span class="comment">// $FF: synthetic method</span></span><br><span class="line">        <span class="comment">// $FF: bridge method</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onEvent</span><span class="params">(Object var1)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.onEvent((String)var1);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">onEvent</span><span class="params">(String it)</span> </span>&#123;</span><br><span class="line">        params.element = <span class="string">"changed"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    ((Map)mObserverMap).put(key, observer);</span><br><span class="line">    <span class="keyword">this</span>.register(observer);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里Kotlin为了实现能在匿名内部类中修改变量，会封装一个 <code>xxxRef</code> 类，来保存这个变量，并替换他的位置。这样在匿名内部类中，我们修改的就不是原来的那个变量了，而是修改的封装后的 <code>xxxRef</code> 的一个实例的字段。Kotlin正是通过这种巧妙的方式实现了匿名内部类修改外部变量。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>上述只是简单的做了一个概括，并不十分严谨。比如，当把这个变量挪到方法外部，作为当前类的一个字段时，情况又不一样了，此时会跟这个类本身是不是单例（是 <code>class</code> 还是 <code>object</code>）有了关系，究其原因实际上是Java之所以不允许匿名内部类修改外部变量，就是因为外部变量和匿名内部类生命周期不同，如果能修改的话，会有歧义。而Kotlin为了解决这一问题，就会根据当前变量的生命周期状态，对lambda的处理做不同的调整。我们在实际应用中并不用考虑这么细，我这里只是吸取了一个教训，即不要盲目的按IDE的提示优化代码，Kotlin的优化并不一定是完全满足自己使用场景的。</p>
 
       
     </div>
@@ -480,7 +468,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://levent-j.com/2022/05/10/android-gif2/" title="GIF编解码——编解码与合并">http://levent-j.com/2022/05/10/android-gif2/</a>
+    <a href="http://levent-j.com/2022/07/14/kotlin-lambda-question/" title="记一次kotlin匿名内部类踩的坑">http://levent-j.com/2022/07/14/kotlin-lambda-question/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -495,7 +483,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/GIF/" rel="tag"><i class="fa fa-tag"></i> GIF</a>
+            <a href="/tags/Kotlin/" rel="tag"><i class="fa fa-tag"></i> Kotlin</a>
+          
+            <a href="/tags/匿名内部类/" rel="tag"><i class="fa fa-tag"></i> 匿名内部类</a>
           
         </div>
       
@@ -508,8 +498,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/05/09/hashcode/" rel="next" title="HashCode的一些理解">
-                <i class="fa fa-chevron-left"></i> HashCode的一些理解
+              <a href="/2022/06/12/android-gif-compress/" rel="next" title="Android GIF图压缩实践">
+                <i class="fa fa-chevron-left"></i> Android GIF图压缩实践
               </a>
             
           </div>
@@ -517,10 +507,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2022/05/12/android-gif3/" rel="prev" title="GIF编解码——编解码实现原理">
-                GIF编解码——编解码实现原理 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -689,7 +675,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#效果"><span class="nav-number">2.</span> <span class="nav-text">效果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解码"><span class="nav-number">3.</span> <span class="nav-text">解码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编码"><span class="nav-number">4.</span> <span class="nav-text">编码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#合并"><span class="nav-number">5.</span> <span class="nav-text">合并</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#出现问题"><span class="nav-number">2.</span> <span class="nav-text">出现问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题原因"><span class="nav-number">3.</span> <span class="nav-text">问题原因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#根本原因"><span class="nav-number">4.</span> <span class="nav-text">根本原因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">5.</span> <span class="nav-text">小结</span></a></li></ol></div>
             
 
           </div>

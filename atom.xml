@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://levent-j.com/"/>
-  <updated>2022-06-24T09:16:02.433Z</updated>
+  <updated>2022-07-14T08:34:24.452Z</updated>
   <id>http://levent-j.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>记一次kotlin匿名内部类踩的坑</title>
+    <link href="http://levent-j.com/2022/07/14/kotlin-lambda-question/"/>
+    <id>http://levent-j.com/2022/07/14/kotlin-lambda-question/</id>
+    <published>2022-07-14T02:29:39.000Z</published>
+    <updated>2022-07-14T08:34:24.452Z</updated>
+    
+    <summary type="html">
+    
+      本文记录一次Kotlin匿名内部类的Lambd简写引发的问题。
+    
+    </summary>
+    
+      <category term="Kotlin" scheme="http://levent-j.com/categories/Kotlin/"/>
+    
+    
+      <category term="Kotlin" scheme="http://levent-j.com/tags/Kotlin/"/>
+    
+      <category term="匿名内部类" scheme="http://levent-j.com/tags/%E5%8C%BF%E5%90%8D%E5%86%85%E9%83%A8%E7%B1%BB/"/>
+    
+  </entry>
   
   <entry>
     <title>Android GIF图压缩实践</title>
@@ -403,26 +425,6 @@
     
     
       <category term="编码" scheme="http://levent-j.com/tags/%E7%BC%96%E7%A0%81/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>AndroidTV开发 输入相关总结</title>
-    <link href="http://levent-j.com/2019/05/15/android-tv-input-key/"/>
-    <id>http://levent-j.com/2019/05/15/android-tv-input-key/</id>
-    <published>2019-05-15T03:33:26.000Z</published>
-    <updated>2020-08-02T08:56:10.219Z</updated>
-    
-    <summary type="html">
-    
-      描述
-    
-    </summary>
-    
-      <category term="Android" scheme="http://levent-j.com/categories/Android/"/>
-    
-    
-      <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
     
   </entry>
   
