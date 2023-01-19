@@ -89,7 +89,7 @@
 <meta property="og:site_name" content="靖然是你">
 <meta property="og:description" content="本文记录一次Kotlin匿名内部类的Lambd简写引发的问题。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2022-07-14T08:34:24.452Z">
+<meta property="og:updated_time" content="2022-07-15T09:57:46.578Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="记一次kotlin匿名内部类踩的坑">
 <meta name="twitter:description" content="本文记录一次Kotlin匿名内部类的Lambd简写引发的问题。">
@@ -423,7 +423,7 @@
 <p>只有一个抽象方法的接口称为函数式接口或 SAM（单一抽象方法）接口。<br>对于函数式接口，可以通过 lambda 表达式实现 SAM 转换，从而使代码更简洁、更有可读性。</p>
 </blockquote>
 <p>所以上述代码我们往往会简化为这样：</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">more.setOnClickListener &#123;</span><br><span class="line">    <span class="comment">//do something</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">view.setOnClickListener &#123;</span><br><span class="line">    <span class="comment">//do something</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>确实是相当简洁了，一般也不会有什么问题，但是最近我就因为这个简写踩过一个坑。</p>
 <h2 id="出现问题"><a href="#出现问题" class="headerlink" title="出现问题"></a>出现问题</h2><p>是这样一个场景：有一个单例的管理类，需要为一些对象注册一个监听，在特定的时机还要取消注册。</p>
 <p>监听类是Java写的：</p>
@@ -440,14 +440,15 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">LINENUMBER <span class="number">57</span> L2</span><br><span class="line">NEW com/netease/gamechat/im/MsgStatusManager$prepare$observer$<span class="number">1</span></span><br><span class="line">DUP</span><br><span class="line">INVOKESPECIAL com/netease/gamechat/im/MsgStatusManager$prepare$observer$<span class="number">1</span>.&lt;init&gt; ()V</span><br><span class="line">ASTORE <span class="number">3</span></span><br><span class="line">L3</span><br></pre></td></tr></table></figure>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;undefinedtype&gt; observer = <span class="keyword">new</span> Observer() &#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onEvent</span><span class="params">(@Nullable String p0)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// $FF: synthetic method</span></span><br><span class="line">    <span class="comment">// $FF: bridge method</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onEvent</span><span class="params">(Object var1)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.onEvent((String)var1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>这样写就没有问题了，每次都会new一个新的对象，而不是一直用同一个单例。那么为什么会有这个差异呢？</p>
-<h2 id="根本原因"><a href="#根本原因" class="headerlink" title="根本原因"></a>根本原因</h2><p>在Java中，匿名内部类内部是无法直接更改外部的变量的，比如：</p>
+<h2 id="原因解析"><a href="#原因解析" class="headerlink" title="原因解析"></a>原因解析</h2><p>在Java中，匿名内部类内部是无法直接更改外部的变量的，比如：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">(View view)</span></span>&#123;</span><br><span class="line">    String test = <span class="string">"123"</span>;</span><br><span class="line">    view.setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</span><br><span class="line">            test = <span class="string">"456"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这样写是编译不过的，Java最多允许读取外部非静态变量，而不允许修改。但是在kotlin中就没有这个限制了，可以读取也可以修改。在内部访问外部的非静态变量或对象，外部的这个对象或者变量就叫做被捕获了。如果没有变量被捕获，他会创建一个实例，在每次使用lambda传参时，相当于再次复用这个实例。而如果有捕获到变量或者对象，那么这里每次还是会常见一个新的实例，举个例子，同样是lambda代替匿名内部类，如果在外部定义一个变量并在lambda中访问他：</p>
+<p>这样写是编译不过的，Java最多允许读取外部非静态变量，而不允许修改。但是在kotlin中就没有这个限制了，可以读取也可以修改。在内部访问外部的非静态变量，外部的这个变量就叫做被捕获了。如果没有变量被捕获，他会创建一个实例，在每次使用lambda传参时，再次复用这个实例。而如果有捕获到变量或者对象，那么这里每次还是会创建一个新的实例，举个例子，同样写法不变，如果只是在外部定义一个变量并在lambda中改变他：</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">bind</span><span class="params">(activity: <span class="type">BaseActivity</span>)</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> key = <span class="string">"object key"</span></span><br><span class="line">    <span class="keyword">var</span> params = <span class="string">"init"</span></span><br><span class="line">    <span class="keyword">val</span> observer = Observer&lt;String&gt; &#123;</span><br><span class="line">        <span class="comment">//do something</span></span><br><span class="line">        params = <span class="string">"changed"</span></span><br><span class="line">    &#125;</span><br><span class="line">    mObserverMap[key] = observer</span><br><span class="line">    register(observer)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>再用AndroidStudio查看反编译的Java代码：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">bind</span><span class="params">(@NotNull BaseActivity activity)</span> </span>&#123;</span><br><span class="line">    Intrinsics.checkNotNullParameter(activity, <span class="string">"activity"</span>);</span><br><span class="line">    String key = <span class="string">"object key"</span>;</span><br><span class="line">    <span class="keyword">final</span> ObjectRef params = <span class="keyword">new</span> ObjectRef();</span><br><span class="line">    params.element = <span class="string">"init"</span>;</span><br><span class="line">    Observer observer = (Observer)(<span class="keyword">new</span> Observer() &#123;</span><br><span class="line">        <span class="comment">// $FF: synthetic method</span></span><br><span class="line">        <span class="comment">// $FF: bridge method</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onEvent</span><span class="params">(Object var1)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.onEvent((String)var1);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">onEvent</span><span class="params">(String it)</span> </span>&#123;</span><br><span class="line">        params.element = <span class="string">"changed"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    ((Map)mObserverMap).put(key, observer);</span><br><span class="line">    <span class="keyword">this</span>.register(observer);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这里Kotlin为了实现能在匿名内部类中修改变量，会封装一个 <code>xxxRef</code> 类，来保存这个变量，并替换他的位置。这样在匿名内部类中，我们修改的就不是原来的那个变量了，而是修改的封装后的 <code>xxxRef</code> 的一个实例的字段。Kotlin正是通过这种巧妙的方式实现了匿名内部类修改外部变量。</p>
-<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>上述只是简单的做了一个概括，并不十分严谨。比如，当把这个变量挪到方法外部，作为当前类的一个字段时，情况又不一样了，此时会跟这个类本身是不是单例（是 <code>class</code> 还是 <code>object</code>）有了关系，究其原因实际上是Java之所以不允许匿名内部类修改外部变量，就是因为外部变量和匿名内部类生命周期不同，如果能修改的话，会有歧义。而Kotlin为了解决这一问题，就会根据当前变量的生命周期状态，对lambda的处理做不同的调整。我们在实际应用中并不用考虑这么细，我这里只是吸取了一个教训，即不要盲目的按IDE的提示优化代码，Kotlin的优化并不一定是完全满足自己使用场景的。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>上述只是简单的做了一个概括，并不十分严谨。比如，当把这个变量挪到方法外部，作为当前类的一个字段时，情况又不一样了，究其原因，我推测还是因为Java的限制。Java之所以不允许匿名内部类修改外部变量，就是因为外部变量和匿名内部类生命周期不同，如果贸然支持修改，会产生歧义。而Kotlin为了规避这一问题，就会根据当前变量和匿名内部类的生命周期状态，对lambda的处理做对应的不同的调整。</p>
+<p>我们在实际应用中并不用考虑这么细，一般也不会需要一定要每次 <code>new</code> 一个新的实例。但是在真的需要的时候，就要注意这里的写法了。我在这里吸取了一个教训，即不要盲目的按IDE的提示优化代码写法，这并不一定是完全满足自己使用场景的。</p>
 
       
     </div>
@@ -507,6 +508,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2023/01/01/hello-2023/" rel="prev" title="2023 对酒当歌">
+                2023 对酒当歌 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -590,7 +595,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">40</span>
+                  <span class="site-state-item-count">41</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -675,7 +680,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#出现问题"><span class="nav-number">2.</span> <span class="nav-text">出现问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题原因"><span class="nav-number">3.</span> <span class="nav-text">问题原因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#根本原因"><span class="nav-number">4.</span> <span class="nav-text">根本原因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">5.</span> <span class="nav-text">小结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#出现问题"><span class="nav-number">2.</span> <span class="nav-text">出现问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题原因"><span class="nav-number">3.</span> <span class="nav-text">问题原因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原因解析"><span class="nav-number">4.</span> <span class="nav-text">原因解析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">5.</span> <span class="nav-text">小结</span></a></li></ol></div>
             
 
           </div>
@@ -700,7 +705,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2022</span>
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
