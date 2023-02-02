@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://levent-j.com/"/>
-  <updated>2023-01-31T07:32:58.743Z</updated>
+  <updated>2023-02-02T09:56:13.262Z</updated>
   <id>http://levent-j.com/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>点赞轨迹动画的实现</title>
+    <link href="http://levent-j.com/2023/02/01/like-anim/"/>
+    <id>http://levent-j.com/2023/02/01/like-anim/</id>
+    <published>2023-02-01T02:21:52.000Z</published>
+    <updated>2023-02-02T09:56:13.262Z</updated>
+    
+    <summary type="html">
+    
+      用贝塞尔曲线完成一个直播间点赞动画
+    
+    </summary>
+    
+      <category term="Android" scheme="http://levent-j.com/categories/Android/"/>
+    
+    
+      <category term="Android动画" scheme="http://levent-j.com/tags/Android%E5%8A%A8%E7%94%BB/"/>
+    
+  </entry>
   
   <entry>
     <title>.9图的快速使用</title>
@@ -386,30 +406,6 @@
     <id>http://levent-j.com/2020/04/20/aibokehblur-2/</id>
     <published>2020-04-20T12:00:11.000Z</published>
     <updated>2020-04-23T14:24:24.044Z</updated>
-    
-    <summary type="html">
-    
-      如何用TensorFlow Lite结合GPUImage在Android中实现AI背景虚化
-    
-    </summary>
-    
-      <category term="Android" scheme="http://levent-j.com/categories/Android/"/>
-    
-    
-      <category term="Android" scheme="http://levent-j.com/tags/Android/"/>
-    
-      <category term="TensorFlow Lite" scheme="http://levent-j.com/tags/TensorFlow-Lite/"/>
-    
-      <category term="GPUImage" scheme="http://levent-j.com/tags/GPUImage/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>TensorFlow Lite + GPUImage 实现AI背景虚化（一）</title>
-    <link href="http://levent-j.com/2020/04/06/aibokehblur/"/>
-    <id>http://levent-j.com/2020/04/06/aibokehblur/</id>
-    <published>2020-04-06T12:26:11.000Z</published>
-    <updated>2020-04-18T15:42:12.183Z</updated>
     
     <summary type="html">
     
