@@ -1,0 +1,1374 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="GIF," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="靖然是你" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="用Glide编解码实现Android中GIF图的压缩。">
+<meta name="keywords" content="GIF">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android GIF图压缩实践">
+<meta property="og:url" content="http://levent-j.com/2022/06/12/android-gif-compress/index.html">
+<meta property="og:site_name" content="靖然是你">
+<meta property="og:description" content="用Glide编解码实现Android中GIF图的压缩。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/gif/jr1.gif">
+<meta property="og:image" content="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/gif/jr-color64.gif">
+<meta property="og:image" content="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/gif/jr-color2.gif">
+<meta property="og:image" content="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/gif/jr-compress.jpg">
+<meta property="og:image" content="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/gif/mm.gif">
+<meta property="og:image" content="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/gif/mm-detail.png">
+<meta property="og:image" content="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/gif/nyan.gif">
+<meta property="og:image" content="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/gif/nyan-del.gif">
+<meta property="og:image" content="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/gif/nyan-compress.png">
+<meta property="og:updated_time" content="2022-06-24T09:16:02.433Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android GIF图压缩实践">
+<meta name="twitter:description" content="用Glide编解码实现Android中GIF图的压缩。">
+<meta name="twitter:image" content="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/gif/jr1.gif">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://levent-j.com/2022/06/12/android-gif-compress/"/>
+
+
+
+
+
+  <title>Android GIF图压缩实践 | 靖然是你</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">靖然是你</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">哇啦啦啦</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://levent-j.com/2022/06/12/android-gif-compress/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Levent-J">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://blog-lwj.oss-cn-shenzhen.aliyuncs.com/avater.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="靖然是你">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android GIF图压缩实践</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-06-12T17:42:08+08:00">
+                2022-06-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2022/06/12/android-gif-compress/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2022/06/12/android-gif-compress/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2022/06/12/android-gif-compress/" class="leancloud_visitors" data-flag-title="Android GIF图压缩实践">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  用Glide编解码实现Android中GIF图的压缩。
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>找了一圈没有什么开箱即用的GIF压缩库，索性自己搞一个。</p>
+<h2 id="理论思想"><a href="#理论思想" class="headerlink" title="理论思想"></a>理论思想</h2><p>其实GIF的压缩，跟其他格式图片压缩差不多，无非就是降低分辨率，减少颜色值。只不过GIF的特殊性，可以有其他一些方面来进行压缩：</p>
+<ol>
+<li>减少调色盘数量</li>
+</ol>
+<p>参考<a href="https://levent-j.com/2022/05/10/android-gif2/">前一篇文章</a>所分析的GIF格式，GIF图有一个颜色表的概念，存放着具体的颜色，而具体的每一帧存的是每个像素点的颜色值在颜色表中的索引。颜色表有全局颜色表，每一帧也有自己的局部颜色表。如果减少颜色数量，那么颜色表大小就会减少。这里用一个工具 <a href="https://github.com/kohler/gifsicle" target="_blank" rel="noopener">gifsicle</a> 来尝试对一张gif图进行压缩看下效果。</p>
+<p>原图： </p>
+<p><img src="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/gif/jr1.gif" alt=""></p>
+<p>通过命令</p>
+<blockquote>
+<p>gifsicle –colors=64 jr1.gif &gt; jr-color64.gif<br>gifsicle –colors=2 jr1.gif &gt; jr-color2.gif</p>
+</blockquote>
+<p>减少调色盘大小后效果</p>
+<p>调色盘64：</p>
+<p><img src="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/gif/jr-color64.gif" alt=""></p>
+<p>调色盘2：</p>
+<p><img src="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/gif/jr-color2.gif" alt=""></p>
+<p>大小分别压缩到了4.2M 1.6M </p>
+<p><img src="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/gif/jr-compress.jpg" alt=""></p>
+<p>可以看到，调整调色盘中颜色数量是效果非常明显的，即使只剩两种颜色，还是不会影响理解GIF图内容的，只剩色彩差异很大，只是将颜色压缩至64，也会显得很明显。</p>
+<ol start="2">
+<li>帧复用</li>
+</ol>
+<p>在一些背景不动，只有前景物体在动的GIF，可以只在个别帧保留背景，其他帧只存储相对于这些帧之外有变化的部分。比如下面这张GIF图：</p>
+<p><img src="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/gif/mm.gif" alt=""></p>
+<p>背景始终是蓝色，动的只是前景中的一小部分，用以下命令：</p>
+<blockquote>
+<p>gifsicle -I –cinfo –sinfo –xinfo mm.gif</p>
+</blockquote>
+<p>可以看到：</p>
+<p><img src="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/gif/mm-detail.png" alt=""></p>
+<p>没有局部颜色表，只有全局颜色表，因为复用的大部分颜色，部分帧的大小就很小了。</p>
+<ol start="3">
+<li>降低每一帧图像的分辨率</li>
+</ol>
+<p>这个是最简单直接的方法了，直接解码出所有帧图像，降低分辨率后再重新合成，自然能减少大小。</p>
+<ol start="4">
+<li>抽帧</li>
+</ol>
+<p>抽帧也很好理解，就是简单粗暴的从原GIF图中去掉几帧。以这张图为例：</p>
+<p><img src="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/gif/nyan.gif" alt=""></p>
+<p>用以下命令</p>
+<blockquote>
+<p>gifsicle -b nyan.gif –delete ‘#1’ ‘#3’ …</p>
+</blockquote>
+<p>去除掉一半的帧后，效果：</p>
+<p><img src="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/gif/nyan-del.gif" alt=""></p>
+<p>大小也从 34K 减小到了 17K，只不过因为没有处理延时，所以有很明显的帧率变化。</p>
+<p><img src="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/gif/nyan-compress.png" alt=""></p>
+<h2 id="实际做法"><a href="#实际做法" class="headerlink" title="实际做法"></a>实际做法</h2><p>如前所述，大致有四种方法对GIF做压缩，但是在实际应用当中，各有优缺点。</p>
+<p>首先，第一种方法，减少调色盘数，或将局部调色盘去掉统一改为全局调色盘，这样处理虽然对压缩很有效，但是对图像的显示效果影响很大，不能保证对所有场景都适用，且在开发商实现成本较高。</p>
+<p>第二种方法，对帧进行复用，效果上没有什么缺点，但是只在特定场景下压缩率较高，并不适用所有图片，且实现上需要依赖一些算法来找到可复用的像素和颜色。</p>
+<p>第三种方法，降低分辨率，大体来说是属于较好的方法了，对图像质量的影响也不大。</p>
+<p>第四种方法，抽帧，抽帧虽然效果更好，但是有两个问题。一个是抽帧的规则不好定义，抽取间隔过多会导致压缩后图像效果有很明显卡顿掉帧。一个是因为部分GIF图并不是每一帧都有全部图像详细的，可能正如前面所说，他只记录了当前帧发生变化的部分，所以如果保留了这种帧而去掉了完整的帧的话，也会显得很奇怪。</p>
+<p>所以最后我的做法是，抽帧+降分辨率。先对原GIF图进行解码，将每一帧的图像信息都进行还原，之后进行一次抽帧，对保留的帧再进行缩放降低分辨率，这样能最大限度的既保证图像质量又能有较高的压缩率。</p>
+<h2 id="代码实战"><a href="#代码实战" class="headerlink" title="代码实战"></a>代码实战</h2><p>GIF的编解码也是用的Glide，具体可见之前的文章。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 用Glide对GIF文件进行解码</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">decodeGIFFile</span><span class="params">(context: <span class="type">Context</span>, filePath: <span class="type">String</span>, inSampleSize: <span class="type">Int</span> = <span class="number">1</span>)</span></span>: GIFImage? &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">val</span> inputStream = FileInputStream(filePath)</span><br><span class="line">        <span class="keyword">val</span> byteBuffer = ByteBuffer.wrap(inputStream.readBytes())</span><br><span class="line">        <span class="keyword">val</span> glide = Glide.<span class="keyword">get</span>(context)</span><br><span class="line">        <span class="keyword">val</span> provider = GifBitmapProvider(glide.bitmapPool, glide.arrayPool)</span><br><span class="line">        <span class="keyword">val</span> header = GifHeaderParser().setData(byteBuffer).parseHeader()</span><br><span class="line">        <span class="keyword">val</span> decoder = StandardGifDecoder(provider, header, byteBuffer, inSampleSize)</span><br><span class="line">        <span class="keyword">val</span> frameCount = decoder.frameCount</span><br><span class="line">        decoder.advance()</span><br><span class="line">        <span class="keyword">val</span> frames = ArrayList&lt;GIFFrame&gt;()</span><br><span class="line">        <span class="keyword">for</span> (i <span class="keyword">in</span> <span class="number">0</span> until frameCount) &#123;</span><br><span class="line">            <span class="keyword">val</span> bitmap = decoder.nextFrame</span><br><span class="line">            <span class="keyword">val</span> delay = decoder.nextDelay</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (bitmap != <span class="literal">null</span>) &#123;</span><br><span class="line">                frames.add(GIFFrame(bitmap, delay))</span><br><span class="line">            &#125;</span><br><span class="line">            decoder.advance()</span><br><span class="line">        &#125;</span><br><span class="line">        inputStream.close()</span><br><span class="line">        <span class="keyword">return</span> GIFImage(frames)</span><br><span class="line">    &#125; <span class="keyword">catch</span> (e: Exception) &#123;</span><br><span class="line">        e.printStackTrace()</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">encodeGIFFile</span><span class="params">(gif:<span class="type">GIFImage</span>,targetPath: <span class="type">String</span>)</span></span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">val</span> bos = ByteArrayOutputStream()</span><br><span class="line">        <span class="keyword">val</span> encoder = AnimatedGifEncoder()</span><br><span class="line">        encoder.start(bos)</span><br><span class="line">        <span class="keyword">for</span> (frame <span class="keyword">in</span> gif.frames) &#123;</span><br><span class="line">            encoder.addFrame(frame.image)</span><br><span class="line">            encoder.setDelay(frame.delay)</span><br><span class="line">        &#125;</span><br><span class="line">        encoder.finish()</span><br><span class="line">        <span class="keyword">val</span> outStream = FileOutputStream(File(targetPath))</span><br><span class="line">        outStream.write(bos.toByteArray())</span><br><span class="line">        outStream.close()</span><br><span class="line">    &#125; <span class="keyword">catch</span> (e: Exception) &#123;</span><br><span class="line">        e.printStackTrace()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">data</span> <span class="class"><span class="keyword">class</span> <span class="title">GIFImage</span></span>(<span class="keyword">val</span> frames: List&lt;GIFFrame&gt;)&#123;</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">recycle</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (frame <span class="keyword">in</span> frames) &#123;</span><br><span class="line">            frame.recycle()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">data</span> <span class="class"><span class="keyword">class</span> <span class="title">GIFFrame</span></span>(<span class="keyword">var</span> image: Bitmap, <span class="keyword">var</span> delay: <span class="built_in">Int</span>)&#123;</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">recycle</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!image.isRecycled) image.recycle()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>有了编解码后，重点就是压缩了：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">const</span> <span class="keyword">val</span> GIF_COMPRESS_SIZE_RATIO = <span class="number">0.8f</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">const</span> <span class="keyword">val</span> GIF_COMPRESS_SIZE_LIMIT = <span class="number">500</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">compressGIFImageSync</span><span class="params">(context: <span class="type">Context</span>, filePath: <span class="type">String</span>, inSampleSize: <span class="type">Int</span> = <span class="number">1</span>)</span></span>:String &#123;</span><br><span class="line">    <span class="keyword">if</span> (File(filePath).length() &lt; <span class="number">500</span>) <span class="keyword">return</span> filePath</span><br><span class="line">    <span class="keyword">val</span> start = System.currentTimeMillis()</span><br><span class="line">    <span class="keyword">val</span> gifImage = decodeGIFFile(context, filePath, inSampleSize)</span><br><span class="line">    <span class="keyword">if</span> (gifImage == <span class="literal">null</span> || gifImage.frames.isEmpty()) &#123;</span><br><span class="line">        Logging.e(<span class="string">"[wtf] gifImage decode null"</span>)</span><br><span class="line">        <span class="keyword">return</span> filePath</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> frameCount = gifImage.frames.size</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//抽帧的规则，这我在60帧一下统一每两帧抽取一帧，以免卡顿严重</span></span><br><span class="line">    <span class="keyword">val</span> gap = <span class="keyword">if</span> (frameCount &lt; <span class="number">60</span>) <span class="number">2</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (frameCount &lt; <span class="number">200</span>) <span class="number">3</span></span><br><span class="line">    <span class="keyword">else</span> <span class="number">4</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//抽帧时要注意，在去掉一帧的同时，要把这一帧的延时累加到上一个保留帧上，不至于处理会导致压缩后的帧率变化过大</span></span><br><span class="line">    <span class="keyword">val</span> delays = gifImage.frames.map &#123; it.delay &#125;</span><br><span class="line">    <span class="keyword">val</span> resultFrames = gifImage.frames.filterIndexed &#123; index, frame -&gt;</span><br><span class="line">        <span class="keyword">val</span> isKeyFrame = index % gap == <span class="number">0</span></span><br><span class="line">        <span class="keyword">if</span> (isKeyFrame)&#123;</span><br><span class="line">            <span class="keyword">val</span> othersDelay = delays.subList(index, minOf(index + gap, frameCount)).fold(<span class="number">0</span>) &#123; acc, delay -&gt; acc + delay &#125;</span><br><span class="line">            <span class="comment">//累加之后还要注意延时不能太大，这里加200上限</span></span><br><span class="line">            frame.delay = minOf(othersDelay, <span class="number">200</span>)</span><br><span class="line">            <span class="comment">//压缩规则目前是宽高500以内时，等比压缩80%；否则将大边压缩至500，小边等比缩放。</span></span><br><span class="line">            <span class="keyword">var</span> w = frame.image.width</span><br><span class="line">            <span class="keyword">var</span> h = frame.image.height</span><br><span class="line">            <span class="keyword">val</span> maxWidth = GIF_COMPRESS_SIZE_LIMIT</span><br><span class="line">            <span class="keyword">val</span> maxHeight = GIF_COMPRESS_SIZE_LIMIT</span><br><span class="line">            <span class="keyword">val</span> scaleRatio = GIF_COMPRESS_SIZE_RATIO</span><br><span class="line">            <span class="keyword">if</span> (w &lt; maxWidth &amp;&amp; h &lt; maxHeight)&#123;</span><br><span class="line">                w = (scaleRatio * w).toInt()</span><br><span class="line">                h = (scaleRatio * h).toInt()</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (w&gt;h)&#123;</span><br><span class="line">                    h = ((h.toFloat() / w.toFloat()) * maxWidth).toInt()</span><br><span class="line">                    w = maxWidth</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    w = ((w.toFloat() / h.toFloat()) * maxHeight).toInt()</span><br><span class="line">                    h = maxHeight</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            frame.image = Bitmap.createScaledBitmap(frame.image,w,h,<span class="literal">true</span>)</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            frame.recycle()</span><br><span class="line">        &#125;</span><br><span class="line">        isKeyFrame</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">val</span> resultGif = GIFImage(resultFrames)</span><br><span class="line">    <span class="keyword">val</span> targetFilePath = Const.generateCachePicPath(context, <span class="string">"compress"</span>, <span class="string">"gif"</span>)</span><br><span class="line">    File(targetFilePath).parentFile?.mkdirs()</span><br><span class="line">    encodeGIFFile(resultGif, targetFilePath)</span><br><span class="line">    gifImage.recycle()</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> targetFilePath</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>以上就是我在Android端GIF压缩的一些实践经验，这个方案还是有很多可以优化的地方，比如可以通过在解码GIF时获取每一帧的 <code>dispose</code> 字段，动态的判断当前帧在抽帧时是否可以被遗弃，或者针对帧复用的情况做特殊处理等，这里我只是先提供了一个简单的压缩方案，有需要可以直接取用或者再进行拓展。大家有什么建议或者问题也欢迎指出，感谢！</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Levent-J
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://levent-j.com/2022/06/12/android-gif-compress/" title="Android GIF图压缩实践">http://levent-j.com/2022/06/12/android-gif-compress/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/GIF/" rel="tag"><i class="fa fa-tag"></i> GIF</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/05/12/android-gif3/" rel="next" title="GIF编解码——编解码实现原理">
+                <i class="fa fa-chevron-left"></i> GIF编解码——编解码实现原理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/07/14/kotlin-lambda-question/" rel="prev" title="记一次kotlin匿名内部类踩的坑">
+                记一次kotlin匿名内部类踩的坑 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://blog-lwj.oss-cn-shenzhen.aliyuncs.com/avater.png"
+                alt="Levent-J" />
+            
+              <p class="site-author-name" itemprop="name">Levent-J</p>
+              <p class="site-description motion-element" itemprop="description">记录一只Android小菜鸡学习的点点滴滴</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Levent-J" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="levent_j@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/levent_j/activities" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#理论思想"><span class="nav-number">1.</span> <span class="nav-text">理论思想</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实际做法"><span class="nav-number">2.</span> <span class="nav-text">实际做法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码实战"><span class="nav-number">3.</span> <span class="nav-text">代码实战</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Levent-J</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'dx4gJ3O7BAa7y1xSEIsMv2DB-gzGzoHsz',
+        appKey: 'p912apR0pe3ePcyJspIlx30W',
+        placeholder: '来啦老弟~',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("dx4gJ3O7BAa7y1xSEIsMv2DB-gzGzoHsz", "p912apR0pe3ePcyJspIlx30W");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

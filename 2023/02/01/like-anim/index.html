@@ -1,0 +1,1381 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Android动画," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="靖然是你" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="用贝塞尔曲线完成一个直播间点赞动画">
+<meta name="keywords" content="Android动画">
+<meta property="og:type" content="article">
+<meta property="og:title" content="点赞轨迹动画的实现">
+<meta property="og:url" content="http://levent-j.com/2023/02/01/like-anim/index.html">
+<meta property="og:site_name" content="靖然是你">
+<meta property="og:description" content="用贝塞尔曲线完成一个直播间点赞动画">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/like-anim/1.gif">
+<meta property="og:image" content="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/like-anim/2.png">
+<meta property="og:image" content="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/like-anim/3.gif">
+<meta property="og:image" content="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/like-anim/4.gif">
+<meta property="og:image" content="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/like-anim/5.gif">
+<meta property="og:image" content="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/like-anim/6.gif">
+<meta property="og:image" content="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/like-anim/7.gif">
+<meta property="og:image" content="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/like-anim/8.gif">
+<meta property="og:updated_time" content="2023-02-02T09:56:13.262Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="点赞轨迹动画的实现">
+<meta name="twitter:description" content="用贝塞尔曲线完成一个直播间点赞动画">
+<meta name="twitter:image" content="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/like-anim/1.gif">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://levent-j.com/2023/02/01/like-anim/"/>
+
+
+
+
+
+  <title>点赞轨迹动画的实现 | 靖然是你</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">靖然是你</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">哇啦啦啦</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://levent-j.com/2023/02/01/like-anim/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Levent-J">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://blog-lwj.oss-cn-shenzhen.aliyuncs.com/avater.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="靖然是你">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">点赞轨迹动画的实现</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-02-01T10:21:52+08:00">
+                2023-02-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2023/02/01/like-anim/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2023/02/01/like-anim/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2023/02/01/like-anim/" class="leancloud_visitors" data-flag-title="点赞轨迹动画的实现">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  用贝塞尔曲线完成一个直播间点赞动画
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>最近在开发中遇到这样一个需求：实现一个类似于直播间双击屏幕点赞时右下角出现的动画，举个例子：</p>
+<p><img src="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/like-anim/1.gif" alt=""></p>
+<p>这是某直播App中一段录屏，在屏幕上双击的时候，除了按下的位置会有一个动画效果外，每次点赞时右下角都有一个小小的图片左右摇摆向上飘动最后消失。本文就是来仿照他实现一个轨迹动画。</p>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>首先分析一下这个动画应该如何来做。将这个动画按特征拆分一下，很容易得到以下几个部分：</p>
+<ol>
+<li>始终沿着某条轨迹运动的路径动画</li>
+<li>在运动过程中伴随着大小和透明度的属性动画</li>
+<li>偏转角度也在以一个特殊的规则不断变化</li>
+</ol>
+<p>首先，可以通过自定义View实现，动态的将不同的图片绘制在界面上，再加动画。</p>
+<p>第一点，沿着轨迹运动。最简单的情况，可以让图片沿着y轴做垂直向上的运动，同时不断改变x坐标，做左右平移。这样可以简单的实现浮动效果，但是轨迹路径是比较模糊的，不太灵活。所以最好的方案还是根据需要画一条曲线，让图片沿着曲线移动，比如用贝塞尔曲线，绘制好路径 <code>Path</code> ，用路径的 <code>length</code> 构建一个 <code>ValueAnimator</code> ，再借助 <code>PathMeasure</code> ，获取每一时刻在曲线上的位置，再执行 <code>Matrix</code> 的 <code>postTranslate</code> 方法来移动。</p>
+<p>第二点，在运动的过程中，我们可以监听动画运动的时间或者进度，来附加一个属性动画，用 <code>Matrix</code> 的 <code>postScale</code> 改变图片的大小，改变画笔 <code>Paint</code> 的透明度 <code>alpha</code> 来改变透明度，不过最好是在 <code>postTranslate</code> 之前先执行，这样便于获取图片缩放、旋转时的中心点。</p>
+<p>第三点，偏转角度的变化的实现很简单，但是规则比较复杂。可以是完全不动的，也可以始终沿着路径的方向，或是不断左右摇摆，不断旋转等。完全不动很简单，不用做任何处理，固定角度、不断旋转和左右摇摆都可以通过给定一个固定偏转角度或一个 <code>ValueAnimator</code> 来计算，而想要始终沿着路径的方向，就需要借助 <code>PathMeasure</code> 和三角函数结合来计算了。</p>
+<h2 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h2><p>首先以自定义View的形式，创建一个 <code>AnimView</code> ，在 <code>onDraw()</code> 方法中绘制图片：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onDraw</span><span class="params">(canvas: <span class="type">Canvas</span>?)</span></span> &#123;</span><br><span class="line">    <span class="keyword">super</span>.onDraw(canvas)</span><br><span class="line">    canvas ?: <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">val</span> matrix = Matrix()</span><br><span class="line">    <span class="keyword">val</span> bmp = bitmap</span><br><span class="line">    <span class="keyword">if</span> (bmp.isRecycled) <span class="keyword">return</span></span><br><span class="line">    canvas.drawBitmap(bmp, matrix, paint)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接下来只需实现动画并在监听中不断绘制即可。</p>
+<h3 id="路径动画"><a href="#路径动画" class="headerlink" title="路径动画"></a>路径动画</h3><p>首先需要用 <code>Path</code> 绘制需要的路径，这里用贝塞尔曲线来实现：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">val</span> point0 = PointF(<span class="number">0f</span>, <span class="number">0f</span>)</span><br><span class="line"><span class="keyword">val</span> point1 = PointF(<span class="number">0f</span>, <span class="number">0f</span>)</span><br><span class="line"><span class="keyword">val</span> point2 = PointF(<span class="number">0f</span>, <span class="number">0f</span>)</span><br><span class="line"><span class="keyword">val</span> point3 = PointF(<span class="number">0f</span>, <span class="number">0f</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> control0 = PointF(<span class="number">0f</span>, <span class="number">0f</span>)</span><br><span class="line"><span class="keyword">val</span> control1 = PointF(<span class="number">0f</span>, <span class="number">0f</span>)</span><br><span class="line"><span class="keyword">val</span> control2 = PointF(<span class="number">0f</span>, <span class="number">0f</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">setUpPath</span><span class="params">(left: <span class="type">Int</span>, top: <span class="type">Int</span>, right: <span class="type">Int</span>, bottom: <span class="type">Int</span>)</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> width = (right - left).toFloat()</span><br><span class="line">    <span class="keyword">val</span> height = (bottom - top).toFloat()</span><br><span class="line">    <span class="keyword">val</span> dx = width / <span class="number">2f</span></span><br><span class="line">    <span class="keyword">val</span> dy = height / <span class="number">3f</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//数据点</span></span><br><span class="line">    point0.<span class="keyword">set</span>(dx, dy * <span class="number">3</span>)</span><br><span class="line">    point1.<span class="keyword">set</span>(dx, dy * <span class="number">2</span>)</span><br><span class="line">    point2.<span class="keyword">set</span>(dx, dy)</span><br><span class="line">    point3.<span class="keyword">set</span>(dx, <span class="number">0f</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">//控制点</span></span><br><span class="line">    control0.<span class="keyword">set</span>(dx * <span class="number">0.5f</span>, dy * <span class="number">2.5f</span>)</span><br><span class="line">    control1.<span class="keyword">set</span>(dx * <span class="number">1.5f</span>, dy * <span class="number">1.5f</span>)</span><br><span class="line">    control2.<span class="keyword">set</span>(dx * <span class="number">0.5f</span>, dy * <span class="number">0.5f</span>)</span><br><span class="line"></span><br><span class="line">    path.moveTo(point0.x, point0.y)</span><br><span class="line">    path.quadTo(control0.x, control0.y, point1.x, point1.y)</span><br><span class="line">    path.quadTo(control1.x, control1.y, point2.x, point2.y)</span><br><span class="line">    path.quadTo(control2.x, control2.y, point3.x, point3.y)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里绘制了4个数据点，3个控制点，都是均分整个View的，效果如下：</p>
+<p><img src="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/like-anim/2.png" alt=""></p>
+<p>图中我用绿色标记了控制点，蓝色标记了数据点，就形成了一条很自然的曲线。</p>
+<p>路径绘制好了，接下来就是创建一个 <code>ValueAnimator</code> ：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//创建一个PathMeasure对象并绑定一个Path，后续路径相关的数据都需要通过它来计算</span></span><br><span class="line"><span class="keyword">val</span> pathMeasure = PathMeasure()</span><br><span class="line">pathMeasure.setPath(path, <span class="literal">false</span>)</span><br><span class="line"></span><br><span class="line">mAnimator = ValueAnimator.ofFloat(<span class="number">0f</span>, pathMeasure.length).apply &#123;</span><br><span class="line">    duration = <span class="number">3000L</span></span><br><span class="line">    addUpdateListener &#123;</span><br><span class="line">        <span class="keyword">val</span> value = it.animatedValue <span class="keyword">as</span> <span class="built_in">Float</span></span><br><span class="line">        <span class="keyword">val</span> point = FloatArray(<span class="number">2</span>)</span><br><span class="line">        <span class="keyword">val</span> tan = FloatArray(<span class="number">2</span>)</span><br><span class="line">        <span class="comment">//关键方法</span></span><br><span class="line">        pathMeasure.getPosTan(value, point, tan)</span><br><span class="line">        <span class="keyword">val</span> x = point[<span class="number">0</span>]</span><br><span class="line">        <span class="keyword">val</span> y = point[<span class="number">1</span>]</span><br><span class="line">        <span class="comment">//draw...</span></span><br><span class="line">    &#125;</span><br><span class="line">    start()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里最关键的方法是 <code>getPosTan()</code> ：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Pins distance to 0 &lt;= distance &lt;= getLength(), and then computes the</span></span><br><span class="line"><span class="comment"> * corresponding position and tangent. Returns false if there is no path,</span></span><br><span class="line"><span class="comment"> * or a zero-length path was specified, in which case position and tangent</span></span><br><span class="line"><span class="comment"> * are unchanged.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> distance The distance along the current contour to sample</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> pos If not null, returns the sampled position (x==[0], y==[1])</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> tan If not null, returns the sampled tangent (x==[0], y==[1])</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> false if there was no path associated with this measure object</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">getPosTan</span><span class="params">(<span class="keyword">float</span> distance, <span class="keyword">float</span> pos[], <span class="keyword">float</span> tan[])</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (pos != <span class="keyword">null</span> &amp;&amp; pos.length &lt; <span class="number">2</span> ||</span><br><span class="line">        tan != <span class="keyword">null</span> &amp;&amp; tan.length &lt; <span class="number">2</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> ArrayIndexOutOfBoundsException();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> native_getPosTan(native_instance, distance, pos, tan);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>简而言之，我们在 <code>UpdateListener</code> 中监听到当前时刻路径长度，通过这个方法，传入长度，就可以计算得到两个值，一个是当前点的坐标 <code>pos[]</code> ，一个是该点的正切值 <code>tan[]</code> 。正切值的用途后面再说，这里已经获取了当前点的坐标 <code>x</code> 和 <code>y</code> ，那么直接绘制出当前图片即可：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> matrix = Matrix()</span><br><span class="line"><span class="keyword">val</span> bmp = bitmap<span class="comment">//要绘制的bitmap</span></span><br><span class="line"><span class="keyword">val</span> center = PointF(bmp.width / <span class="number">2f</span>, bmp.height / <span class="number">2f</span>)</span><br><span class="line">matrix.postTranslate(x - center.x, y - center.y)</span><br><span class="line">canvas.drawBitmap(bmp, matrix, paint)</span><br></pre></td></tr></table></figure>
+<p> <code>x</code> 和 <code>y</code> 是前面获取的当前坐标位置， <code>x-center.x</code> 和 <code>y-center.y</code> 就可以获取到从原图位置到当前点位置，在横纵坐标上的偏移量，这样再用 <code>Matrix</code> 的 <code>postTranslate()</code> 方法即可完成运动效果：</p>
+<p><img src="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/like-anim/3.gif" alt=""></p>
+<h3 id="大小、透明度的变化"><a href="#大小、透明度的变化" class="headerlink" title="大小、透明度的变化"></a>大小、透明度的变化</h3><p>大小、透明度等属性的变化就比较简单了，具体看需求是以什么样的规则。前面在 <code>UpdateListener</code> 的监听中已经获取到了当前已经运动了多远，也可以获取当前已经运动了多久，这两点都可以根据需要转化为动画执行的进度，我们可以以这个进度为依据，做属性的变化，比如随便写一个动画总的执行时间是3000ms，在执行到第2600ms时开始变小并渐隐的效果：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> alpha = <span class="number">1f</span></span><br><span class="line"><span class="keyword">var</span> scale = <span class="number">1f</span></span><br><span class="line">addUpdateListener &#123;</span><br><span class="line">    <span class="keyword">val</span> value = it.animatedValue <span class="keyword">as</span> <span class="built_in">Float</span></span><br><span class="line">    <span class="keyword">val</span> time = it.currentPlayTime</span><br><span class="line">    <span class="comment">//用value或time来实际计算一个进度，这里以time为例</span></span><br><span class="line">    alpha = <span class="keyword">if</span> (time &gt; <span class="number">2600</span>) <span class="number">1</span> - (min(time, <span class="number">3000</span>) - <span class="number">2600</span>) / <span class="number">400f</span> <span class="keyword">else</span> <span class="number">1f</span></span><br><span class="line">    scale = <span class="keyword">if</span> (time &gt; <span class="number">2600</span>) <span class="number">1</span> - (min(time, <span class="number">3000</span>) - <span class="number">2600</span>) / <span class="number">400f</span> <span class="keyword">else</span> <span class="number">1f</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onDraw</span><span class="params">(canvas: <span class="type">Canvas</span>?)</span></span> &#123;</span><br><span class="line">    <span class="keyword">super</span>.onDraw(canvas)</span><br><span class="line">    canvas ?: <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">val</span> matrix = Matrix()</span><br><span class="line">    <span class="keyword">val</span> bmp = bitmap</span><br><span class="line">    <span class="keyword">if</span> (bmp.isRecycled) <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//通过改变画笔的 alpha 来改变透明度</span></span><br><span class="line">    paint.alpha = (<span class="number">255</span> * alpha).toInt()</span><br><span class="line"></span><br><span class="line">    <span class="comment">//通过matrix改变大小和位置</span></span><br><span class="line">    matrix.postTranslate(x - center.x, y - center.y)</span><br><span class="line">    matrix.postScale(scale, scale, centet.x, center.y)</span><br><span class="line">    canvas.drawBitmap(bmp, matrix, paint)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>效果如下：</p>
+<p><img src="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/like-anim/4.gif" alt=""></p>
+<h3 id="角度变化"><a href="#角度变化" class="headerlink" title="角度变化"></a>角度变化</h3><p>角度变化，最简单的可以固定一个角度（什么都不处理），效果就如前文。</p>
+<p>稍微复杂一点，可以设置一个不断旋转，或者左右摇摆的效果。这个效果也可以通过 <code>ValueAnimator</code> 来实现。以左右摇摆为例，在整个动画执行开始时，同步执行一个角度变化的动画：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> mSwingDegree = <span class="number">0f</span></span><br><span class="line">mSwingAnimator = ValueAnimator.ofFloat(-<span class="number">24f</span>, <span class="number">24f</span>).apply &#123;</span><br><span class="line">    duration = <span class="number">600L</span></span><br><span class="line">    repeatMode = ValueAnimator.REVERSE</span><br><span class="line">    repeatCount = ValueAnimator.INFINITE</span><br><span class="line">    interpolator = LinearInterpolator()</span><br><span class="line">    addUpdateListener &#123;</span><br><span class="line">        <span class="keyword">val</span> value = it.animatedValue <span class="keyword">as</span> <span class="built_in">Float</span></span><br><span class="line">        mSwingDegree = value</span><br><span class="line">    &#125;</span><br><span class="line">    start()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这是一个执行时间600ms的，从-24到24变化时不断更新当前角度值 <code>mSwingDegree</code> ，同时在 <code>onDraw()</code> 中加上旋转操作：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">matrix.postRotate(mSwingDegree, center.x, center.y)</span><br></pre></td></tr></table></figure>
+<p>效果如下：</p>
+<p><img src="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/like-anim/5.gif" alt=""></p>
+<p>还有一种同样不断旋转，但是图片方向始终沿路径前进方向。实现这个就需要用到前面提到的正切值了。还记得前面的代码：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">val</span> value = it.animatedValue <span class="keyword">as</span> <span class="built_in">Float</span></span><br><span class="line"><span class="keyword">val</span> point = FloatArray(<span class="number">2</span>)</span><br><span class="line"><span class="keyword">val</span> tan = FloatArray(<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">pathMeasure.getPosTan(value, point, tan)</span><br><span class="line"><span class="keyword">val</span> x = point[<span class="number">0</span>]</span><br><span class="line"><span class="keyword">val</span> y = point[<span class="number">1</span>]</span><br><span class="line"><span class="comment">//draw...</span></span><br></pre></td></tr></table></figure>
+<p>这里的 <code>tan</code> 就是当前点在曲线上的正切值。正切在中学数学中学过，引用百度百科的解释：</p>
+<blockquote>
+<p>正切值是指是直角三角形中，某一锐角的对边与另一相邻直角边的比值。对于任意一个实数x，都对应着唯一的角，而这个角又对应着唯一确定的正切值tanx与它对应，按照这个对应法则建立的函数称为正切函数。</p>
+</blockquote>
+<p>知道正切值，有现成的api可以直接反推出这个角的大小：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Returns the angle `theta` of the polar coordinates `(r, theta)` that correspond</span></span><br><span class="line"><span class="comment"> * to the rectangular coordinates `(x, y)` by computing the arc tangent of the value [y] / [x];</span></span><br><span class="line"><span class="comment"> * the returned value is an angle in the range from `-PI` to `PI` radians.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * Special cases:</span></span><br><span class="line"><span class="comment"> *   - `atan2(0.0, 0.0)` is `0.0`</span></span><br><span class="line"><span class="comment"> *   - `atan2(0.0, x)` is  `0.0` for `x &gt; 0` and `PI` for `x &lt; 0`</span></span><br><span class="line"><span class="comment"> *   - `atan2(-0.0, x)` is `-0.0` for 'x &gt; 0` and `-PI` for `x &lt; 0`</span></span><br><span class="line"><span class="comment"> *   - `atan2(y, +Inf)` is `0.0` for `0 &lt; y &lt; +Inf` and `-0.0` for '-Inf &lt; y &lt; 0`</span></span><br><span class="line"><span class="comment"> *   - `atan2(y, -Inf)` is `PI` for `0 &lt; y &lt; +Inf` and `-PI` for `-Inf &lt; y &lt; 0`</span></span><br><span class="line"><span class="comment"> *   - `atan2(y, 0.0)` is `PI/2` for `y &gt; 0` and `-PI/2` for `y &lt; 0`</span></span><br><span class="line"><span class="comment"> *   - `atan2(+Inf, x)` is `PI/2` for finite `x`y</span></span><br><span class="line"><span class="comment"> *   - `atan2(-Inf, x)` is `-PI/2` for finite `x`</span></span><br><span class="line"><span class="comment"> *   - `atan2(NaN, x)` and `atan2(y, NaN)` is `NaN`</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@SinceKotlin(<span class="meta-string">"1.2"</span>)</span></span><br><span class="line"><span class="meta">@InlineOnly</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">actual</span> <span class="keyword">inline</span> <span class="function"><span class="keyword">fun</span> <span class="title">atan2</span><span class="params">(y: <span class="type">Double</span>, x: <span class="type">Double</span>)</span></span>: <span class="built_in">Double</span> = nativeMath.atan2(y, x)</span><br></pre></td></tr></table></figure>
+<p>注意这里获取的是弧度值，还要再转化为角度值。另外这个角度是以x轴为准的，图片默认如果方向朝上的话要补个90度：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">direction = atan2(tan[<span class="number">1</span>].toDouble(), tan[<span class="number">0</span>].toDouble()) * <span class="number">180f</span> / Math.PI + <span class="number">90</span></span><br></pre></td></tr></table></figure>
+<p>最后还是一样在 <code>onDraw()</code> 中加上旋转：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">matrix.postRotate(direction, center.x, center.y)</span><br></pre></td></tr></table></figure>
+<p>效果如下：</p>
+<p><img src="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/like-anim/6.gif" alt=""></p>
+<h2 id="整合"><a href="#整合" class="headerlink" title="整合"></a>整合</h2><p>前面分模块逐步实现了点赞动画的各个部分，当然具体使用的时候还是要封装一下比较好。这里我封装了一个 <code>PathAnimView</code> ，总体管理所有的动画。一个基类 <code>BasePathAnim</code> ，用来扩展不同风格的动画。再结合具体的场景，便能实现一个完整的动画组件了。</p>
+<p>直接上代码：</p>
+<p>首先是管理所有动画的 <code>PathAnimView</code> :</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PathAnimView</span></span>(context: Context?, attrs: AttributeSet?) : View(context, attrs) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">val</span> mBitmapPaint = Paint()</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> mWidth = <span class="number">0</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> mHeight = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">val</span> mAnimList = ArrayList&lt;BasePathAnim&gt;()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onSizeChanged</span><span class="params">(w: <span class="type">Int</span>, h: <span class="type">Int</span>, oldw: <span class="type">Int</span>, oldh: <span class="type">Int</span>)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onSizeChanged(w, h, oldw, oldh)</span><br><span class="line">        mWidth = w</span><br><span class="line">        mHeight = h</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onDraw</span><span class="params">(canvas: <span class="type">Canvas</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onDraw(canvas)</span><br><span class="line">        canvas ?: <span class="keyword">return</span></span><br><span class="line">    </span><br><span class="line">        <span class="keyword">for</span> (anim <span class="keyword">in</span> mAnimList) &#123;</span><br><span class="line">            anim.draw(canvas,mBitmapPaint)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">addAnim</span><span class="params">(anim:<span class="type">BasePathAnim</span>)</span></span> &#123;</span><br><span class="line">        anim.setUpPath(<span class="number">0</span>,<span class="number">0</span>,mWidth,mHeight)</span><br><span class="line">        anim.setInvalidateCallback &#123;</span><br><span class="line">            invalidate()</span><br><span class="line">        &#125;</span><br><span class="line">        anim.setAnimEndCallback &#123;</span><br><span class="line">            anim.clear()</span><br><span class="line">            mAnimList.remove(anim)</span><br><span class="line">        &#125;</span><br><span class="line">        mAnimList.add(anim)</span><br><span class="line">        anim.start()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">clear</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (anim <span class="keyword">in</span> mAnimList) &#123;</span><br><span class="line">            anim.clear()</span><br><span class="line">        &#125;</span><br><span class="line">        mAnimList.clear()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后是一个动画View的基类 <code>BasePathAnim</code> : </p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">BasePathAnim</span> </span>&#123;</span><br><span class="line">    <span class="comment">//以下属性各子类会用到</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">val</span> path = Path()<span class="comment">//核心运动轨道</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">var</span> time = <span class="number">0L</span><span class="comment">//当前时间</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">var</span> direction = <span class="number">0.0</span><span class="comment">//当前切线方向</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">open</span> <span class="keyword">val</span> degree = <span class="number">0f</span><span class="comment">//旋转偏转角度 默认0</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">open</span> <span class="keyword">val</span> scale = <span class="number">1f</span><span class="comment">//缩放比例 默认1</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">open</span> <span class="keyword">val</span> alpha = <span class="number">1f</span><span class="comment">//透明度 默认不透明</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">open</span> <span class="keyword">val</span> duration: <span class="built_in">Long</span> = <span class="number">2200L</span><span class="comment">//总时长，默认2200L</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">open</span> <span class="keyword">val</span> repeatMode: <span class="built_in">Int</span> = <span class="number">0</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">open</span> <span class="keyword">val</span> repeatCount: <span class="built_in">Int</span> = <span class="number">0</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">open</span> <span class="keyword">val</span> interpolator: BaseInterpolator = LinearInterpolator()</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">abstract</span> <span class="keyword">val</span> bitmap: Bitmap</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">val</span> mPathMeasure = PathMeasure()</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">val</span> mPathLocation = PointF(<span class="number">0f</span>, <span class="number">0f</span>)</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> mAnimator: ValueAnimator? = <span class="literal">null</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> mInvalidateCallback: (() -&gt; <span class="built_in">Unit</span>)? = <span class="literal">null</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> mAnimEndCallback: (() -&gt; <span class="built_in">Unit</span>)? = <span class="literal">null</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">setInvalidateCallback</span><span class="params">(callback: ()</span></span> -&gt; <span class="built_in">Unit</span>) &#123;</span><br><span class="line">        mInvalidateCallback = callback</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">setAnimEndCallback</span><span class="params">(callback: ()</span></span> -&gt; <span class="built_in">Unit</span>) &#123;</span><br><span class="line">        mAnimEndCallback = callback</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">start</span><span class="params">()</span></span> &#123;</span><br><span class="line">        mPathMeasure.setPath(path, <span class="literal">false</span>)</span><br><span class="line">        mAnimator = ValueAnimator.ofFloat(<span class="number">0f</span>, mPathMeasure.length).apply &#123;</span><br><span class="line">            duration = <span class="keyword">this</span><span class="symbol">@BasePathAnim</span>.duration</span><br><span class="line">            repeatMode = <span class="keyword">this</span><span class="symbol">@BasePathAnim</span>.repeatMode</span><br><span class="line">            repeatCount = <span class="keyword">this</span><span class="symbol">@BasePathAnim</span>.repeatCount</span><br><span class="line">            interpolator = <span class="keyword">this</span><span class="symbol">@BasePathAnim</span>.interpolator</span><br><span class="line"></span><br><span class="line">            addUpdateListener &#123;</span><br><span class="line">                <span class="keyword">val</span> value = it.animatedValue <span class="keyword">as</span> <span class="built_in">Float</span></span><br><span class="line">                <span class="keyword">val</span> point = FloatArray(<span class="number">2</span>)</span><br><span class="line">                <span class="keyword">val</span> tan = FloatArray(<span class="number">2</span>)</span><br><span class="line">                mPathMeasure.getPosTan(value, point, tan)</span><br><span class="line">                mPathLocation.<span class="keyword">set</span>(point[<span class="number">0</span>], point[<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">                direction = atan2(tan[<span class="number">1</span>].toDouble(), tan[<span class="number">0</span>].toDouble()) * <span class="number">180f</span> / Math.PI + <span class="number">90</span></span><br><span class="line">                time = it.currentPlayTime</span><br><span class="line">                mInvalidateCallback?.invoke()</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            doOnEnd &#123;</span><br><span class="line">                mAnimEndCallback?.invoke()</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            doOnCancel &#123;</span><br><span class="line">                mAnimEndCallback?.invoke()</span><br><span class="line">            &#125;</span><br><span class="line">            start()</span><br><span class="line">        &#125;</span><br><span class="line">        doOnStart()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">open</span> <span class="function"><span class="keyword">fun</span> <span class="title">draw</span><span class="params">(canvas: <span class="type">Canvas</span>, paint: <span class="type">Paint</span>)</span></span> &#123;</span><br><span class="line">        <span class="keyword">val</span> matrix = Matrix()</span><br><span class="line">        <span class="keyword">val</span> bmp = bitmap</span><br><span class="line">        <span class="keyword">if</span> (bmp.isRecycled) <span class="keyword">return</span></span><br><span class="line">        <span class="keyword">val</span> bitmapCenter = PointF(bmp.width / <span class="number">2f</span>, bmp.height / <span class="number">2f</span>)</span><br><span class="line">        doScale(matrix, bitmapCenter.x, bitmapCenter.y)</span><br><span class="line">        doRotate(matrix, bitmapCenter.x, bitmapCenter.y)</span><br><span class="line">        matrix.postTranslate(mPathLocation.x - bitmapCenter.x, mPathLocation.y - bitmapCenter.y)</span><br><span class="line">        paint.alpha = (<span class="number">255</span> * alpha).toInt()</span><br><span class="line">        canvas.drawBitmap(bmp, matrix, paint)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">clear</span><span class="params">()</span></span> &#123;</span><br><span class="line">        mAnimator?.cancel()</span><br><span class="line">        mAnimator = <span class="literal">null</span></span><br><span class="line">        doOnClear()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//设置路径</span></span><br><span class="line">    <span class="keyword">abstract</span> <span class="function"><span class="keyword">fun</span> <span class="title">setUpPath</span><span class="params">(left: <span class="type">Int</span>, top: <span class="type">Int</span>, right: <span class="type">Int</span>, bottom: <span class="type">Int</span>)</span></span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">open</span> <span class="function"><span class="keyword">fun</span> <span class="title">doOnStart</span><span class="params">()</span></span> &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">open</span> <span class="function"><span class="keyword">fun</span> <span class="title">doOnClear</span><span class="params">()</span></span> &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">open</span> <span class="function"><span class="keyword">fun</span> <span class="title">doScale</span><span class="params">(matrix: <span class="type">Matrix</span>, centerX: <span class="type">Float</span>, centerY: <span class="type">Float</span>)</span></span> &#123;</span><br><span class="line">        matrix.postScale(scale, scale, centerX, centerY)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">open</span> <span class="function"><span class="keyword">fun</span> <span class="title">doRotate</span><span class="params">(matrix: <span class="type">Matrix</span>, centerX: <span class="type">Float</span>, centerY: <span class="type">Float</span>)</span></span> &#123;</span><br><span class="line">        matrix.postRotate(degree, centerX, centerX)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用时，只需在布局文件中添加：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">com.netease.gamechat.animviewdemo.PathAnimView</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:id</span>=<span class="string">"@+id/pathAnimView"</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:layout_width</span>=<span class="string">"88dp"</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:layout_height</span>=<span class="string">"440dp"</span></span></span><br><span class="line"><span class="tag">   <span class="attr">app:layout_constraintBottom_toBottomOf</span>=<span class="string">"parent"</span></span></span><br><span class="line"><span class="tag">   <span class="attr">app:layout_constraintEnd_toEndOf</span>=<span class="string">"parent"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<p>然后创建一个继承自 <code>BasePathAnim</code> 的对象：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">val</span> anim = XXXAnim(bitmap)</span><br><span class="line">pathAnimView.addAnim(anim)</span><br></pre></td></tr></table></figure>
+<p>这里举两个例子，一个是仿照开篇视频中那样实现的点赞动画，一个是路径飞行动画：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LikeAnim</span></span>(</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">val</span> mBitmap1: Bitmap,</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">val</span> mBitmap2: Bitmap</span><br><span class="line">) : BasePathAnim() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> mSwingAnimator: ValueAnimator? = <span class="literal">null</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> mSwingDegree = <span class="number">0f</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">doOnStart</span><span class="params">()</span></span> &#123;</span><br><span class="line">        mSwingAnimator = ValueAnimator.ofFloat(-<span class="number">24f</span>, <span class="number">24f</span>).apply &#123;</span><br><span class="line">            duration = <span class="number">600L</span></span><br><span class="line">            repeatMode = ValueAnimator.REVERSE</span><br><span class="line">            repeatCount = ValueAnimator.INFINITE</span><br><span class="line">            interpolator = LinearInterpolator()</span><br><span class="line">            addUpdateListener &#123;</span><br><span class="line">                <span class="keyword">val</span> value = it.animatedValue <span class="keyword">as</span> <span class="built_in">Float</span></span><br><span class="line">                mSwingDegree = value</span><br><span class="line">            &#125;</span><br><span class="line">            start()</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">setUpPath</span><span class="params">(left: <span class="type">Int</span>, top: <span class="type">Int</span>, right: <span class="type">Int</span>, bottom: <span class="type">Int</span>)</span></span> &#123;</span><br><span class="line">        <span class="keyword">val</span> width = (right - left).toFloat()</span><br><span class="line">        <span class="keyword">val</span> height = (bottom - top).toFloat()</span><br><span class="line">        <span class="keyword">val</span> dx = width / <span class="number">2f</span></span><br><span class="line">        <span class="keyword">val</span> dy = height / <span class="number">3f</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">val</span> point0 = PointF(dx, dy * <span class="number">3</span>)</span><br><span class="line">        <span class="keyword">val</span> point1 = PointF(dx, dy * <span class="number">2</span>)</span><br><span class="line">        <span class="keyword">val</span> point2 = PointF(dx, dy)</span><br><span class="line">        <span class="keyword">val</span> point3 = PointF(dx, <span class="number">0f</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="keyword">val</span> control0 = PointF(dx * <span class="number">0.5f</span>, dy * <span class="number">2.5f</span>)</span><br><span class="line">        <span class="keyword">val</span> control1 = PointF(dx * <span class="number">1.5f</span>, dy * <span class="number">1.5f</span>)</span><br><span class="line">        <span class="keyword">val</span> control2 = PointF(dx * <span class="number">0.5f</span>, dy * <span class="number">0.5f</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">val</span> offset = (Random.nextDouble(-<span class="number">0.25</span>,<span class="number">0.25</span>) * width).toFloat() <span class="comment">//随机偏移量</span></span><br><span class="line">        point0.x+=offset * <span class="number">0</span></span><br><span class="line">        point1.x+=offset * <span class="number">0.3f</span></span><br><span class="line">        point2.x+=offset * <span class="number">0.6f</span></span><br><span class="line">        point3.x+=offset * <span class="number">1f</span></span><br><span class="line">        control0.x += offset * <span class="number">0.15f</span></span><br><span class="line">        control1.x += offset * <span class="number">0.45f</span></span><br><span class="line">        control2.x += offset * <span class="number">0.75f</span></span><br><span class="line"></span><br><span class="line">        path.moveTo(point0.x, point0.y)</span><br><span class="line">        path.quadTo(control0.x, control0.y, point1.x, point1.y)</span><br><span class="line">        path.quadTo(control1.x, control1.y, point2.x, point2.y)</span><br><span class="line">        path.quadTo(control2.x, control2.y, point3.x, point3.y)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">val</span> bitmap: Bitmap</span><br><span class="line">        <span class="keyword">get</span>() = <span class="keyword">if</span> (time &lt; <span class="number">1000</span>) mBitmap1 <span class="keyword">else</span> mBitmap2</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">val</span> duration: <span class="built_in">Long</span></span><br><span class="line">        <span class="keyword">get</span>() = <span class="number">3000L</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">val</span> interpolator: BaseInterpolator</span><br><span class="line">        <span class="keyword">get</span>() = AccelerateInterpolator(<span class="number">0.6f</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">val</span> alpha: <span class="built_in">Float</span></span><br><span class="line">        <span class="keyword">get</span>() = <span class="keyword">when</span> &#123;</span><br><span class="line">            time &gt; <span class="number">2600</span> -&gt; &#123;</span><br><span class="line">                <span class="number">1</span> - (min(time, <span class="number">3000</span>) - <span class="number">2600</span>) / <span class="number">400f</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> -&gt; &#123;</span><br><span class="line">                <span class="number">1f</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">val</span> degree: <span class="built_in">Float</span></span><br><span class="line">        <span class="keyword">get</span>() = mSwingDegree</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">val</span> scale: <span class="built_in">Float</span></span><br><span class="line">        <span class="keyword">get</span>() =  <span class="keyword">when</span> &#123;</span><br><span class="line">            time &lt; <span class="number">200</span> -&gt; &#123;</span><br><span class="line">                time / <span class="number">200f</span></span><br><span class="line">            &#125;</span><br><span class="line">            time <span class="keyword">in</span> <span class="number">800</span>..<span class="number">1000</span> -&gt; &#123;</span><br><span class="line">                <span class="number">1</span> - (time - <span class="number">800</span>) / <span class="number">200f</span></span><br><span class="line">            &#125;</span><br><span class="line">            time <span class="keyword">in</span> <span class="number">1000</span>..<span class="number">1200</span> -&gt; &#123;</span><br><span class="line">                (time -<span class="number">1000</span>) / <span class="number">200f</span></span><br><span class="line">            &#125;</span><br><span class="line">            time &gt; <span class="number">2600</span> -&gt; &#123;</span><br><span class="line">                <span class="number">1</span> - (min(time, <span class="number">3000</span>) - <span class="number">2600</span>) / <span class="number">400f</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> -&gt; &#123;</span><br><span class="line">                <span class="number">1f</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">doOnClear</span><span class="params">()</span></span> &#123;</span><br><span class="line">        mSwingAnimator?.cancel()</span><br><span class="line">        mSwingAnimator = <span class="literal">null</span></span><br><span class="line">        mBitmap1.recycle()</span><br><span class="line">        mBitmap2.recycle()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>效果：</p>
+<p><img src="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/like-anim/7.gif" alt=""></p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FlyAnim</span></span>(</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">val</span> mBitmap: Bitmap</span><br><span class="line">) : BasePathAnim() &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">setUpPath</span><span class="params">(left: <span class="type">Int</span>, top: <span class="type">Int</span>, right: <span class="type">Int</span>, bottom: <span class="type">Int</span>)</span></span> &#123;</span><br><span class="line">        <span class="keyword">val</span> width = (right - left).toFloat()</span><br><span class="line">        <span class="keyword">val</span> height = (bottom - top).toFloat()</span><br><span class="line">        <span class="keyword">val</span> center = PointF(width / <span class="number">2f</span>, height / <span class="number">2f</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">val</span> point0 = PointF(center.x - width / <span class="number">4f</span>, center.y - height / <span class="number">4f</span>)</span><br><span class="line">        <span class="keyword">val</span> point1 = PointF(center.x + width / <span class="number">4f</span>, center.y - height / <span class="number">4f</span>)</span><br><span class="line">        <span class="keyword">val</span> point2 = PointF(center.x + width / <span class="number">4f</span>, center.y + height / <span class="number">4f</span>)</span><br><span class="line">        <span class="keyword">val</span> point3 = PointF(center.x - width / <span class="number">4f</span>, center.y + height / <span class="number">4f</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">val</span> point4 = PointF(center.x - width / <span class="number">4f</span>, center.y - height / <span class="number">8f</span>)</span><br><span class="line">        <span class="keyword">val</span> point5 = PointF(center.x + width / <span class="number">8f</span>, center.y - height / <span class="number">8f</span>)</span><br><span class="line">        <span class="keyword">val</span> point6 = PointF(center.x + width / <span class="number">8f</span>, center.y + height / <span class="number">8f</span>)</span><br><span class="line">        <span class="keyword">val</span> point7 = PointF(center.x - width / <span class="number">8f</span>, center.y + height / <span class="number">8f</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">val</span> point8 = PointF(center.x - width / <span class="number">8f</span>, center.y - height / <span class="number">16f</span>)</span><br><span class="line">        <span class="keyword">val</span> point9 = PointF(center.x + width / <span class="number">16f</span>, center.y - height / <span class="number">16f</span>)</span><br><span class="line">        <span class="keyword">val</span> point10 = PointF(center.x + width / <span class="number">16f</span>, center.y + height / <span class="number">16f</span>)</span><br><span class="line">        <span class="keyword">val</span> point11 = PointF(center.x - width / <span class="number">16f</span>, center.y + height / <span class="number">16f</span>)</span><br><span class="line"></span><br><span class="line">        path.moveTo(point0.x, point0.y)</span><br><span class="line">        path.lineTo(point1.x, point1.y)</span><br><span class="line">        path.lineTo(point2.x, point2.y)</span><br><span class="line">        path.lineTo(point3.x, point3.y)</span><br><span class="line">        path.lineTo(point4.x, point4.y)</span><br><span class="line">        path.lineTo(point5.x, point5.y)</span><br><span class="line">        path.lineTo(point6.x, point6.y)</span><br><span class="line">        path.lineTo(point7.x, point7.y)</span><br><span class="line">        path.lineTo(point8.x, point8.y)</span><br><span class="line">        path.lineTo(point9.x, point9.y)</span><br><span class="line">        path.lineTo(point10.x, point10.y)</span><br><span class="line">        path.lineTo(point11.x, point11.y)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">val</span> duration: <span class="built_in">Long</span></span><br><span class="line">        <span class="keyword">get</span>() = <span class="number">5</span> * <span class="number">1000L</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">val</span> interpolator: BaseInterpolator</span><br><span class="line">        <span class="keyword">get</span>() = DecelerateInterpolator()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">val</span> bitmap: Bitmap</span><br><span class="line">        <span class="keyword">get</span>() = mBitmap</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">var</span> degree: <span class="built_in">Float</span></span><br><span class="line">        <span class="keyword">get</span>() = direction.toFloat()</span><br><span class="line">        <span class="keyword">set</span>(value) &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>效果：</p>
+<p><img src="https://blog-lwj.oss-cn-shenzhen.aliyuncs.com/like-anim/8.gif" alt=""></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>以上就是一个简单的点赞动画实现，其实原理很简单，自定义View+Path+动画就可以搞定，我这个组件实现的也比较简陋，具体使用时可以再做优化。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Levent-J
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://levent-j.com/2023/02/01/like-anim/" title="点赞轨迹动画的实现">http://levent-j.com/2023/02/01/like-anim/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android动画/" rel="tag"><i class="fa fa-tag"></i> Android动画</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2023/01/19/nine-patch/" rel="next" title=".9图的快速使用">
+                <i class="fa fa-chevron-left"></i> .9图的快速使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://blog-lwj.oss-cn-shenzhen.aliyuncs.com/avater.png"
+                alt="Levent-J" />
+            
+              <p class="site-author-name" itemprop="name">Levent-J</p>
+              <p class="site-description motion-element" itemprop="description">记录一只Android小菜鸡学习的点点滴滴</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Levent-J" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="levent_j@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/levent_j/activities" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分析"><span class="nav-number">2.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实战"><span class="nav-number">3.</span> <span class="nav-text">实战</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#路径动画"><span class="nav-number">3.1.</span> <span class="nav-text">路径动画</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大小、透明度的变化"><span class="nav-number">3.2.</span> <span class="nav-text">大小、透明度的变化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#角度变化"><span class="nav-number">3.3.</span> <span class="nav-text">角度变化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#整合"><span class="nav-number">4.</span> <span class="nav-text">整合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Levent-J</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'dx4gJ3O7BAa7y1xSEIsMv2DB-gzGzoHsz',
+        appKey: 'p912apR0pe3ePcyJspIlx30W',
+        placeholder: '来啦老弟~',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("dx4gJ3O7BAa7y1xSEIsMv2DB-gzGzoHsz", "p912apR0pe3ePcyJspIlx30W");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
